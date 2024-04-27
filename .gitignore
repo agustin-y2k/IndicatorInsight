@@ -1,6 +1,5 @@
 ### venv ###
 # Virtualenv
-# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
 .Python
 [Bb]in
 [Ii]nclude
@@ -14,6 +13,8 @@ venv
 .env
 env
 pip-selfcheck.json
+
+install.py
 
 ### VisualStudioCode ###
 .vscode/*
