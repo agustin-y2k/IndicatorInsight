@@ -6,12 +6,13 @@ from data_downloader import download_and_store_historical_data, update_current_d
 import logging
 from werkzeug.exceptions import HTTPException
 from apscheduler.schedulers.background import BackgroundScheduler
+import sys
 
 app = Flask(__name__)
 
 
-# Config the logging system to write to a file
-logging.basicConfig(filename='error.log', level=logging.ERROR)
+# Config the logging  system to write to stderr
+logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
 
 # Middleware for logging
 @app.after_request

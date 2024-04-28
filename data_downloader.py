@@ -3,9 +3,10 @@ import yfinance as yf
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 import logging
+import sys
 
-# Config the logging system to write to a file
-logging.basicConfig(filename='error.log', level=logging.ERROR)
+# Config the logging  system to write to stderr
+logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
 
 
 def initialize_database():
