@@ -3,7 +3,7 @@ import pymongo
 import logging
 
 # Initialize MongoDB client pointing to the MongoDB service within Docker Compose
-client = pymongo.MongoClient("mongodb://localhost:27017/")  # Use the service name defined in Docker Compose
+client = pymongo.MongoClient("mongodb://mongodb:27017/")  # Use the service name defined in Docker Compose
 db = client["indicator_insight"]
 
 def fetch_company_data(symbol):

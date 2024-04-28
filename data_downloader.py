@@ -11,7 +11,7 @@ logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
 
 def initialize_database():
     try:
-        client = MongoClient('localhost', 27017)
+        client = MongoClient('mongodb', 27017)
         
         # Remove the database if it exists
         if 'indicator_insight' in client.list_database_names():
@@ -32,7 +32,7 @@ def initialize_database():
 def download_and_store_historical_data():
     try:
         companies = ['META', 'AAPL', 'GOOG', 'AMZN', 'MSFT', 'TSLA', 'NVDA']
-        client = MongoClient('localhost', 27017)
+        client = MongoClient('mongodb', 27017)
         db = client['indicator_insight']
         
         for company in companies:
@@ -52,7 +52,7 @@ def download_and_store_historical_data():
 def update_current_data():
     try:
         companies = ['META', 'AAPL', 'GOOG', 'AMZN', 'MSFT', 'TSLA', 'NVDA']
-        client = MongoClient('localhost', 27017)
+        client = MongoClient('mongodb', 27017)
         db = client['indicator_insight']
         
         today = datetime.now()
