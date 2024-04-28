@@ -4,3 +4,4 @@ pandas==2.2.2
 yfinance==0.2.38
 ta-lib==0.4.28
 apscheduler==3.10.4
+uWSGI==2.0.25.1
