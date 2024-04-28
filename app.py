@@ -2,8 +2,30 @@
 from flask import Flask, request, jsonify, Response
 from indicators.ma_indicator import calculate_moving_averages
 from indicators.adx_indicator import calculate_adx
+import logging
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
+
+
+# Config the logging system to write to a file
+logging.basicConfig(filename='error.log', level=logging.ERROR)
+
+
+# Middleware for logging
+@app.after_request
+def after_request(response):
+    if response.status_code >= 400:
+        logging.error('%s %s %s %s', request.remote_addr, request.method, request.url, response.status)
+    return response
+
+# Handle exceptions
+@app.errorhandler(Exception)
+def handle_exception(error):
+    code = 500
+    if isinstance(error, HTTPException):
+        code = error.code
+    return jsonify(error=str(error)), code
 
 @app.route('/companies/<symbol>/indicators/moving_averages', methods=['POST'])
 def calculate_moving_averages_for_company(symbol):

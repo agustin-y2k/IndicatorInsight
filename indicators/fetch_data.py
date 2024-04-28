@@ -1,8 +1,9 @@
 # fetch_data.py
 import pymongo
+import logging
 
 # Initialize MongoDB client pointing to the MongoDB service within Docker Compose
-client = pymongo.MongoClient("mongodb://localhost:27017/")
+client = pymongo.MongoClient("mongodb://localhost:27017/")  # Use the service name defined in Docker Compose
 db = client["indicator_insight"]
 
 def fetch_company_data(symbol):
@@ -14,5 +15,6 @@ def fetch_company_data(symbol):
             raise ValueError(f"No data found for symbol {symbol}")
         return data
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
+        logging.exception(f"An unexpected error occurred: {e}")
         return None
+

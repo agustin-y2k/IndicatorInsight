@@ -14,9 +14,10 @@ venv
 .env
 env
 pip-selfcheck.json
-
+__pycache__/
+indicators/__pycache__/
 install.py
-
+error.log
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
