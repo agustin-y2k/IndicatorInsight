@@ -6,13 +6,21 @@ from data_downloader import download_and_store_historical_data, update_current_d
 import logging
 from werkzeug.exceptions import HTTPException
 from apscheduler.schedulers.background import BackgroundScheduler
+from prometheus_client import Counter, generate_latest, Histogram
+from flask_cors import CORS
 import sys
 
 app = Flask(__name__)
+CORS(app)
 
 
 # Config the logging  system to write to stderr
 logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
+
+# Define Prometheus metrics
+REQUEST_COUNT = Counter('http_requests_total', 'Total HTTP Requests')
+REQUEST_LATENCY = Histogram('http_request_latency_seconds', 'HTTP Request Latency')
+
 
 # Middleware for logging
 @app.after_request
@@ -60,5 +68,18 @@ def calculate_adx_for_company(symbol):
         return jsonify({'error': 'No ADX data found for the symbol'}), 404
     return jsonify(adx_data)
 
+# Metrics endpoint for Prometheus
+@app.route('/metrics')
+def metrics():
+    return Response(generate_latest(), mimetype='text/plain')
+
+# Index endpoint
+@app.route('/')
+@REQUEST_LATENCY.time()
+def index():
+    REQUEST_COUNT.inc()
+    return jsonify({'message': 'Welcome to Indicator Insight!'})
+
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(host='0.0.0.0')

@@ -4,10 +4,13 @@ from pymongo import MongoClient
 from datetime import datetime, timedelta
 import logging
 import sys
+from prometheus_client import Counter
 
 # Config the logging  system to write to stderr
 logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
 
+# Defin the Prometheus counter for historical data downloads
+HISTORICAL_DATA_DOWNLOAD_COUNT = Counter('historical_data_download_total', 'Total Historical Data Downloads')
 
 def initialize_database():
     try:
