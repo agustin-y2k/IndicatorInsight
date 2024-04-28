@@ -2,15 +2,16 @@
 from flask import Flask, request, jsonify, Response
 from indicators.ma_indicator import calculate_moving_averages
 from indicators.adx_indicator import calculate_adx
+from data_downloader import download_and_store_historical_data, update_current_data, initialize_database
 import logging
 from werkzeug.exceptions import HTTPException
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 
 
 # Config the logging system to write to a file
 logging.basicConfig(filename='error.log', level=logging.ERROR)
-
 
 # Middleware for logging
 @app.after_request
@@ -26,6 +27,20 @@ def handle_exception(error):
     if isinstance(error, HTTPException):
         code = error.code
     return jsonify(error=str(error)), code
+
+# Initialize the database when the application starts
+initialize_database()
+
+# Initialize the scheduler
+scheduler = BackgroundScheduler()
+scheduler.start()
+
+# Execute the download of historical data once at the beginning
+download_and_store_historical_data()
+
+# Programa the execution of the update data function every hour
+scheduler.add_job(update_current_data, 'interval', hours=1)
+
 
 @app.route('/companies/<symbol>/indicators/moving_averages', methods=['POST'])
 def calculate_moving_averages_for_company(symbol):
