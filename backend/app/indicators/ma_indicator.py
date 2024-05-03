@@ -9,18 +9,20 @@ class Recommendation:
     SELL = "SELL"
     NEUTRAL = "NEUTRAL"
 
+ERROR_NO_DATA_FOUND = "No data found for the symbol"
+ERROR_INVALID_DATA_FORMAT = "Invalid data format"
+ERROR_UNEXPECTED = "An unexpected error occurred"
+
 def calculate_moving_averages(symbol, moving_average_type, periods):
     try:
-        data = fetch_company_data(symbol)  # Obtener solo los datos, no los tipos de datos
+        data = fetch_company_data(symbol)
         if data is None:
-            raise ValueError("No data found for the symbol")
+            raise ValueError(ERROR_NO_DATA_FOUND)
 
         if not isinstance(data, list):
-            raise ValueError("Invalid data format")
+            raise ValueError(ERROR_INVALID_DATA_FORMAT)
 
         data_df = pd.DataFrame(data)
-
-        # Convertir la columna de fecha a cadena
         data_df['Date'] = data_df['Date'].astype(str)
 
         response_data = {
@@ -37,18 +39,18 @@ def calculate_moving_averages(symbol, moving_average_type, periods):
             last_ma_value = round(data_df[ma_label].iloc[-1], 2)  # Redondear a dos decimales
             response_data['moving_averages'][ma_label] = last_ma_value
 
-        # Identificar el cruce más reciente
+        # Identify the most recent crossing
         last_crossing = {}
         for short_term, long_term in zip(periods[:-1], periods[1:]):
             short_label = f'{moving_average_type.upper()}{int(short_term)}'
             long_label = f'{moving_average_type.upper()}{int(long_term)}'
             last_crossing_date, last_crossing_value, last_crossing_type = identify_last_crossing(data_df, short_label, long_label)
             if last_crossing_date:
-                last_crossing[f'{short_label}_{long_label}'] = {'Date': str(last_crossing_date), 'Value': round(last_crossing_value, 2), 'Type': last_crossing_type}  # Redondear a dos decimales
+                last_crossing[f'{short_label}_{long_label}'] = {'Date': str(last_crossing_date), 'Value': round(last_crossing_value, 2), 'Type': last_crossing_type}  # Round to two decimal places
 
         response_data['last_crossing'] = last_crossing
 
-        # Identificar posición respecto a la MA
+        # Identify position relative to the MA
         position_to_ma = {}
         for period in periods:
             ma_label = f'{moving_average_type.upper()}{int(period)}'
@@ -63,8 +65,8 @@ def calculate_moving_averages(symbol, moving_average_type, periods):
         logging.warning(str(e))
         return {"error": str(e)}
     except Exception as e:
-        logging.exception(f"An unexpected error occurred: {e}")
-        return {"error": "An unexpected error occurred"}
+        logging.exception(f"{ERROR_UNEXPECTED}: {e}")
+        return {"error": ERROR_UNEXPECTED}
 
 def identify_last_crossing(data_df, short_term, long_term):
     last_crossing_date = None

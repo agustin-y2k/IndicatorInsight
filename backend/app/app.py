@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, Response
 from indicators.ma_indicator import calculate_moving_averages
 from indicators.adx_indicator import calculate_adx
 from indicators.rsi_indicator import calculate_rsi
+from indicators.macd_indicator import calculate_macd
 from data_downloader import download_and_store_historical_data, update_current_data, initialize_database
 import logging
 from werkzeug.exceptions import HTTPException
@@ -65,29 +66,41 @@ def metrics():
 
 @app.route('/companies/<symbol>/indicators/moving_averages', methods=['POST'])
 def calculate_moving_averages_for_company(symbol):
-    data = request.get_json()
-    moving_average_type = data.get('moving_average_type')
-    periods = [int(period) for period in data.get('periods', [])]
-    moving_averages_data = calculate_moving_averages(symbol, moving_average_type, periods)
-    if 'error' in moving_averages_data:
-        return jsonify(moving_averages_data), 404
-    return jsonify(moving_averages_data)
+    try:
+        data = request.get_json()
+        moving_average_type = data.get('moving_average_type')
+        periods = [int(period) for period in data.get('periods', [])]
+        moving_averages_data = calculate_moving_averages(symbol, moving_average_type, periods)
+        return jsonify(moving_averages_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
 
 @app.route('/companies/<symbol>/indicators/adx', methods=['POST'])
 def calculate_adx_for_company(symbol):
-    adx_data = calculate_adx(symbol)
-    if adx_data is None:
-        return jsonify({'error': 'No ADX data found for the symbol'}), 404
-    return jsonify(adx_data)
+    try:
+        adx_data = calculate_adx(symbol)
+        return jsonify(adx_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
 
 @app.route('/companies/<symbol>/indicators/rsi', methods=['POST'])
 def calculate_rsi_for_company(symbol):
-    data = request.get_json()
-    period = data.get('period', 14)  # Period is optional, default is 14
-    rsi_data = calculate_rsi(symbol, period)
-    if 'error' in rsi_data:
-        return jsonify(rsi_data), 404
-    return jsonify(rsi_data)
+    try:
+        data = request.get_json()
+        period = data.get('period', 14)  # Period is optional, default is 14
+        rsi_data = calculate_rsi(symbol, period)
+        return jsonify(rsi_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
+
+@app.route('/companies/<symbol>/indicators/macd', methods=['POST'])
+def calculate_macd_for_company(symbol):
+    try:
+        macd_data = calculate_macd(symbol)
+        return jsonify(macd_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
