@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify, Response
 from indicators.ma_indicator import calculate_moving_averages
 from indicators.adx_indicator import calculate_adx
+from indicators.rsi_indicator import calculate_rsi
 from data_downloader import download_and_store_historical_data, update_current_data, initialize_database
 import logging
 from werkzeug.exceptions import HTTPException
@@ -50,6 +51,17 @@ download_and_store_historical_data()
 # Programa the execution of the update data function every hour
 scheduler.add_job(update_current_data, 'interval', hours=1)
 
+# Index endpoint
+@app.route('/')
+@REQUEST_LATENCY.time()
+def index():
+    REQUEST_COUNT.inc()
+    return jsonify({'message': 'Welcome to Indicator Insight!'})
+
+# Metrics endpoint for Prometheus
+@app.route('/metrics')
+def metrics():
+    return Response(generate_latest(), mimetype='text/plain')
 
 @app.route('/companies/<symbol>/indicators/moving_averages', methods=['POST'])
 def calculate_moving_averages_for_company(symbol):
@@ -68,17 +80,14 @@ def calculate_adx_for_company(symbol):
         return jsonify({'error': 'No ADX data found for the symbol'}), 404
     return jsonify(adx_data)
 
-# Metrics endpoint for Prometheus
-@app.route('/metrics')
-def metrics():
-    return Response(generate_latest(), mimetype='text/plain')
-
-# Index endpoint
-@app.route('/')
-@REQUEST_LATENCY.time()
-def index():
-    REQUEST_COUNT.inc()
-    return jsonify({'message': 'Welcome to Indicator Insight!'})
+@app.route('/companies/<symbol>/indicators/rsi', methods=['POST'])
+def calculate_rsi_for_company(symbol):
+    data = request.get_json()
+    period = data.get('period', 14)  # Period is optional, default is 14
+    rsi_data = calculate_rsi(symbol, period)
+    if 'error' in rsi_data:
+        return jsonify(rsi_data), 404
+    return jsonify(rsi_data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
