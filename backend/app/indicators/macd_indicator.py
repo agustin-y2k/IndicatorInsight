@@ -1,3 +1,4 @@
+# macd_indicator.py
 import talib
 import pandas as pd
 import logging

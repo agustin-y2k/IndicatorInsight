@@ -1,4 +1,4 @@
-#adx_indicator.py
+# adx_indicator.py
 import talib
 import pandas as pd
 from datetime import datetime

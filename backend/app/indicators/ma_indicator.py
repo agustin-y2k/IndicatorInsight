@@ -36,7 +36,7 @@ def calculate_moving_averages(symbol, moving_average_type, periods):
             ma_label = f'{moving_average_type.upper()}{int(period)}'
             ma_values = talib.MA(data_df['Close'], timeperiod=int(period))
             data_df[ma_label] = ma_values
-            last_ma_value = round(data_df[ma_label].iloc[-1], 2)  # Redondear a dos decimales
+            last_ma_value = round(data_df[ma_label].iloc[-1], 2)  # Reduce to two decimal places
             response_data['moving_averages'][ma_label] = last_ma_value
 
         # Identify the most recent crossing

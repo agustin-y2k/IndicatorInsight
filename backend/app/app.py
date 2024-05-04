@@ -5,6 +5,9 @@ from indicators.adx_indicator import calculate_adx
 from indicators.rsi_indicator import calculate_rsi
 from indicators.macd_indicator import calculate_macd
 from indicators.stochastic_indicator import calculate_stochastic
+from indicators.willims_r_indicator import calculate_williams_r
+from indicators.bollinger_bands_indicator import calculate_bollinger_bands
+from indicators.aroon_indicator import calculate_aroon
 from data_downloader import download_and_store_historical_data, update_current_data, initialize_database
 import logging
 from werkzeug.exceptions import HTTPException
@@ -109,6 +112,39 @@ def calculate_stochastic_for_company(symbol):
         return jsonify(stochastic_data)
     except Exception as e:
         raise HTTPException(description=str(e))
+
+
+@app.route('/companies/<symbol>/indicators/williams_r', methods=['POST'])
+def calculate_williams_r_for_company(symbol):
+    try:
+        data = request.get_json()
+        period = data.get('period', 14)  # The period is optional, the default is 14
+        williams_r_data = calculate_williams_r(symbol, period)
+        return jsonify(williams_r_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
+    
+@app.route('/companies/<symbol>/indicators/bollinger_bands', methods=['POST'])
+def calculate_bollinger_bands_for_company(symbol):
+    try:
+        data = request.get_json()
+        period = data.get('period', 20)  # The period is optional, the default is 20
+        deviation = data.get('deviation', 2)  # The deviation is optional, the default is 2
+        bollinger_bands_data = calculate_bollinger_bands(symbol, period, deviation)
+        return jsonify(bollinger_bands_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
+
+@app.route('/companies/<symbol>/indicators/aroon', methods=['POST'])
+def calculate_aroon_for_company(symbol):
+    try:
+        data = request.get_json()
+        period = data.get('period', 14)  # Period is optional, default is 14
+        aroon_data = calculate_aroon(symbol, period)
+        return jsonify(aroon_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

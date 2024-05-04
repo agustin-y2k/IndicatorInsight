@@ -1,3 +1,4 @@
+# rsi_indicator.py
 import talib
 import pandas as pd
 import logging
@@ -8,14 +9,18 @@ class Recommendation:
     SELL = "SELL"
     NEUTRAL = "NEUTRAL"
 
+ERROR_NO_DATA_FOUND = "No data found for the symbol"
+ERROR_INVALID_DATA_FORMAT = "Invalid data format"
+ERROR_UNEXPECTED = "An unexpected error occurred"
+
 def calculate_rsi(symbol, period=14):
     try:
         data = fetch_company_data(symbol)
         if data is None:
-            raise ValueError("No data found for the symbol")
+            raise ValueError(ERROR_NO_DATA_FOUND)
 
         if not isinstance(data, list):
-            raise ValueError("Invalid data format")
+            raise ValueError(ERROR_INVALID_DATA_FORMAT)
 
         data_df = pd.DataFrame(data)
         data_df['Date'] = data_df['Date'].astype(str)
@@ -33,8 +38,8 @@ def calculate_rsi(symbol, period=14):
         logging.warning(str(e))
         return {"error": str(e)}
     except Exception as e:
-        logging.exception(f"An unexpected error occurred: {e}")
-        return {"error": "An unexpected error occurred"}
+        logging.exception(f"{ERROR_UNEXPECTED}: {e}")
+        return {"error": ERROR_UNEXPECTED}
 
 def identify_rsi_signal(rsi_value):
     if rsi_value >= 70:
@@ -43,4 +48,3 @@ def identify_rsi_signal(rsi_value):
         return Recommendation.BUY, "Oversold"
     else:
         return Recommendation.NEUTRAL, "Neutral"
-
