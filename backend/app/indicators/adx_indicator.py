@@ -10,18 +10,21 @@ class Recommendation:
     SELL = "SELL"
     NEUTRAL = "NEUTRAL"
 
-# Function to calculate the ADX indicator for a given symbol
+ERROR_NO_DATA_FOUND = "No data found for the symbol"
+ERROR_INSUFFICIENT_DATA = "Insufficient data to calculate ADX"
+ERROR_UNEXPECTED = "An unexpected error occurred"
+
 def calculate_adx(symbol):
     try:
         data = fetch_company_data(symbol)
         
         if data is None:
-            raise ValueError(f"No data found for symbol {symbol}")
+            raise ValueError(f"{ERROR_NO_DATA_FOUND} {symbol}")
 
         data_df = pd.DataFrame(data)
 
         if len(data_df) < 14:
-            raise ValueError("Insufficient data to calculate ADX")
+            raise ValueError(ERROR_INSUFFICIENT_DATA)
 
         adx_values = talib.ADX(data_df['High'], data_df['Low'], data_df['Close'], timeperiod=14)
         di_plus = talib.PLUS_DI(data_df['High'], data_df['Low'], data_df['Close'], timeperiod=14)
@@ -41,10 +44,9 @@ def calculate_adx(symbol):
         logging.warning(str(e))
         return {"error": str(e)}
     except Exception as e:
-        logging.exception(f"An unexpected error occurred: {e}")
-        return {"error": "An unexpected error occurred"}
+        logging.exception(f"{ERROR_UNEXPECTED}: {e}")
+        return {"error": ERROR_UNEXPECTED}
 
-# Function to identify the last bullish or bearish cross
 def identify_last_cross(data_df, di_plus, di_minus):
     last_cross = None
     for i in range(1, len(di_plus)):
@@ -56,7 +58,6 @@ def identify_last_cross(data_df, di_plus, di_minus):
             last_cross = {'Type': 'Bearish Cross', 'Date': date}
     return last_cross
 
-# Function to determine the strength of the trend based on the ADX value
 def determine_trend_strength(adx_value, di_plus, di_minus):
     if adx_value < 25:
         return "Absence of clear trend"
@@ -77,7 +78,6 @@ def determine_trend_strength(adx_value, di_plus, di_minus):
     elif adx_value > 50:
         return "Very strong trend (trend peak)"
 
-# Function to determine the recommendation based on the ADX values
 def adx_recommendation(adx_values, di_plus, di_minus):
     adx_value = adx_values.iloc[-1]
     pdi = di_plus.iloc[-1]
@@ -91,5 +91,3 @@ def adx_recommendation(adx_values, di_plus, di_minus):
         elif pdi1 > ndi1 and pdi < ndi:
             return Recommendation.SELL
     return Recommendation.NEUTRAL
-
-
