@@ -1,3 +1,4 @@
+#adx_indicator.py
 import talib
 import pandas as pd
 from datetime import datetime
@@ -90,6 +91,3 @@ def adx_recommendation(adx_values, di_plus, di_minus):
         elif pdi1 > ndi1 and pdi < ndi:
             return Recommendation.SELL
     return Recommendation.NEUTRAL
-
-
-

@@ -4,6 +4,7 @@ from indicators.ma_indicator import calculate_moving_averages
 from indicators.adx_indicator import calculate_adx
 from indicators.rsi_indicator import calculate_rsi
 from indicators.macd_indicator import calculate_macd
+from indicators.stochastic_indicator import calculate_stochastic
 from data_downloader import download_and_store_historical_data, update_current_data, initialize_database
 import logging
 from werkzeug.exceptions import HTTPException
@@ -101,6 +102,13 @@ def calculate_macd_for_company(symbol):
     except Exception as e:
         raise HTTPException(description=str(e))
 
+@app.route('/companies/<symbol>/indicators/stochastic', methods=['POST'])
+def calculate_stochastic_for_company(symbol):
+    try:
+        stochastic_data = calculate_stochastic(symbol)
+        return jsonify(stochastic_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
