@@ -5,6 +5,7 @@ from indicators.adx_indicator import calculate_adx
 from indicators.rsi_indicator import calculate_rsi
 from indicators.macd_indicator import calculate_macd
 from indicators.stochastic_indicator import calculate_stochastic
+from indicators.williams_r_indicator import calculate_williams_r
 from data_downloader import download_and_store_historical_data, update_current_data, initialize_database
 import logging
 from werkzeug.exceptions import HTTPException
@@ -107,6 +108,16 @@ def calculate_stochastic_for_company(symbol):
     try:
         stochastic_data = calculate_stochastic(symbol)
         return jsonify(stochastic_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
+    
+@app.route('/companies/<symbol>/indicators/williams_r', methods=['POST'])  # Agrega nuevo endpoint para Williams %R
+def calculate_williams_r_for_company(symbol):
+    try:
+        data = request.get_json()
+        period = data.get('period', 14)  # El período es opcional, el valor predeterminado es 14
+        williams_r_data = calculate_williams_r(symbol, period)
+        return jsonify(williams_r_data)
     except Exception as e:
         raise HTTPException(description=str(e))
 
