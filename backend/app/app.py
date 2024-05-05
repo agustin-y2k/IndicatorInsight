@@ -154,6 +154,13 @@ def calculate_parabolic_sar_for_company(symbol):
     except Exception as e:
         raise HTTPException(description=str(e))
 
+@app.route('/companies/<symbol>/indicators/cci', methods=['POST'])
+def calculate_cci_for_company(symbol):
+    try:
+        cci_data = calculate_cci(symbol)
+        return jsonify(cci_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
