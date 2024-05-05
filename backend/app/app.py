@@ -8,6 +8,8 @@ from indicators.stochastic_indicator import calculate_stochastic
 from indicators.willims_r_indicator import calculate_williams_r
 from indicators.bollinger_bands_indicator import calculate_bollinger_bands
 from indicators.aroon_indicator import calculate_aroon
+from indicators.parabolic_sar_indicator import calculate_parabolic_sar
+from indicators.cci_indicator import calculate_cci
 from data_downloader import download_and_store_historical_data, update_current_data, initialize_database
 import logging
 from werkzeug.exceptions import HTTPException
@@ -113,7 +115,6 @@ def calculate_stochastic_for_company(symbol):
     except Exception as e:
         raise HTTPException(description=str(e))
 
-
 @app.route('/companies/<symbol>/indicators/williams_r', methods=['POST'])
 def calculate_williams_r_for_company(symbol):
     try:
@@ -142,6 +143,14 @@ def calculate_aroon_for_company(symbol):
         period = data.get('period', 14)  # Period is optional, default is 14
         aroon_data = calculate_aroon(symbol, period)
         return jsonify(aroon_data)
+    except Exception as e:
+        raise HTTPException(description=str(e))
+
+@app.route('/companies/<symbol>/indicators/parabolic_sar', methods=['POST'])
+def calculate_parabolic_sar_for_company(symbol):
+    try:
+        parabolic_sar_data = calculate_parabolic_sar(symbol)
+        return jsonify(parabolic_sar_data)
     except Exception as e:
         raise HTTPException(description=str(e))
 
