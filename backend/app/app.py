@@ -1,5 +1,8 @@
 # app.py
 from flask import Flask, request, jsonify, Response
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 from indicators.ma_indicator import calculate_moving_averages
 from indicators.adx_indicator import calculate_adx
 from indicators.rsi_indicator import calculate_rsi
@@ -10,7 +13,9 @@ from indicators.bollinger_bands_indicator import calculate_bollinger_bands
 from indicators.aroon_indicator import calculate_aroon
 from indicators.parabolic_sar_indicator import calculate_parabolic_sar
 from indicators.cci_indicator import calculate_cci
+
 from data_downloader import download_and_store_historical_data, update_current_data, initialize_database
+
 import logging
 from werkzeug.exceptions import HTTPException
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -21,6 +26,12 @@ import sys
 app = Flask(__name__)
 CORS(app)
 
+# Config the limiter
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["10000 per day", "1000 per hour", "100 per minute"]
+)
 
 # Config the logging  system to write to stderr
 logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
@@ -69,15 +80,6 @@ def index():
 @app.route('/metrics')
 def metrics():
     return Response(generate_latest(), mimetype='text/plain')
-
-# Before shutting down the server
-def cleanup():
-    # Close database connections or perform other cleanup tasks here
-    logging.info('Closing database connections...')
-
-@app.before_shutdown
-def cleanup_before_shutdown():
-    cleanup()
 
 @app.route('/companies/<symbol>/indicators/moving_averages', methods=['POST'])
 def calculate_moving_averages_for_company(symbol):

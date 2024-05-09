@@ -61,6 +61,10 @@ def download_and_store_historical_data():
 
 def update_current_data():
     try:
+        companies = ['META', 'AAPL', 'GOOG', 'AMZN', 'MSFT', 'TSLA', 'NVDA']
+        client = MongoClient('mongodb', 27017)
+        db = client['indicator_insight']
+
         for company in companies:
             collection = db[company]
             
