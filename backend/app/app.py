@@ -70,6 +70,15 @@ def index():
 def metrics():
     return Response(generate_latest(), mimetype='text/plain')
 
+# Before shutting down the server
+def cleanup():
+    # Close database connections or perform other cleanup tasks here
+    logging.info('Closing database connections...')
+
+@app.before_shutdown
+def cleanup_before_shutdown():
+    cleanup()
+
 @app.route('/companies/<symbol>/indicators/moving_averages', methods=['POST'])
 def calculate_moving_averages_for_company(symbol):
     try:
