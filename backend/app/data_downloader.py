@@ -48,49 +48,42 @@ def download_and_store_historical_data():
                 data.reset_index(inplace=True)
                 data_dict = data.to_dict(orient='records')
                 collection.insert_many(data_dict)
-                
+            else:
+                # If there is data, download and store only the new data
+                latest_date_db = collection.find_one(sort=[('Date', -1)])['Date']
+                data = yf.download(company, start=latest_date_db)
+                data.reset_index(inplace=True)
+                data_dict = data.to_dict(orient='records')
+                collection.insert_many(data_dict)
+
     except Exception as e:
         logging.exception("Error in download_and_store_historical_data: %s", e)
 
 def update_current_data():
     try:
-        companies = ['META', 'AAPL', 'GOOG', 'AMZN', 'MSFT', 'TSLA', 'NVDA']
-        client = MongoClient('mongodb', 27017)
-        db = client['indicator_insight']
-        
-        today = datetime.now()
         for company in companies:
             collection = db[company]
             
-            # Last document for the current day
-            last_document = collection.find_one({'Date': today})
+            companies = ['META', 'AAPL', 'GOOG', 'AMZN', 'MSFT', 'TSLA', 'NVDA']
+            client = MongoClient('mongodb', 27017)
+            db = client['indicator_insight']
+            last_document = collection.find_one(sort=[('Date', -1)])
+            latest_date_db = last_document['Date'] if last_document else None
             
-            if last_document is None:
-                # If there is no data for the current day, insert it
-                data = yf.download(company, start=today)
-                data.reset_index(inplace=True)
-                data_dict = data.to_dict(orient='records')
-                collection.insert_many(data_dict)
-                logging.info(f"Data for {company} inserted for {today} in MongoDB.")
+            data = yf.download(company)
+            data.reset_index(inplace=True)
+            data_dict = data.to_dict(orient='records')
+            latest_date_yf = data_dict[-1]['Date'] if data_dict else None
+            
+            # Verify if new data needs to be inserted or the last document needs to be updated
+            if latest_date_db and latest_date_yf and latest_date_yf > latest_date_db:
+                # Insert a new document in the collection
+                collection.insert_one(data_dict[-1])
+                print(f"New document inserted for {company}.")
             else:
-                # If there is data for the current day, check if it needs to be updated
-                last_date = last_document['Date']
-                last_document_id = last_document['_id']
-                last_time = datetime.now().time().replace(second=0, microsecond=0)
-                last_datetime = datetime.combine(last_date, last_time)
-                
-                # If the last update was more than an hour ago, update the data
-                if datetime.now() - last_datetime >= timedelta(hours=1):
-                    new_data = yf.download(company, start=today)
-                    new_data.reset_index(inplace=True)
-                    new_data_dict = new_data.to_dict(orient='records')
-                    
-                    # Remove the old data and insert the new data
-                    collection.delete_one({'_id': last_document_id})
-                    collection.insert_many(new_data_dict)
-                    
-                    logging.info(f"Data for {company} updated for {today} in MongoDB.")
-                else:
-                    logging.info(f"No update needed for {company} for {today}.")
+                # Update the last document in the collection with the new data
+                collection.update_one({'Date': latest_date_db}, {"$set": data_dict[-1]})
+                print(f"Last document updated for {company}.")
+
     except Exception as e:
         logging.exception("Error in update_current_data: %s", e)
