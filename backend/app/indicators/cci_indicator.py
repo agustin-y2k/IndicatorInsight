@@ -1,3 +1,4 @@
+# cci_indicator.py
 import talib
 import pandas as pd
 from .fetch_data import fetch_company_data
@@ -42,10 +43,13 @@ def calculate_cci(symbol, period=14):
 def cci_recommendation(cci_values):
     current_cci = cci_values.iloc[-1]
     previous_cci = cci_values.iloc[-2]
+    cci_trend = current_cci - previous_cci
     
-    if current_cci > 100 and previous_cci <= 100:
+    safety_margin = 10  # Margen de seguridad
+    
+    if current_cci > (100 + safety_margin) and previous_cci <= (100 + safety_margin) and cci_trend > 0:
         return Recommendation.SELL
-    elif current_cci < -100 and previous_cci >= -100:
+    elif current_cci < (-100 - safety_margin) and previous_cci >= (-100 - safety_margin) and cci_trend < 0:
         return Recommendation.BUY
     else:
         return Recommendation.NEUTRAL

@@ -13,7 +13,7 @@ ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_bollinger_bands(symbol, period=20, deviation=2):
+def calculate_bollinger_bands(symbol, period, deviation):
     try:
         data = fetch_company_data(symbol)
         if data is None:
@@ -36,16 +36,18 @@ def calculate_bollinger_bands(symbol, period=20, deviation=2):
         data_df[lower_band_label] = lower_band
 
         last_upper_band_value = round(data_df[upper_band_label].iloc[-1], 2)
-        last_middle_band_value = round(data_df[middle_band_label].iloc[-1], 2)
         last_lower_band_value = round(data_df[lower_band_label].iloc[-1], 2)
+        band_width = round(last_upper_band_value - last_lower_band_value, 2)
 
-        recommendation = identify_bollinger_bands_signal(data_df['Close'].iloc[-1], last_upper_band_value, last_lower_band_value)
+        recommendation, signal_strength = identify_bollinger_bands_signal(data_df['Close'].iloc[-1], last_upper_band_value, last_lower_band_value, band_width)
 
         return {
             'UpperBand': last_upper_band_value,
-            'MiddleBand': last_middle_band_value,
+            'MiddleBand': round(data_df[middle_band_label].iloc[-1], 2),
             'LowerBand': last_lower_band_value,
-            'Recommendation': recommendation
+            'BandWidth': band_width,
+            'Recommendation': recommendation,
+            'Signal Strength': signal_strength
         }
 
     except ValueError as e:
@@ -55,10 +57,15 @@ def calculate_bollinger_bands(symbol, period=20, deviation=2):
         logging.exception(f"{ERROR_UNEXPECTED}: {e}")
         return {"error": ERROR_UNEXPECTED}
 
-def identify_bollinger_bands_signal(close_price, upper_band, lower_band):
+def identify_bollinger_bands_signal(close_price, upper_band, lower_band, band_width):
     if close_price > upper_band:
-        return BollingerBandsRecommendation.SELL, "Price above Upper Band"
+        return BollingerBandsRecommendation.SELL, "Price above Upper Band - Overbought", "Strong"
     elif close_price < lower_band:
-        return BollingerBandsRecommendation.BUY, "Price below Lower Band"
+        return BollingerBandsRecommendation.BUY, "Price below Lower Band - Oversold", "Strong"
+    elif band_width < 0.1:
+        return BollingerBandsRecommendation.NEUTRAL, "Narrow Bands - Neutral", "Weak"
+    elif band_width > 2:
+        return BollingerBandsRecommendation.NEUTRAL, "Wide Bands - Neutral", "Weak"
     else:
-        return BollingerBandsRecommendation.NEUTRAL, "Within Bollinger Bands"
+        return BollingerBandsRecommendation.NEUTRAL, "Within Bollinger Bands - Neutral", "Weak"
+
