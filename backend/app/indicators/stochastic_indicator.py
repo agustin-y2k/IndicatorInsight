@@ -13,7 +13,7 @@ ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INSUFFICIENT_DATA = "Insufficient data to calculate Stochastic Oscillator"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_stochastic(symbol):
+def calculate_stochastic(symbol, fastk_period, slowk_period, slowd_period, slowk_matype, slowd_matype):
     try:
         data = fetch_company_data(symbol)
         
@@ -22,10 +22,13 @@ def calculate_stochastic(symbol):
 
         data_df = pd.DataFrame(data)
 
-        if len(data_df) < 14:
+        if len(data_df) < fastk_period:
             raise ValueError(ERROR_INSUFFICIENT_DATA)
 
-        slowk, slowd = talib.STOCH(data_df['High'], data_df['Low'], data_df['Close'], fastk_period=14, slowk_period=3, slowk_matype=0, slowd_period=3, slowd_matype=0)
+        slowk, slowd = talib.STOCH(data_df['High'], data_df['Low'], data_df['Close'],
+                                fastk_period, slowk_period,
+                                slowk_matype, slowd_period,
+                                slowd_matype)
 
         stochastic_data = {
             'slowk': round(slowk.iloc[-1], 2),

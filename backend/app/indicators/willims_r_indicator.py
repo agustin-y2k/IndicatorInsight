@@ -13,7 +13,7 @@ ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_williams_r(symbol, period=14):
+def calculate_williams_r(symbol, period):
     try:
         data = fetch_company_data(symbol)
         if data is None:
@@ -30,9 +30,9 @@ def calculate_williams_r(symbol, period=14):
         data_df[williams_r_label] = williams_r_values
         last_williams_r_value = round(data_df[williams_r_label].iloc[-1], 2)
 
-        recommendation = identify_williams_r_signal(last_williams_r_value)
+        recommendation, signal_strength = identify_williams_r_signal(last_williams_r_value)
 
-        return {'WilliamsR': last_williams_r_value, 'Recommendation': recommendation}
+        return {'WilliamsR': last_williams_r_value, 'Recommendation': recommendation, 'Signal Strength': signal_strength}
 
     except ValueError as e:
         logging.warning(str(e))
@@ -43,8 +43,12 @@ def calculate_williams_r(symbol, period=14):
 
 def identify_williams_r_signal(williams_r_value):
     if williams_r_value >= -20:
-        return Recommendation.SELL, "Overbought"
+        return Recommendation.SELL, "Strong Overbought"
     elif williams_r_value <= -80:
-        return Recommendation.BUY, "Oversold"
+        return Recommendation.BUY, "Strong Oversold"
+    elif -20 > williams_r_value > -50:
+        return Recommendation.SELL, "Moderate Overbought"
+    elif -80 < williams_r_value < -50:
+        return Recommendation.BUY, "Moderate Oversold"
     else:
         return Recommendation.NEUTRAL, "Neutral"

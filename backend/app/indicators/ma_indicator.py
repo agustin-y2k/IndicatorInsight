@@ -2,6 +2,7 @@
 import talib
 import pandas as pd
 import logging
+from collections import OrderedDict
 from .fetch_data import fetch_company_data
 
 class Recommendation:
@@ -12,6 +13,7 @@ class Recommendation:
 ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
+
 
 def calculate_moving_averages(symbol, moving_average_type, periods):
     try:
@@ -24,23 +26,20 @@ def calculate_moving_averages(symbol, moving_average_type, periods):
 
         data_df = pd.DataFrame(data)
         data_df['Date'] = data_df['Date'].astype(str)
+        
+        periods = sorted(periods)
 
-        response_data = {
-            'moving_averages': {},
-            'last_crossing': {},
-            'position_to_ma': {}
-        }
+        moving_averages = OrderedDict()
+        last_crossing = OrderedDict()
+        recommendation = OrderedDict()
 
-        # Calculate moving averages
         for period in periods:
             ma_label = f'{moving_average_type.upper()}{int(period)}'
             ma_values = talib.MA(data_df['Close'], timeperiod=int(period))
             data_df[ma_label] = ma_values
             last_ma_value = round(data_df[ma_label].iloc[-1], 2)  # Reduce to two decimal places
-            response_data['moving_averages'][ma_label] = last_ma_value
+            moving_averages[ma_label] = last_ma_value
 
-        # Identify the most recent crossing
-        last_crossing = {}
         for short_term, long_term in zip(periods[:-1], periods[1:]):
             short_label = f'{moving_average_type.upper()}{int(short_term)}'
             long_label = f'{moving_average_type.upper()}{int(long_term)}'
@@ -48,18 +47,16 @@ def calculate_moving_averages(symbol, moving_average_type, periods):
             if last_crossing_date:
                 last_crossing[f'{short_label}_{long_label}'] = {'Date': str(last_crossing_date), 'Value': round(last_crossing_value, 2), 'Type': last_crossing_type}  # Round to two decimal places
 
-        response_data['last_crossing'] = last_crossing
-
-        # Identify position relative to the MA
-        position_to_ma = {}
         for period in periods:
             ma_label = f'{moving_average_type.upper()}{int(period)}'
-            recommendation = identify_position_to_ma(data_df, ma_label)
-            position_to_ma[ma_label] = recommendation
+            position_to_ma = identify_recommendation(data_df, ma_label)
+            recommendation[ma_label] = position_to_ma
 
-        response_data['position_to_ma'] = position_to_ma
-
-        return response_data
+        return {
+            'moving_averages': dict(moving_averages),
+            'last_crossing': dict(last_crossing),
+            'recommendation': dict(recommendation)
+        }
 
     except ValueError as e:
         logging.warning(str(e))
@@ -85,7 +82,7 @@ def identify_last_crossing(data_df, short_term, long_term):
 
     return last_crossing_date, last_crossing_value, last_crossing_type
 
-def identify_position_to_ma(data_df, moving_average_label):
+def identify_recommendation(data_df, moving_average_label):
     last_close = data_df['Close'].iloc[-1]
     last_ma_value = data_df[moving_average_label].iloc[-1]
 
