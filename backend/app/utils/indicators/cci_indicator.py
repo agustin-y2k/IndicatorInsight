@@ -1,7 +1,7 @@
 # cci_indicator.py
 import talib
 import pandas as pd
-from .fetch_data import fetch_company_data
+from ..fetch_data import fetch_company_data
 import logging
 
 class Recommendation:

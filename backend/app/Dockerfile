@@ -26,17 +26,17 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Copiar los archivos necesarios al contenedor
-COPY requirements.txt .
+COPY config/requirements.txt config/
+COPY config/app.ini config/
 COPY app.py .
-COPY data_downloader.py .
-COPY indicators/ ./indicators/
-COPY app.ini .
+COPY utils/data_downloader.py utils/
+COPY utils/indicators/ ./utils/indicators/
 
 # Instalar las dependencias de Python
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r config/requirements.txt
 
 # Exponer el puerto 5000 para que la aplicación Flask pueda ser accesible
 EXPOSE 5000
 
 # Ejecutar uWSGI con la configuración proporcionada en uwsgi.ini
-CMD ["uwsgi", "--ini", "app.ini"]
+CMD ["uwsgi", "--ini", "config/app.ini"]

@@ -2,7 +2,7 @@
 import talib
 import pandas as pd
 import logging
-from .fetch_data import fetch_company_data
+from ..fetch_data import fetch_company_data
 
 class Recommendation:
     BUY = "BUY"
