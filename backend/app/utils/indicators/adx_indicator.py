@@ -2,7 +2,7 @@
 import talib
 import pandas as pd
 from datetime import datetime
-from .fetch_data import fetch_company_data
+from ..fetch_data import fetch_company_data
 import logging
 
 class Recommendation:
