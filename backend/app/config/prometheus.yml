@@ -10,4 +10,4 @@ scrape_configs:
     scheme: http
     static_configs:
       - targets:
-          - indicator_insight_api:5000
+          - indicator_insight_api:8000

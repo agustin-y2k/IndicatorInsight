@@ -2,7 +2,6 @@
 from flask import Flask, request, jsonify, Response
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-
 from utils.indicators.ma_indicator import calculate_moving_averages
 from utils.indicators.adx_indicator import calculate_adx
 from utils.indicators.rsi_indicator import calculate_rsi
@@ -13,9 +12,7 @@ from utils.indicators.bollinger_bands_indicator import calculate_bollinger_bands
 from utils.indicators.aroon_indicator import calculate_aroon
 from utils.indicators.parabolic_sar_indicator import calculate_parabolic_sar
 from utils.indicators.cci_indicator import calculate_cci
-
 from utils.data_downloader import download_and_store_historical_data, update_current_data, initialize_database
-
 import logging
 from werkzeug.exceptions import HTTPException
 from apscheduler.schedulers.background import BackgroundScheduler

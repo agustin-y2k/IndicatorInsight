@@ -39,7 +39,9 @@ def calculate_bollinger_bands(symbol, period, deviation):
         last_lower_band_value = round(data_df[lower_band_label].iloc[-1], 2)
         band_width = round(last_upper_band_value - last_lower_band_value, 2)
 
-        recommendation, signal_strength = identify_bollinger_bands_signal(data_df['Close'].iloc[-1], last_upper_band_value, last_lower_band_value, band_width)
+        signal_data = identify_bollinger_bands_signal(data_df['Close'].iloc[-1], last_upper_band_value, last_lower_band_value, band_width)
+        recommendation = signal_data["recommendation"]
+        signal_strength = signal_data["signal"]
 
         return {
             'UpperBand': last_upper_band_value,
@@ -59,13 +61,27 @@ def calculate_bollinger_bands(symbol, period, deviation):
 
 def identify_bollinger_bands_signal(close_price, upper_band, lower_band, band_width):
     if close_price > upper_band:
-        return BollingerBandsRecommendation.SELL, "Price above Upper Band - Overbought", "Strong"
+        return {
+            "recommendation": BollingerBandsRecommendation.SELL,
+            "signal": {"description": "Price above Upper Band - Overbought", "strength": "Strong"}
+        }
     elif close_price < lower_band:
-        return BollingerBandsRecommendation.BUY, "Price below Lower Band - Oversold", "Strong"
+        return {
+            "recommendation": BollingerBandsRecommendation.BUY,
+            "signal": {"description": "Price below Lower Band - Oversold", "strength": "Strong"}
+        }
     elif band_width < 0.1:
-        return BollingerBandsRecommendation.NEUTRAL, "Narrow Bands - Neutral", "Weak"
+        return {
+            "recommendation": BollingerBandsRecommendation.NEUTRAL,
+            "signal": {"description": "Narrow Bands - Neutral", "strength": "Weak"}
+        }
     elif band_width > 2:
-        return BollingerBandsRecommendation.NEUTRAL, "Wide Bands - Neutral", "Weak"
+        return {
+            "recommendation": BollingerBandsRecommendation.NEUTRAL,
+            "signal": {"description": "Wide Bands - Neutral", "strength": "Weak"}
+        }
     else:
-        return BollingerBandsRecommendation.NEUTRAL, "Within Bollinger Bands - Neutral", "Weak"
-
+        return {
+            "recommendation": BollingerBandsRecommendation.NEUTRAL,
+            "signal": {"description": "Within Bollinger Bands - Neutral", "strength": "Weak"}
+        }
