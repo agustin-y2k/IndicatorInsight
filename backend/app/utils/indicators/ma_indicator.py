@@ -17,7 +17,9 @@ ERROR_UNEXPECTED = "An unexpected error occurred"
 
 def calculate_moving_averages(symbol, moving_average_type, periods):
     try:
+        logging.info(f"Calculating moving averages for symbol: {symbol}, type: {moving_average_type}, periods: {periods}")
         data = fetch_company_data(symbol)
+        logging.debug(f"Fetched data: {data}")
         if data is None:
             raise ValueError(ERROR_NO_DATA_FOUND)
 

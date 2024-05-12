@@ -4,7 +4,7 @@ services:
   indicator_insight_api:
     build: .
     ports:
-      - "5000:5000"
+      - "8000:8000"
     depends_on:
       - mongodb
     volumes:
@@ -28,3 +28,4 @@ services:
       - "3000:3000"
     depends_on:
       - prometheus
+

@@ -7,7 +7,6 @@ import sys
 import time
 from prometheus_client import Counter
 
-# Config the logging  system to write to stderr
 logging.basicConfig(stream=sys.stderr, level=logging.ERROR)
 
 # Defin the Prometheus counter for historical data downloads
@@ -55,11 +54,10 @@ def download_and_store_historical_data():
         
         for company in companies:
             collection = db[company]
-            
-            # Descargar datos con reintento
+
             data = download_data_with_retry(company)
             if data is None:
-                continue  # Saltar esta empresa si la descarga falla
+                continue
             
             data.reset_index(inplace=True)
             data_dict = data.to_dict(orient='records')
@@ -77,26 +75,28 @@ def update_current_data():
 
         for company in companies:
             collection = db[company]
-            
-            # Descargar datos con reintento
+
             data = download_data_with_retry(company)
             if data is None:
-                continue  # Saltar esta empresa si la descarga falla
+                continue
             
             data.reset_index(inplace=True)
             latest_date_db = collection.find_one(sort=[('Date', -1)])['Date'] if collection.count_documents({}) > 0 else None
             latest_date_yf = data['Date'].max()
 
-            # Comprobar si es necesario insertar nuevos datos o actualizar el último documento
             if latest_date_db and latest_date_yf and latest_date_yf > latest_date_db:
-                # Insertar un nuevo documento en la colección
+
                 new_data = data[data['Date'] > latest_date_db]
                 data_dict = new_data.to_dict(orient='records')
                 collection.insert_many(data_dict)
                 logging.info(f"New document inserted for {company}.")
             else:
-                # Actualizar el último documento en la colección con los nuevos datos
-                collection.update_one({'Date': latest_date_db}, {"$set": data_dict[-1]})
-                logging.info(f"Last document updated for {company}.")
+                if latest_date_db:
+
+                    data_dict = data.to_dict(orient='records')
+                    collection.update_one({'Date': latest_date_db}, {"$set": data_dict[-1]})
+                    logging.info(f"Last document updated for {company}.")
+                else:
+                    logging.info(f"No documents found for {company}.")
     except Exception as e:
         logging.exception("Error in update_current_data: %s", e)
