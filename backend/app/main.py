@@ -1,11 +1,9 @@
-# main.py
 from fastapi import FastAPI, HTTPException, Request, Response, Body
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, ORJSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.encoders import jsonable_encoder
-from fastapi.responses import ORJSONResponse
-import uvicorn
+from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.openapi.utils import get_openapi
 from typing import List
 from utils.indicators.ma_indicator import calculate_moving_averages
 from utils.indicators.adx_indicator import calculate_adx
@@ -21,12 +19,16 @@ from utils.data_downloader import download_and_store_historical_data, update_cur
 import logging
 from prometheus_client import Counter, generate_latest, Histogram
 
-app = FastAPI()
+app = FastAPI(
+    title="Indicator Insight API",
+    description="API for calculating financial indicators.",
+    version="1.0.0"
+)
 
-# Configurar el sistema de registro para escribir en stderr
+# Configure logging to write to stderr
 logging.basicConfig(level=logging.ERROR)
 
-# Configurar CORS
+# Configure CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -35,14 +37,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configurar GZipMiddleware
+# Configure GZipMiddleware
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
-# Definir métricas de Prometheus
+# Define Prometheus metrics
 REQUEST_COUNT = Counter('http_requests_total', 'Total HTTP Requests')
 REQUEST_LATENCY = Histogram('http_request_latency_seconds', 'HTTP Request Latency')
 
-# Middleware para el registro
+# Middleware for logging
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
     response = await call_next(request)
@@ -51,36 +53,47 @@ async def log_requests(request: Request, call_next):
         logging.error('%s %s %s %s', request.client.host, request.method, request.url.path, response.status_code)
     return response
 
-# Manejar excepciones HTTP
+# Handle HTTP exceptions
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request, exc):
     return JSONResponse(status_code=exc.status_code, content={"error": str(exc), "message": "An error occurred"})
 
-# Manejar excepciones generales
+# Handle general exceptions
 @app.exception_handler(Exception)
 async def generic_exception_handler(request, exc):
     logging.exception("Unhandled Exception: %s", exc)
     return JSONResponse(status_code=500, content={"error": "An internal server error occurred"})
 
-# Inicializar la base de datos al iniciar la aplicación
+# Initialize the database when starting the application
 initialize_database()
 
-# Ejecutar la descarga de datos históricos una vez al inicio
+# Run historical data download once at startup
 download_and_store_historical_data()
 
-# Programar la ejecución de la función de actualización de datos cada hora
+# Schedule data update function to run every hour
 update_current_data()
 
-# Punto de entrada de la API
+# API entry point
 @app.get("/")
 async def index():
     return {"message": "Welcome to Indicator Insight!"}
 
-# Endpoint para métricas de Prometheus
+# Endpoint for Prometheus metrics
 @app.get("/metrics")
 async def metrics():
     return Response(content=generate_latest(), media_type="text/plain")
 
+# Endpoint for Swagger UI documentation
+@app.get("/docs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(openapi_url="/openapi.json", title="API Docs")
+
+# Endpoint for OpenAPI JSON specification
+@app.get("/openapi.json", include_in_schema=False)
+async def get_openapi_json():
+    return JSONResponse(get_openapi(title="API Docs", version="1.0.0", routes=app.routes))
+
+# Define endpoint for calculating moving averages for a company
 @app.post("/companies/{symbol}/indicators/moving_averages")
 async def calculate_moving_averages_for_company(symbol: str, moving_average_input: dict = Body(...)):
     try:
@@ -94,6 +107,7 @@ async def calculate_moving_averages_for_company(symbol: str, moving_average_inpu
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Define endpoint for calculating ADX for a company
 @app.post("/companies/{symbol}/indicators/adx")
 async def calculate_adx_for_company(symbol: str):
     try:
@@ -103,6 +117,7 @@ async def calculate_adx_for_company(symbol: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Define endpoint for calculating RSI for a company
 @app.post("/companies/{symbol}/indicators/rsi")
 async def calculate_rsi_for_company(symbol: str, data_input_rsi: dict = Body(...)):
     try:
@@ -113,6 +128,7 @@ async def calculate_rsi_for_company(symbol: str, data_input_rsi: dict = Body(...
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Define endpoint for calculating MACD for a company
 @app.post("/companies/{symbol}/indicators/macd")
 async def calculate_macd_for_company(symbol: str, data_input_macd: dict = Body(...)):
     try:
@@ -125,6 +141,7 @@ async def calculate_macd_for_company(symbol: str, data_input_macd: dict = Body(.
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Define endpoint for calculating stochastic for a company
 @app.post("/companies/{symbol}/indicators/stochastic")
 async def calculate_stochastic_for_company(symbol: str, data: dict = Body(...)):
     try:
@@ -139,6 +156,7 @@ async def calculate_stochastic_for_company(symbol: str, data: dict = Body(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Define endpoint for calculating Williams R for a company
 @app.post("/companies/{symbol}/indicators/williams_r")
 async def calculate_williams_r_for_company(symbol: str, data_input_williams_r: dict = Body(...)):
     try:
@@ -149,6 +167,7 @@ async def calculate_williams_r_for_company(symbol: str, data_input_williams_r: d
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Define endpoint for calculating Bollinger Bands for a company
 @app.post("/companies/{symbol}/indicators/bollinger_bands")
 async def calculate_bollinger_bands_for_company(symbol: str, data_input_bollinger_bands: dict = Body(...)):
     try:
@@ -160,6 +179,7 @@ async def calculate_bollinger_bands_for_company(symbol: str, data_input_bollinge
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Define endpoint for calculating Aroon for a company
 @app.post("/companies/{symbol}/indicators/aroon")
 async def calculate_aroon_for_company(symbol: str, data_input_aroon: dict = Body(...)):
     try:
@@ -170,6 +190,7 @@ async def calculate_aroon_for_company(symbol: str, data_input_aroon: dict = Body
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Define endpoint for calculating Parabolic SAR for a company
 @app.post("/companies/{symbol}/indicators/parabolic_sar")
 async def calculate_parabolic_sar_for_company(symbol: str, data_input_parabolic_sar: dict = Body(...)):
     try:
@@ -181,6 +202,7 @@ async def calculate_parabolic_sar_for_company(symbol: str, data_input_parabolic_
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Define endpoint for calculating CCI for a company
 @app.post("/companies/{symbol}/indicators/cci")
 async def calculate_cci_for_company(symbol: str):
     try:
@@ -192,4 +214,3 @@ async def calculate_cci_for_company(symbol: str):
     
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000)
-
