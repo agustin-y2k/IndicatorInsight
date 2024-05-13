@@ -13,14 +13,10 @@ ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INSUFFICIENT_DATA = "Insufficient data to calculate Stochastic Oscillator"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_stochastic(symbol, fastk_period, slowk_period, slowd_period, slowk_matype, slowd_matype):
+def calculate_stochastic(company_data, fastk_period, slowk_period, slowd_period, slowk_matype, slowd_matype):
     try:
-        data = fetch_company_data(symbol)
-        
-        if data is None:
-            raise ValueError(f"{ERROR_NO_DATA_FOUND} {symbol}")
 
-        data_df = pd.DataFrame(data)
+        data_df = pd.DataFrame(company_data)
 
         if len(data_df) < fastk_period:
             raise ValueError(ERROR_INSUFFICIENT_DATA)
