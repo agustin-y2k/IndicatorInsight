@@ -13,14 +13,10 @@ ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INSUFFICIENT_DATA = "Insufficient data to calculate CCI"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_cci(symbol, period=14):
+def calculate_cci(company_data, period=14):
     try:
-        data = fetch_company_data(symbol)
-        
-        if data is None:
-            raise ValueError(f"{ERROR_NO_DATA_FOUND} {symbol}")
 
-        data_df = pd.DataFrame(data)
+        data_df = pd.DataFrame(company_data)
 
         if len(data_df) < period:
             raise ValueError(ERROR_INSUFFICIENT_DATA)

@@ -13,16 +13,10 @@ ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_bollinger_bands(symbol, period, deviation):
+def calculate_bollinger_bands(company_data, period, deviation):
     try:
-        data = fetch_company_data(symbol)
-        if data is None:
-            raise ValueError(ERROR_NO_DATA_FOUND)
 
-        if not isinstance(data, list):
-            raise ValueError(ERROR_INVALID_DATA_FORMAT)
-
-        data_df = pd.DataFrame(data)
+        data_df = pd.DataFrame(company_data)
         data_df['Date'] = pd.to_datetime(data_df['Date'])
 
         upper_band_label = f'BB_UPPER_{period}_{deviation}'

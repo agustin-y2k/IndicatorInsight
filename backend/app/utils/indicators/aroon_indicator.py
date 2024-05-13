@@ -12,16 +12,10 @@ ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_aroon(symbol, period, overbought_level=70, oversold_level=30):
+def calculate_aroon(company_data, period, overbought_level=70, oversold_level=30):
     try:
-        data = fetch_company_data(symbol)
-        if data is None:
-            raise ValueError(ERROR_NO_DATA_FOUND)
 
-        if not isinstance(data, list):
-            raise ValueError(ERROR_INVALID_DATA_FORMAT)
-
-        data_df = pd.DataFrame(data)
+        data_df = pd.DataFrame(company_data)
         data_df['Date'] = data_df['Date'].astype(str)
 
         aroon_up_label = f'AROON_UP_{period}'

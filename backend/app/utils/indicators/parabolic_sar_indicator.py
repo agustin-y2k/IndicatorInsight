@@ -13,14 +13,10 @@ ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INSUFFICIENT_DATA = "Insufficient data to calculate Parabolic SAR"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_parabolic_sar(symbol, acceleration, maximum):
+def calculate_parabolic_sar(company_data, acceleration, maximum):
     try:
-        data = fetch_company_data(symbol)
-        
-        if data is None:
-            raise ValueError(f"{ERROR_NO_DATA_FOUND} {symbol}")
 
-        data_df = pd.DataFrame(data)
+        data_df = pd.DataFrame(company_data)
 
         if len(data_df) < 2:
             raise ValueError(ERROR_INSUFFICIENT_DATA)

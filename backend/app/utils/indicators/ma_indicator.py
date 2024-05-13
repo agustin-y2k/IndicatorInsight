@@ -15,18 +15,10 @@ ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
 
-def calculate_moving_averages(symbol, moving_average_type, periods):
+def calculate_moving_averages(company_data, moving_average_type, periods):
     try:
-        logging.info(f"Calculating moving averages for symbol: {symbol}, type: {moving_average_type}, periods: {periods}")
-        data = fetch_company_data(symbol)
-        logging.debug(f"Fetched data: {data}")
-        if data is None:
-            raise ValueError(ERROR_NO_DATA_FOUND)
 
-        if not isinstance(data, list):
-            raise ValueError(ERROR_INVALID_DATA_FORMAT)
-
-        data_df = pd.DataFrame(data)
+        data_df = pd.DataFrame(company_data)
         data_df['Date'] = data_df['Date'].astype(str)
         
         periods = sorted(periods)
