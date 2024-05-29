@@ -1,14 +1,8 @@
 # adx_indicator.py
 import talib
 import pandas as pd
-from datetime import datetime
-from ..fetch_data import fetch_company_data
 import logging
-
-class Recommendation:
-    BUY = "BUY"
-    SELL = "SELL"
-    NEUTRAL = "NEUTRAL"
+from .recommendation import Recommendation
 
 ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INSUFFICIENT_DATA = "Insufficient data to calculate ADX"
@@ -16,11 +10,14 @@ ERROR_UNEXPECTED = "An unexpected error occurred"
 
 def calculate_adx(company_data):
     try:
-        
         data_df = pd.DataFrame(company_data)
 
         if len(data_df) < 14:
             raise ValueError(ERROR_INSUFFICIENT_DATA)
+
+        # Ensure that 'Date' is in datetime format if not already
+        if not pd.api.types.is_datetime64_any_dtype(data_df['Date']):
+            data_df['Date'] = pd.to_datetime(data_df['Date'])
 
         adx_values = talib.ADX(data_df['High'], data_df['Low'], data_df['Close'], timeperiod=14)
         di_plus = talib.PLUS_DI(data_df['High'], data_df['Low'], data_df['Close'], timeperiod=14)
@@ -87,3 +84,4 @@ def adx_recommendation(adx_values, di_plus, di_minus):
         elif pdi1 > ndi1 and pdi < ndi:
             return Recommendation.SELL
     return Recommendation.NEUTRAL
+

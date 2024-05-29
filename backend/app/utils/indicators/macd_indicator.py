@@ -2,12 +2,7 @@
 import talib
 import pandas as pd
 import logging
-from ..fetch_data import fetch_company_data
-
-class Recommendation:
-    BUY = "BUY"
-    SELL = "SELL"
-    NEUTRAL = "NEUTRAL"
+from .recommendation import Recommendation
 
 ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INSUFFICIENT_DATA = "Insufficient data to calculate MACD"

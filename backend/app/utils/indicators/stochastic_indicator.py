@@ -2,12 +2,7 @@
 import talib
 import pandas as pd
 import logging
-from ..fetch_data import fetch_company_data
-
-class Recommendation:
-    BUY = "BUY"
-    SELL = "SELL"
-    NEUTRAL = "NEUTRAL"
+from .recommendation import Recommendation
 
 ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INSUFFICIENT_DATA = "Insufficient data to calculate Stochastic Oscillator"
@@ -29,7 +24,7 @@ def calculate_stochastic(company_data, fastk_period, slowk_period, slowd_period,
         stochastic_data = {
             'slowk': round(slowk.iloc[-1], 2),
             'slowd': round(slowd.iloc[-1], 2),
-            'recommendation': stochastic_recommendation(slowk, slowd)
+            'recommendation': stochastic_recommendation(slowk, slowd),
         }
 
         return stochastic_data
@@ -47,3 +42,4 @@ def stochastic_recommendation(slowk, slowd):
         return Recommendation.SELL
     else:
         return Recommendation.NEUTRAL
+

@@ -2,12 +2,7 @@
 import talib
 import pandas as pd
 import logging
-from ..fetch_data import fetch_company_data
-
-class Recommendation:
-    BUY = "BUY"
-    SELL = "SELL"
-    NEUTRAL = "NEUTRAL"
+from .recommendation import Recommendation
 
 ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
@@ -36,13 +31,13 @@ def calculate_williams_r(company_data, period):
         return {"error": ERROR_UNEXPECTED}
 
 def identify_williams_r_signal(williams_r_value):
-    if williams_r_value >= -20:
-        return Recommendation.SELL, "Strong Overbought"
-    elif williams_r_value <= -80:
+    if williams_r_value <= -80:
         return Recommendation.BUY, "Strong Oversold"
-    elif -20 > williams_r_value > -50:
-        return Recommendation.SELL, "Moderate Overbought"
+    elif williams_r_value >= -20:
+        return Recommendation.SELL, "Strong Overbought"
     elif -80 < williams_r_value < -50:
         return Recommendation.BUY, "Moderate Oversold"
+    elif -20 > williams_r_value > -50:
+        return Recommendation.SELL, "Moderate Overbought"
     else:
         return Recommendation.NEUTRAL, "Neutral"
