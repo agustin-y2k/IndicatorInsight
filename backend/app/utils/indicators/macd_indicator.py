@@ -2,26 +2,21 @@
 import talib
 import pandas as pd
 import logging
-from ..fetch_data import fetch_company_data
-
-class Recommendation:
-    BUY = "BUY"
-    SELL = "SELL"
-    NEUTRAL = "NEUTRAL"
+from .recommendation import Recommendation
 
 ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INSUFFICIENT_DATA = "Insufficient data to calculate MACD"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_macd(company_data, fast_period, slow_period, signal_period):
+def calculate_macd(company_data):
     try:
-        
+
         data_df = pd.DataFrame(company_data)
 
-        if len(data_df) < max(fast_period, slow_period, signal_period):
+        if len(data_df) < max(12, 26, 9):
             raise ValueError(ERROR_INSUFFICIENT_DATA)
 
-        macd, signal, _ = talib.MACD(data_df['Close'], fastperiod=fast_period, slowperiod=slow_period, signalperiod=signal_period)
+        macd, signal, _ = talib.MACD(data_df['Close'], fastperiod=12, slowperiod=26, signalperiod=9)
 
         macd_data = {
             'macd_line': round(macd.iloc[-1], 2),

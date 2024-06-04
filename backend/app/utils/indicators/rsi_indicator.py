@@ -2,25 +2,20 @@
 import talib
 import pandas as pd
 import logging
-from ..fetch_data import fetch_company_data
-
-class Recommendation:
-    BUY = "BUY"
-    SELL = "SELL"
-    NEUTRAL = "NEUTRAL"
+from .recommendation import Recommendation
 
 ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_rsi(company_data, period=14):
+def calculate_rsi(company_data):
     try:
-
+        period=14
         data_df = pd.DataFrame(company_data)
         data_df['Date'] = data_df['Date'].astype(str)
 
         rsi_label = f'RSI_{period}'
-        rsi_values = talib.RSI(data_df['Close'], timeperiod=period)
+        rsi_values = talib.RSI(data_df['Close'], timeperiod=14)
         data_df[rsi_label] = rsi_values
         last_rsi_value = round(data_df[rsi_label].iloc[-1], 2)
 

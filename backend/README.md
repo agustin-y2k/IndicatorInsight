@@ -1,85 +1,58 @@
 # Indicator Insight
 
-Indicator Insight es una aplicación web que proporciona análisis técnico financieros para usuarios principiantes y expertos. Utiliza indicadores técnicos como medias móviles y el índice de movimiento direccional promedio (ADX) para ofrecer recomendaciones sobre posibles oportunidades de compra o venta de acciones.
+Indicator Insight is a web application that provides financial technical analysis for both beginners and experts. It utilizes technical indicators such as moving averages and the average directional movement index (ADX) to offer recommendations on potential stock buying or selling opportunities.
 
-## Tabla de Contenidos
+## Table of Contents
 
 - [Indicator Insight](#indicator-insight)
-  - [Tabla de Contenidos](#tabla-de-contenidos)
-  - [Requisitos Previos](#requisitos-previos)
-  - [Configuración](#configuración)
-  - [Instalación](#instalación)
-  - [Uso](#uso)
-  - [Estructura del Proyecto](#estructura-del-proyecto)
-  - [Métricas](#métricas)
+  - [Table of Contents](#table-of-contents)
+  - [Prerequisites](#prerequisites)
+  - [Configuration](#configuration)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Project Structure](#project-structure)
+  - [Metrics](#metrics)
 
-## Requisitos Previos
+## Prerequisites
 
-Para poder ejecutar y utilizar Indicator Insight, asegúrate de tener instalado lo siguiente en tu sistema:
+To be able to run and use Indicator Insight, make sure you have the following installed on your system:
 
 - Docker
 - Python 3.9
 
-## Configuración
+## Configuration
 
-1. Clona este repositorio en tu máquina local.
-2. Asegúrate de tener Docker instalado y funcionando.
-3. Asegúrate de tener Python 3.9 instalado en tu sistema.
-4. Navega hasta el directorio del proyecto en tu terminal.
+1. Clone this repository to your local machine.
+2. Ensure Docker is installed and running.
+3. Make sure Python 3.9 is installed on your system.
+4. Navigate to the project directory in your terminal.
 
-## Instalación
+## Installation
 
 ```bash
 docker-compose up -d
 ```
 
-## Uso
+## Usage
 
-Una vez que los servicios estén en funcionamiento, puedes acceder a la aplicación web en http://localhost:5000. La aplicación proporciona los siguientes endpoints:
+For more detailed usage and parameter information, refer to the Swagger UI documentation available at http://localhost:8000/docs
 
+## Project Structure
+The project is structured as follows:
 
-**Medias Móviles**
+- *main.py*: Contains the main logic of the FastAPI application.
+- *utils/*: Folder containing modules for calculating technical indicators and data downloading.
+- *config/*: Folder containing configuration files for Prometheus and possibly other services.
+- *Dockerfile*: Configuration file for building the FastAPI Docker image.
+- *docker-compose.yml*: Configuration file for Docker Compose.
 
-![METHOD](https://img.shields.io/badge/method-POST-yellow.svg) 
+## Metrics
+The application provides metrics that can be collected by Prometheus for subsequent visualization in Grafana. Available metrics include the total count of HTTP requests and request latency.
 
-`'companies/<symbol>/indicators/<ma_type>`
+Prometheus
 
-        {
-        "moving_average_type": " ",
-        "periods": [ , , ...]
-        }
+    localhost:9090
 
-**ADX**
+Grafana
 
-![METHOD](https://img.shields.io/badge/method-POST-yellow.svg) 
-
-`/companies/<symbol>/indicators/adx`
-
-**Metricas**
-
-![METHOD](https://img.shields.io/badge/method-GET-green.svg)
-
-`/metrics`
-
-
-## Estructura del Proyecto
-El proyecto está estructurado de la siguiente manera:
-
- - *app.py*: Contiene la lógica principal de la aplicación Flask.
- - *data_downloader.py*: Se encarga de descargar y almacenar datos históricos de compañías financieras, actualizando el ultimo cada una hora.
- - *indicators/*: Carpeta que contiene los módulos para el cálculo de indicadores técnicos.
- - *fetch_data.py*: Se utiliza para recuperar datos almacenados en la base de datos MongoDB.
- - *app.ini*: Archivo de configuración para uWSGI.
- - *Dockerfile*: Archivo de configuración para construir la imagen de la API Flask.
- - *docker-compose.yml*: Archivo de configuración para Docker Compose.
-
-## Métricas
-La aplicación proporciona métricas que pueden ser recopiladas por Prometheus para su posterior visualización en Grafana. Las métricas disponibles incluyen el recuento total de solicitudes HTTP y la latencia de las solicitudes.
-
- ***Prometheus***
-
-`localhost:9090`
-
- ***Grafana***
-
-`localhost:3000`
+    localhost:3000

@@ -2,20 +2,16 @@
 import talib
 import pandas as pd
 import logging
-from ..fetch_data import fetch_company_data
-
-class BollingerBandsRecommendation:
-    BUY = "BUY"
-    SELL = "SELL"
-    NEUTRAL = "NEUTRAL"
+from .recommendation import Recommendation
 
 ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_bollinger_bands(company_data, period, deviation):
+def calculate_bollinger_bands(company_data):
     try:
-
+        period=20
+        deviation=2
         data_df = pd.DataFrame(company_data)
         data_df['Date'] = pd.to_datetime(data_df['Date'])
 
@@ -43,7 +39,7 @@ def calculate_bollinger_bands(company_data, period, deviation):
             'LowerBand': last_lower_band_value,
             'BandWidth': band_width,
             'Recommendation': recommendation,
-            'Signal Strength': signal_strength
+            'SignalStrength': signal_strength
         }
 
     except ValueError as e:
@@ -55,27 +51,34 @@ def calculate_bollinger_bands(company_data, period, deviation):
 
 def identify_bollinger_bands_signal(close_price, upper_band, lower_band, band_width):
     if close_price > upper_band:
-        return {
-            "recommendation": BollingerBandsRecommendation.SELL,
-            "signal": {"description": "Price above Upper Band - Overbought", "strength": "Strong"}
-        }
+        if band_width > 2:
+            return {
+                "recommendation": Recommendation.SELL,
+                "signal": {"description": "Price above Upper Band - Overbought with Wide Bands", "strength": "Strong"}
+            }
+        else:
+            return {
+                "recommendation": Recommendation.SELL,
+                "signal": {"description": "Price above Upper Band - Overbought", "strength": "Moderate"}
+            }
     elif close_price < lower_band:
-        return {
-            "recommendation": BollingerBandsRecommendation.BUY,
-            "signal": {"description": "Price below Lower Band - Oversold", "strength": "Strong"}
-        }
+        if band_width > 2:
+            return {
+                "recommendation": Recommendation.BUY,
+                "signal": {"description": "Price below Lower Band - Oversold with Wide Bands", "strength": "Strong"}
+            }
+        else:
+            return {
+                "recommendation": Recommendation.BUY,
+                "signal": {"description": "Price below Lower Band - Oversold", "strength": "Moderate"}
+            }
     elif band_width < 0.1:
         return {
-            "recommendation": BollingerBandsRecommendation.NEUTRAL,
+            "recommendation": Recommendation.NEUTRAL,
             "signal": {"description": "Narrow Bands - Neutral", "strength": "Weak"}
-        }
-    elif band_width > 2:
-        return {
-            "recommendation": BollingerBandsRecommendation.NEUTRAL,
-            "signal": {"description": "Wide Bands - Neutral", "strength": "Weak"}
         }
     else:
         return {
-            "recommendation": BollingerBandsRecommendation.NEUTRAL,
+            "recommendation": Recommendation.NEUTRAL,
             "signal": {"description": "Within Bollinger Bands - Neutral", "strength": "Weak"}
         }

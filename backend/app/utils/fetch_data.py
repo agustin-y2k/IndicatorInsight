@@ -1,38 +1,46 @@
+# fetch_data.py
 import pymongo
+from pymongo import MongoClient
 import logging
-from .data_downloader import download_and_store_data, update_latest_data
-import datetime
+from .data_downloader import download_and_store_historical_data, download_and_store_missing_data, update_latest_data
+from datetime import datetime
 
-def fetch_company_data(symbol):
+def fetch_data(symbol):
     try:
-        client = pymongo.MongoClient("mongodb://mongodb:27017/")
+        client = MongoClient('mongodb', 27017)
         db = client["indicator_insight"]
-
         collection = db[symbol]
-        # Comprobar si la colección no está vacía
         data_count = collection.count_documents({})
 
-        # Si la colección está vacía, descargar y almacenar datos históricos
         if data_count == 0:
             logging.info(f"No data found for symbol {symbol}. Downloading and storing historical data.")
-            download_and_store_data(datetime.datetime.today().strftime('%Y-%m-%d'), symbol)
+            download_and_store_historical_data(symbol)
 
         else:
-            # Obtener la fecha de hoy
-            today = datetime.datetime.now().strftime('%Y-%m-%d')
-            
-            # Obtener la fecha del último documento en el mismo formato que today
+            today = datetime.now().strftime('%Y-%m-%d')
+
             latest_document = collection.find_one(sort=[('Date', -1)])
-            latest_document_date = latest_document['Date'].strftime('%Y-%m-%d')
+            latest_document_date = latest_document.get('Date')
+            
+            if isinstance(latest_document_date, str):
+                latest_document_date = datetime.strptime(latest_document_date, '%Y-%m-%d')
 
-            if latest_document_date != today:
-                logging.info(f"Data found for symbol {symbol} but not for today's date. Downloading and storing missing historical data.")
-                download_and_store_data(today, symbol)
-            else:
+            latest_document_date_str = latest_document_date.strftime('%Y-%m-%d')
+
+            if latest_document_date_str == today:
                 logging.info(f"Data found for symbol {symbol} and for today's date. Updating today's data.")
-                update_latest_data(symbol)
+                update_latest_data(today, symbol)
+            else:  
+                logging.info(f"Data found for symbol {symbol} but not for today's date.")
+                
+                # Check if there are missing data
+                earliest_date = collection.find_one(sort=[('Date', 1)])['Date']
+                if earliest_date != latest_document_date_str:
+                    logging.info("Downloading and storing missing historical data.")
+                    download_and_store_missing_data(symbol)
+                else:
+                    logging.info("No missing data found.")
 
-        # Obtener y devolver todos los datos de la colección
         cursor = collection.find({}, {"_id": 0, "Date": 1, "Open": 1, "High": 1, "Low": 1, "Close": 1, "Adj Close": 1, "Volume": 1})
         data = list(cursor)
         return data
