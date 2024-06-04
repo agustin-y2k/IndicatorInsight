@@ -5,3 +5,4 @@ pandas==2.2.2
 yfinance==0.2.38
 ta-lib==0.4.28
 prometheus_client==0.20.0
+pyjwt==2.8.0

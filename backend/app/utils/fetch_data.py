@@ -4,7 +4,6 @@ from pymongo import MongoClient
 import logging
 from .data_downloader import download_and_store_historical_data, download_and_store_missing_data, update_latest_data
 from datetime import datetime
-import yfinance as yf
 
 def fetch_data(symbol):
     try:

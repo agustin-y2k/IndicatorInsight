@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
-from typing import List
+from fastapi.param_functions import Body
 from utils.indicators.ma_indicator import calculate_moving_averages
 from utils.indicators.adx_indicator import calculate_adx
 from utils.indicators.rsi_indicator import calculate_rsi
@@ -91,16 +91,16 @@ async def custom_swagger_ui_html():
 async def get_openapi_json():
     return JSONResponse(get_openapi(title="API Docs", version="1.0.0", routes=app.routes))
 
+
 # Define endpoint for calculating moving averages for a company
 @app.post("/companies/{symbol}/indicators/moving_averages")
 async def calculate_moving_averages_for_company(symbol: str, moving_average_input: dict = Body(...)):
     try:
         symbol = symbol.upper()
-        # Check if collection exists, if not, create and download historical data
         symbol_data = fetch_data(symbol)
         if not symbol_data:
             raise ValueError(NO_DATA_ERROR)
-        
+
         moving_average_type = moving_average_input.get("moving_average_type")
         periods = moving_average_input.get("periods", [])
         if not moving_average_type:
@@ -115,11 +115,10 @@ async def calculate_moving_averages_for_company(symbol: str, moving_average_inpu
 async def calculate_adx_for_company(symbol: str):
     try:
         symbol = symbol.upper()
-        # Check if collection exists, if not, create and download historical data
         symbol_data = fetch_data(symbol)
         if not symbol_data:
             raise ValueError(NO_DATA_ERROR)
-        
+
         adx_data = calculate_adx(symbol_data)
         return adx_data
     except Exception as e:
@@ -127,139 +126,116 @@ async def calculate_adx_for_company(symbol: str):
 
 # Define endpoint for calculating RSI for a company
 @app.post("/companies/{symbol}/indicators/rsi")
-async def calculate_rsi_for_company(symbol: str, data_input_rsi: dict = Body(...)):
+async def calculate_rsi_for_company(symbol: str):
     try:
         symbol = symbol.upper()
-        # Check if collection exists, if not, create and download historical data
         symbol_data = fetch_data(symbol)
         if not symbol_data:
             raise ValueError(NO_DATA_ERROR)
-        
-        period = data_input_rsi.get('period', 14)
-        rsi_data = calculate_rsi(symbol_data, period)
+
+        rsi_data = calculate_rsi(symbol_data)
         return rsi_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 # Define endpoint for calculating MACD for a company
 @app.post("/companies/{symbol}/indicators/macd")
-async def calculate_macd_for_company(symbol: str, data_input_macd: dict = Body(...)):
+async def calculate_macd_for_company(symbol: str):
     try:
         symbol = symbol.upper()
-        # Check if collection exists, if not, create and download historical data
         symbol_data = fetch_data(symbol)
         if not symbol_data:
             raise ValueError(NO_DATA_ERROR)
-        
-        fast_period = data_input_macd.get('fast_period', 12)
-        slow_period = data_input_macd.get('slow_period', 26)
-        signal_period = data_input_macd.get('signal_period', 9)
-        macd_data = calculate_macd(symbol_data, fast_period, slow_period, signal_period)
+
+        macd_data = calculate_macd(symbol_data)
         return macd_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 # Define endpoint for calculating stochastic for a company
 @app.post("/companies/{symbol}/indicators/stochastic")
-async def calculate_stochastic_for_company(symbol: str, data: dict = Body(...)):
+async def calculate_stochastic_for_company(symbol: str):
     try:
         symbol = symbol.upper()
-        # Check if collection exists, if not, create and download historical data
         symbol_data = fetch_data(symbol)
         if not symbol_data:
             raise ValueError(NO_DATA_ERROR)
-        
-        fastk_period = data.get('fastk_period', 14)
-        slowk_period = data.get('slowk_period', 3)
-        slowd_period = data.get('slowd_period', 3)
-        slowk_matype = data.get('slowk_matype', 0)
-        slowd_matype = data.get('slowd_matype', 0)
-        stochastic_data = calculate_stochastic(symbol_data, fastk_period, slowk_period, slowd_period, slowk_matype, slowd_matype)
+
+        stochastic_data = calculate_stochastic(symbol_data)
         return stochastic_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 # Define endpoint for calculating Williams R for a company
 @app.post("/companies/{symbol}/indicators/williams_r")
-async def calculate_williams_r_for_company(symbol: str, data_input_williams_r: dict = Body(...)):
+async def calculate_williams_r_for_company(symbol: str):
     try:
         symbol = symbol.upper()
-        # Check if collection exists, if not, create and download historical data
         symbol_data = fetch_data(symbol)
         if not symbol_data:
             raise ValueError(NO_DATA_ERROR)
-        
-        period = data_input_williams_r.get('period', 14)
-        williams_r_data = calculate_williams_r(symbol_data, period)
+
+        williams_r_data = calculate_williams_r(symbol_data)
         return williams_r_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 # Define endpoint for calculating Bollinger Bands for a company
 @app.post("/companies/{symbol}/indicators/bollinger_bands")
-async def calculate_bollinger_bands_for_company(symbol: str, data_input_bollinger_bands: dict = Body(...)):
+async def calculate_bollinger_bands_for_company(symbol: str):
     try:
         symbol = symbol.upper()
-        # Check if collection exists, if not, create and download historical data
         symbol_data = fetch_data(symbol)
         if not symbol_data:
             raise ValueError(NO_DATA_ERROR)
-        
-        period = data_input_bollinger_bands.get('period', 20)
-        deviation = data_input_bollinger_bands.get('deviation', 2)
-        bollinger_bands_data = calculate_bollinger_bands(symbol_data, period, deviation)
+
+        bollinger_bands_data = calculate_bollinger_bands(symbol_data)
         return bollinger_bands_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 # Define endpoint for calculating Aroon for a company
 @app.post("/companies/{symbol}/indicators/aroon")
-async def calculate_aroon_for_company(symbol: str, data_input_aroon: dict = Body(...)):
+async def calculate_aroon_for_company(symbol: str):
     try:
         symbol = symbol.upper()
-        # Check if collection exists, if not, create and download historical data
         symbol_data = fetch_data(symbol)
         if not symbol_data:
             raise ValueError(NO_DATA_ERROR)
-        
-        period = data_input_aroon.get('period', 14)
-        aroon_data = calculate_aroon(symbol_data, period)
+
+        aroon_data = calculate_aroon(symbol_data)
         return aroon_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 # Define endpoint for calculating Parabolic SAR for a company
 @app.post("/companies/{symbol}/indicators/parabolic_sar")
-async def calculate_parabolic_sar_for_company(symbol: str, data_input_parabolic_sar: dict = Body(...)):
+async def calculate_parabolic_sar_for_company(symbol: str):
     try:
         symbol = symbol.upper()
-        # Check if collection exists, if not, create and download historical data
         symbol_data = fetch_data(symbol)
         if not symbol_data:
             raise ValueError(NO_DATA_ERROR)
-        
-        acceleration = data_input_parabolic_sar.get('acceleration', 0.02)
-        maximum = data_input_parabolic_sar.get('maximum', 0.2)
-        parabolic_sar_data = calculate_parabolic_sar(symbol_data, acceleration, maximum)
+
+        parabolic_sar_data = calculate_parabolic_sar(symbol_data)
         return parabolic_sar_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 # Define endpoint for calculating CCI for a company
 @app.post("/companies/{symbol}/indicators/cci")
-async def calculate_cci_for_company(symbol: str, data_input_cci: dict = Body(...)):
+async def calculate_cci_for_company(symbol: str):
     try:
         symbol = symbol.upper()
-        # Check if collection exists, if not, create and download historical data
         symbol_data = fetch_data(symbol)
         if not symbol_data:
             raise ValueError(NO_DATA_ERROR)
-        
-        period = data_input_cci.get('period', 20)  # Default period is 20
-        cci_data = calculate_cci(symbol_data, period)
+
+        cci_data = calculate_cci(symbol_data)
         return cci_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000)

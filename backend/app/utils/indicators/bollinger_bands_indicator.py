@@ -8,8 +8,10 @@ ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_bollinger_bands(company_data, period, deviation):
+def calculate_bollinger_bands(company_data):
     try:
+        period=20
+        deviation=2
         data_df = pd.DataFrame(company_data)
         data_df['Date'] = pd.to_datetime(data_df['Date'])
 

@@ -8,14 +8,14 @@ ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_williams_r(company_data, period):
+def calculate_williams_r(company_data):
     try:
-
+        period=14
         data_df = pd.DataFrame(company_data)
         data_df['Date'] = data_df['Date'].astype(str)
 
         williams_r_label = f'WilliamsR_{period}'
-        williams_r_values = talib.WILLR(data_df['High'], data_df['Low'], data_df['Close'], timeperiod=period)
+        williams_r_values = talib.WILLR(data_df['High'], data_df['Low'], data_df['Close'], timeperiod=14)
         data_df[williams_r_label] = williams_r_values
         last_williams_r_value = round(data_df[williams_r_label].iloc[-1], 2)
 

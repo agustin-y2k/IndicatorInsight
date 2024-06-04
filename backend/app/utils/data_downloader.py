@@ -3,7 +3,6 @@ import yfinance as yf
 from pymongo import MongoClient
 import logging
 from prometheus_client import Counter
-import datetime
 
 
 # Define the Prometheus counter for historical data downloads
