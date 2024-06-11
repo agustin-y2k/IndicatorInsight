@@ -1,4 +1,4 @@
-# schocastic_indicator.py
+# stochastic_indicator.py
 import talib
 import pandas as pd
 import logging
@@ -10,7 +10,6 @@ ERROR_UNEXPECTED = "An unexpected error occurred"
 
 def calculate_stochastic(company_data):
     try:
-
         data_df = pd.DataFrame(company_data)
 
         if len(data_df) < 14:
@@ -36,10 +35,17 @@ def calculate_stochastic(company_data):
         return {"error": ERROR_UNEXPECTED}
 
 def stochastic_recommendation(slowk, slowd):
-    if slowk.iloc[-1] > slowd.iloc[-1] and slowk.iloc[-1] > 50 and slowd.iloc[-1] > 50:
+    current_slowk = slowk.iloc[-1]
+    current_slowd = slowd.iloc[-1]
+
+    if current_slowk > current_slowd and current_slowk < 20 and current_slowd < 20:
+        if current_slowk < 10 and current_slowd < 10:
+            return Recommendation.STRONG_BUY
         return Recommendation.BUY
-    elif slowk.iloc[-1] < slowd.iloc[-1] and slowk.iloc[-1] < 50 and slowd.iloc[-1] < 50:
+    elif current_slowk < current_slowd and current_slowk > 80 and current_slowd > 80:
+        if current_slowk > 90 and current_slowd > 90:
+            return Recommendation.STRONG_SELL
         return Recommendation.SELL
-    else:
-        return Recommendation.NEUTRAL
+    
+    return Recommendation.NEUTRAL
 

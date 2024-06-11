@@ -34,7 +34,7 @@ def calculate_moving_averages(company_data, moving_average_type, periods):
             long_label = f'{moving_average_type.upper()}{int(long_term)}'
             last_crossing_date, last_crossing_value, last_crossing_type = identify_last_crossing(data_df, short_label, long_label)
             if last_crossing_date:
-                last_crossing[f'{short_label}_{long_label}'] = {'Date': str(last_crossing_date), 'Value': round(last_crossing_value, 2), 'Type': last_crossing_type}  # Round to two decimal places
+                last_crossing[f'{short_label}-{long_label}'] = {'Date': str(last_crossing_date), 'Value': round(last_crossing_value, 2), 'Type': last_crossing_type}  # Round to two decimal places
 
         for period in periods:
             ma_label = f'{moving_average_type.upper()}{int(period)}'
@@ -76,8 +76,14 @@ def identify_recommendation(data_df, moving_average_label):
     last_ma_value = data_df[moving_average_label].iloc[-1]
 
     if last_close > last_ma_value:
-        return Recommendation.BUY
+        if last_close > 1.05 * last_ma_value:
+            return Recommendation.STRONG_BUY
+        else:
+            return Recommendation.BUY
     elif last_close < last_ma_value:
-        return Recommendation.SELL
+        if last_close < 0.95 * last_ma_value:
+            return Recommendation.STRONG_SELL
+        else:
+            return Recommendation.SELL
     else:
         return Recommendation.NEUTRAL

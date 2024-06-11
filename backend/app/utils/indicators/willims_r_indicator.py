@@ -19,9 +19,15 @@ def calculate_williams_r(company_data):
         data_df[williams_r_label] = williams_r_values
         last_williams_r_value = round(data_df[williams_r_label].iloc[-1], 2)
 
-        recommendation, signal_strength = identify_williams_r_signal(last_williams_r_value)
+        recommendation_data = identify_williams_r_signal(last_williams_r_value)
 
-        return {'WilliamsR': last_williams_r_value, 'Recommendation': recommendation, 'Signal Strength': signal_strength}
+        williams_r_data = {
+            'WilliamsR': last_williams_r_value,
+            'Recommendation': recommendation_data["recommendation"],
+            'Signal Strength': recommendation_data["signal_strength"]
+        }
+
+        return williams_r_data
 
     except ValueError as e:
         logging.warning(str(e))
@@ -32,12 +38,27 @@ def calculate_williams_r(company_data):
 
 def identify_williams_r_signal(williams_r_value):
     if williams_r_value <= -80:
-        return Recommendation.BUY, "Strong Oversold"
+        return {
+            "recommendation": Recommendation.STRONG_BUY,
+            "signal_strength": "Strong Oversold"
+        }
     elif williams_r_value >= -20:
-        return Recommendation.SELL, "Strong Overbought"
+        return {
+            "recommendation": Recommendation.STRONG_SELL, 
+            "signal_strength": "Strong Overbought"
+        }
     elif -80 < williams_r_value < -50:
-        return Recommendation.BUY, "Moderate Oversold"
+        return {
+            "recommendation": Recommendation.BUY, 
+            "signal_strength": "Oversold"
+        }
     elif -20 > williams_r_value > -50:
-        return Recommendation.SELL, "Moderate Overbought"
+        return {
+            "recommendation": Recommendation.SELL, 
+            "signal_strength": "Overbought"
+        }
     else:
-        return Recommendation.NEUTRAL, "Neutral"
+        return {
+            "recommendation": Recommendation.NEUTRAL,
+            "signal_strength": "No clear signal"
+        }

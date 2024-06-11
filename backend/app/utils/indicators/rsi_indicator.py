@@ -10,12 +10,12 @@ ERROR_UNEXPECTED = "An unexpected error occurred"
 
 def calculate_rsi(company_data):
     try:
-        period=14
+        period = 14
         data_df = pd.DataFrame(company_data)
         data_df['Date'] = data_df['Date'].astype(str)
 
         rsi_label = f'RSI_{period}'
-        rsi_values = talib.RSI(data_df['Close'], timeperiod=14)
+        rsi_values = talib.RSI(data_df['Close'], timeperiod=period)
         data_df[rsi_label] = rsi_values
         last_rsi_value = round(data_df[rsi_label].iloc[-1], 2)
 
@@ -31,16 +31,15 @@ def calculate_rsi(company_data):
         return {"error": ERROR_UNEXPECTED}
 
 def identify_rsi_signal(rsi_value):
-    midpoint = 50
-    if rsi_value > midpoint:
-        if rsi_value >= 70:
-            return Recommendation.SELL, "Overbought"
-        else:
-            return Recommendation.NEUTRAL, "Closer to Overbought"
-    elif rsi_value < midpoint:
-        if rsi_value <= 30:
-            return Recommendation.BUY, "Oversold"
-        else:
-            return Recommendation.NEUTRAL, "Closer to Oversold"
+    if rsi_value >= 80:
+        return Recommendation.STRONG_SELL
+    elif rsi_value >= 70:
+        return Recommendation.SELL
+    elif rsi_value <= 20:
+        return Recommendation.STRONG_BUY
+    elif rsi_value <= 30:
+        return Recommendation.BUY
     else:
-        return Recommendation.NEUTRAL, "Neutral"
+        return Recommendation.NEUTRAL
+
+
