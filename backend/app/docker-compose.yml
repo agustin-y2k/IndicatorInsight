@@ -10,6 +10,8 @@ services:
       - mongodb
     volumes:
       - .:/app
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
 
   mongodb:
     image: mongo
