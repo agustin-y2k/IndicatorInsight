@@ -18,6 +18,8 @@ dependencies:
   logger: ^2.2.0
   flutter_inappwebview: ^5.0.0
   cupertino_icons: ^1.0.6
+  provider: ^6.1.2
+  shared_preferences: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -28,5 +30,3 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/background.jpg
-
-

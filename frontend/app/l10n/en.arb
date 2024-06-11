@@ -1,6 +1,23 @@
 {
     "@@locale": "en",
 
+    "register": "Register",
+    "login": "Login",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "badRequest": "Bad Request",
+    "emailOrPasswordIncorrect": "Email or password is incorrect",
+    "userNotFound": "User not found",
+    "internalServerError": "Internal Server Error",
+    "unknownError": "Unknown error",
+    "unauthorized": "Unauthorized",
+    "pleaseFillAllFields": "Please fill all fields",
+    "userAlreadyExists": "User already exists",
+    "invalidEmailFormat": "Invalid email format",
+    "invalidPasswordFormat": "Password must be at least 8 characters long and contain at least one digit, one uppercase letter, one lowercase letter, and one special character",
+    "userRegisteredSuccessfully": "User registered successfully",
+    
     "data": "Data",
     "pleaseEnterSymbol": "Please enter a symbol",
     "pleaseEnterPeriod": "Please enter a period",

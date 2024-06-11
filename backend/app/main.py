@@ -1,5 +1,5 @@
 # main.py
-from fastapi import FastAPI, HTTPException, Request, Response, Body
+from fastapi import FastAPI, HTTPException, Request, Response, Body, Depends
 from fastapi.responses import JSONResponse, ORJSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
@@ -19,6 +19,8 @@ from utils.fetch_data import fetch_data
 import logging
 import sys
 from prometheus_client import Counter, generate_latest, Histogram
+from auth import create_user, get_access_token, get_current_user, TokenData
+from pydantic import BaseModel
 
 app = FastAPI(
     title="Indicator Insight API",
@@ -38,6 +40,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class User(BaseModel):
+    email: str
+    password: str
+
 # Configure GZipMiddleware
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
@@ -46,12 +52,16 @@ REQUEST_COUNT = Counter('http_requests_total', 'Total HTTP Requests')
 REQUEST_LATENCY = Histogram('http_request_latency_seconds', 'HTTP Request Latency')
 
 NO_DATA_ERROR = "No data found for the symbol"
-# Initialize the database
+
 initialize_database()
 
 # Middleware for logging
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
+    if request.url.path != "/metrics":  # Excluir el punto final /metrics del registro
+        logging.getLogger('uvicorn.access').setLevel(logging.INFO)
+    else:
+        logging.getLogger('uvicorn.access').setLevel(logging.ERROR)
     response = await call_next(request)
     REQUEST_COUNT.inc()
     if response.status_code >= 400:
@@ -68,6 +78,14 @@ async def http_exception_handler(request, exc):
 async def generic_exception_handler(request, exc):
     logging.exception("Unhandled Exception: %s", exc)
     return JSONResponse(status_code=500, content={"error": "An internal server error occurred"})
+
+@app.post("/users/register")
+async def create_user_route(user_data: User):
+    return await create_user(user_data.email, user_data.password)
+
+@app.post("/users/login")
+async def login_for_access_token(user_data: User):
+    return await get_access_token(user_data.email, user_data.password)
 
 # API entry point
 @app.get("/")
@@ -89,10 +107,9 @@ async def custom_swagger_ui_html():
 async def get_openapi_json():
     return JSONResponse(get_openapi(title="API Docs", version="1.0.0", routes=app.routes))
 
-
 # Define endpoint for calculating moving averages for a company
 @app.post("/companies/{symbol}/indicators/moving_averages")
-async def calculate_moving_averages_for_company(symbol: str, moving_average_input: dict = Body(...)):
+async def calculate_moving_averages_for_company(symbol: str, moving_average_input: dict = Body(...), current_user: TokenData = Depends(get_current_user)):
     try:
         symbol = symbol.upper()
         symbol_data = fetch_data(symbol)
@@ -110,7 +127,7 @@ async def calculate_moving_averages_for_company(symbol: str, moving_average_inpu
 
 # Define endpoint for calculating ADX for a company
 @app.post("/companies/{symbol}/indicators/adx")
-async def calculate_adx_for_company(symbol: str):
+async def calculate_adx_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
     try:
         symbol = symbol.upper()
         symbol_data = fetch_data(symbol)
@@ -124,7 +141,7 @@ async def calculate_adx_for_company(symbol: str):
 
 # Define endpoint for calculating RSI for a company
 @app.post("/companies/{symbol}/indicators/rsi")
-async def calculate_rsi_for_company(symbol: str):
+async def calculate_rsi_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
     try:
         symbol = symbol.upper()
         symbol_data = fetch_data(symbol)
@@ -138,7 +155,7 @@ async def calculate_rsi_for_company(symbol: str):
 
 # Define endpoint for calculating MACD for a company
 @app.post("/companies/{symbol}/indicators/macd")
-async def calculate_macd_for_company(symbol: str):
+async def calculate_macd_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
     try:
         symbol = symbol.upper()
         symbol_data = fetch_data(symbol)
@@ -152,7 +169,7 @@ async def calculate_macd_for_company(symbol: str):
 
 # Define endpoint for calculating stochastic for a company
 @app.post("/companies/{symbol}/indicators/stochastic")
-async def calculate_stochastic_for_company(symbol: str):
+async def calculate_stochastic_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
     try:
         symbol = symbol.upper()
         symbol_data = fetch_data(symbol)
@@ -166,7 +183,7 @@ async def calculate_stochastic_for_company(symbol: str):
 
 # Define endpoint for calculating Williams R for a company
 @app.post("/companies/{symbol}/indicators/williams_r")
-async def calculate_williams_r_for_company(symbol: str):
+async def calculate_williams_r_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
     try:
         symbol = symbol.upper()
         symbol_data = fetch_data(symbol)
@@ -180,7 +197,7 @@ async def calculate_williams_r_for_company(symbol: str):
 
 # Define endpoint for calculating Bollinger Bands for a company
 @app.post("/companies/{symbol}/indicators/bollinger_bands")
-async def calculate_bollinger_bands_for_company(symbol: str):
+async def calculate_bollinger_bands_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
     try:
         symbol = symbol.upper()
         symbol_data = fetch_data(symbol)
@@ -194,7 +211,7 @@ async def calculate_bollinger_bands_for_company(symbol: str):
 
 # Define endpoint for calculating Parabolic SAR for a company
 @app.post("/companies/{symbol}/indicators/parabolic_sar")
-async def calculate_parabolic_sar_for_company(symbol: str):
+async def calculate_parabolic_sar_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
     try:
         symbol = symbol.upper()
         symbol_data = fetch_data(symbol)
