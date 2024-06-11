@@ -13,9 +13,7 @@ from utils.indicators.macd_indicator import calculate_macd
 from utils.indicators.stochastic_indicator import calculate_stochastic
 from utils.indicators.willims_r_indicator import calculate_williams_r
 from utils.indicators.bollinger_bands_indicator import calculate_bollinger_bands
-from utils.indicators.aroon_indicator import calculate_aroon
 from utils.indicators.parabolic_sar_indicator import calculate_parabolic_sar
-from utils.indicators.cci_indicator import calculate_cci
 from utils.data_downloader import initialize_database
 from utils.fetch_data import fetch_data
 import logging
@@ -194,20 +192,6 @@ async def calculate_bollinger_bands_for_company(symbol: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# Define endpoint for calculating Aroon for a company
-@app.post("/companies/{symbol}/indicators/aroon")
-async def calculate_aroon_for_company(symbol: str):
-    try:
-        symbol = symbol.upper()
-        symbol_data = fetch_data(symbol)
-        if not symbol_data:
-            raise ValueError(NO_DATA_ERROR)
-
-        aroon_data = calculate_aroon(symbol_data)
-        return aroon_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
 # Define endpoint for calculating Parabolic SAR for a company
 @app.post("/companies/{symbol}/indicators/parabolic_sar")
 async def calculate_parabolic_sar_for_company(symbol: str):
@@ -221,21 +205,6 @@ async def calculate_parabolic_sar_for_company(symbol: str):
         return parabolic_sar_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-# Define endpoint for calculating CCI for a company
-@app.post("/companies/{symbol}/indicators/cci")
-async def calculate_cci_for_company(symbol: str):
-    try:
-        symbol = symbol.upper()
-        symbol_data = fetch_data(symbol)
-        if not symbol_data:
-            raise ValueError(NO_DATA_ERROR)
-
-        cci_data = calculate_cci(symbol_data)
-        return cci_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000)

@@ -78,10 +78,14 @@ def adx_recommendation(adx_values, di_plus, di_minus):
     pdi1 = di_plus.iloc[-2]
     ndi1 = di_minus.iloc[-2]
     
-    if adx_value > 25:
+    if adx_value > 50:
+        if pdi1 < ndi1 and pdi > ndi:
+            return Recommendation.STRONG_BUY
+        elif pdi1 > ndi1 and pdi < ndi:
+            return Recommendation.STRONG_SELL
+    elif adx_value > 25:
         if pdi1 < ndi1 and pdi > ndi:
             return Recommendation.BUY
         elif pdi1 > ndi1 and pdi < ndi:
             return Recommendation.SELL
     return Recommendation.NEUTRAL
-

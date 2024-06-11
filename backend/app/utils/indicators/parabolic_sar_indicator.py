@@ -24,7 +24,7 @@ def calculate_parabolic_sar(company_data):
             'current_sar': round(sar_values.iloc[-1], 2),
             'previous_sar': round(sar_values.iloc[-2], 2),
             'trend_direction': determine_trend_direction(data_df, sar_values),
-            'recommendation': sar_recommendation(sar_values)
+            'recommendation': sar_recommendation(data_df, sar_values)['recommendation'],
         }
 
         return sar_data
@@ -49,28 +49,22 @@ def determine_trend_direction(data_df, sar_values):
     else:
         return "No Clear Trend"
 
-def sar_recommendation(sar_values):
-    current_sar = sar_values.iloc[-1]
-    previous_sar = sar_values.iloc[-2]
+def sar_recommendation(data_df, sar_values):
+    current_sar, previous_sar = sar_values.iloc[-1], sar_values.iloc[-2]
 
-    # Identify the relationship between current and previous SAR to determine market direction
     if current_sar > previous_sar:
-        trend_direction = UPWARD_TREND
+        if data_df['Close'].iloc[-1] > current_sar:
+            recommendation = Recommendation.STRONG_BUY
+        else:
+            recommendation = Recommendation.BUY
     elif current_sar < previous_sar:
-        trend_direction = DOWNWARD_TREND
-    else:
-        trend_direction = "No Clear Trend"
-
-    # Based on market direction, provide a recommendation according to financial theory
-    if trend_direction == UPWARD_TREND:
-        recommendation = Recommendation.BUY
-        recommendation_details = "The Parabolic SAR has flipped below the price, suggesting a potential bullish trend change."
-    elif trend_direction == DOWNWARD_TREND:
-        recommendation = Recommendation.SELL
-        recommendation_details = "The Parabolic SAR has flipped above the price, suggesting a potential bearish trend change."
+        if data_df['Close'].iloc[-1] < current_sar:
+            recommendation = Recommendation.STRONG_SELL
+        else:
+            recommendation = Recommendation.SELL
     else:
         recommendation = Recommendation.NEUTRAL
-        recommendation_details = "The Parabolic SAR has not provided a clear signal about the market direction."
 
-    return {"recommendation": recommendation, "details": recommendation_details}
+    return {"recommendation": recommendation}
+
 
