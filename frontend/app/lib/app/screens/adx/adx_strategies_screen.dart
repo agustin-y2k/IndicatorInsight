@@ -50,16 +50,11 @@ class ADXStrategiesScreen extends StatelessWidget {
             child: ListView(
               children: [
                 StrategyCard(
-                  title: AppLocalizations.of(context)!.trendStrength,
+                  title:
+                      AppLocalizations.of(context)!.understandingTheIndicator,
                   description:
-                      AppLocalizations.of(context)!.adxTrendStrengthDesc,
-                  icon: Icons.analytics,
-                ),
-                StrategyCard(
-                  title: AppLocalizations.of(context)!.directionalMovement,
-                  description:
-                      AppLocalizations.of(context)!.adxDirectionalMovementDesc,
-                  icon: Icons.analytics,
+                      AppLocalizations.of(context)!.understandingADXDesc,
+                  icon: Icons.lightbulb_outline,
                 ),
                 StrategyCard(
                   title: AppLocalizations.of(context)!.divergence,

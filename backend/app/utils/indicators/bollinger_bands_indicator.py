@@ -31,13 +31,16 @@ def calculate_bollinger_bands(company_data):
         data_df[middle_band_label] = middle_band
         data_df[lower_band_label] = lower_band
 
+        last_close_price = data_df['Close'].iloc[-1]
         last_upper_band_value = round(data_df[upper_band_label].iloc[-1], 2)
+        last_middle_band_value = round(data_df[middle_band_label].iloc[-1], 2)
         last_lower_band_value = round(data_df[lower_band_label].iloc[-1], 2)
         band_width = round(last_upper_band_value - last_lower_band_value, 2)
 
         signal_data = identify_bollinger_bands_signal(
-            data_df['Close'].iloc[-1], 
+            last_close_price, 
             last_upper_band_value, 
+            last_middle_band_value, 
             last_lower_band_value, 
             band_width
         )
@@ -47,7 +50,7 @@ def calculate_bollinger_bands(company_data):
 
         return {
             'UpperBand': last_upper_band_value,
-            'MiddleBand': round(data_df[middle_band_label].iloc[-1], 2),
+            'MiddleBand': last_middle_band_value,
             'LowerBand': last_lower_band_value,
             'BandWidth': band_width,
             'Recommendation': recommendation,
@@ -62,7 +65,7 @@ def calculate_bollinger_bands(company_data):
         logging.exception(f"{ERROR_UNEXPECTED}: {e}")
         return {"error": ERROR_UNEXPECTED}
 
-def identify_bollinger_bands_signal(close_price, upper_band, lower_band, band_width):
+def identify_bollinger_bands_signal(close_price, upper_band, middle_band, lower_band, band_width):
     if close_price > upper_band:
         if band_width > 2:
             return {
@@ -89,6 +92,18 @@ def identify_bollinger_bands_signal(close_price, upper_band, lower_band, band_wi
                 "signal": "Moderate",
                 "description": "Price below Lower Band - Oversold"
             }
+    elif close_price > middle_band:
+        return {
+            "recommendation": Recommendation.BUY,
+            "signal": "Weak",
+            "description": "Price above Middle Band"
+        }
+    elif close_price < middle_band:
+        return {
+            "recommendation": Recommendation.SELL,
+            "signal": "Weak",
+            "description": "Price below Middle Band"
+        }
     elif band_width < 0.1:
         return {
             "recommendation": Recommendation.NEUTRAL,
@@ -101,4 +116,3 @@ def identify_bollinger_bands_signal(close_price, upper_band, lower_band, band_wi
             "signal": "Weak",
             "description": "Within Bollinger Bands"
         }
-

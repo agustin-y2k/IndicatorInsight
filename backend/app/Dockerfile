@@ -24,9 +24,14 @@ WORKDIR /app
 
 COPY config/requirements.txt config/
 COPY main.py .
+COPY __init__.py .
 COPY utils/data_downloader.py utils/
-COPY utils/fetch_data.py utils/
+COPY utils/get_data.py utils/
+COPY utils/auth.py utils/
 COPY utils/indicators/ ./utils/indicators/
+COPY routes/ ./routes/
+COPY models/ ./models/
+
 
 RUN pip install --no-cache-dir -r config/requirements.txt
 

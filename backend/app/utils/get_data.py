@@ -1,11 +1,11 @@
-# fetch_data.py
+# get_data.py
 import pymongo
 from pymongo import MongoClient
 import logging
 from .data_downloader import download_and_store_historical_data, download_and_store_missing_data, update_latest_data
 from datetime import datetime
 
-def fetch_data(symbol):
+def get_data(symbol):
     try:
         client = MongoClient('mongodb', 27017)
         db = client["indicator_insight"]

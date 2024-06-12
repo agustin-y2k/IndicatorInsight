@@ -1,11 +1,13 @@
 // macd_input_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'macd_recommendation_screen.dart';
 import 'macd_chart_screen.dart';
 import 'macd_strategies_screen.dart';
+import 'package:flutter_application/app/http_service.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_application/app/auth_token_provider.dart';
 
 class MACDInputScreen extends StatefulWidget {
   const MACDInputScreen({Key? key}) : super(key: key);
@@ -40,13 +42,13 @@ class _MACDInputScreenState extends State<MACDInputScreen> {
     );
   }
 
-  Future<void> calculateMACD(String symbol) async {
+  Future<void> calculateMACD(String symbol, String authToken) async {
     if (!_validateSymbol(symbol)) {
       return;
     }
 
-    final url = Uri.parse(
-        'http://179.42.171.30:12018/companies/$symbol/indicators/macd');
+    final url =
+        Uri.parse('http://192.168.18.4:8000/companies/$symbol/indicators/macd');
 
     setState(() {
       _isLoading = true;
@@ -54,10 +56,13 @@ class _MACDInputScreenState extends State<MACDInputScreen> {
     });
 
     try {
-      final response = await http.post(
-        url,
+      final response =
+          await Provider.of<HttpService>(context, listen: false).post(
+        url.toString(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization':
+              'Bearer $authToken', // Usamos el token de autenticación
         },
       );
 
@@ -113,6 +118,8 @@ class _MACDInputScreenState extends State<MACDInputScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authTokenProvider = Provider.of<AuthTokenProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -187,7 +194,8 @@ class _MACDInputScreenState extends State<MACDInputScreen> {
                       : ElevatedButton(
                           onPressed: () {
                             final symbol = symbolController.text.toUpperCase();
-                            calculateMACD(symbol);
+                            final authToken = authTokenProvider.authToken ?? '';
+                            calculateMACD(symbol, authToken);
                           },
                           child: Text(
                               AppLocalizations.of(context)!.getRecommendation),

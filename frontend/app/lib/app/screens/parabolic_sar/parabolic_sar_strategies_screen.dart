@@ -50,6 +50,13 @@ class ParabolicSARStrategiesScreen extends StatelessWidget {
             child: ListView(
               children: [
                 StrategyCard(
+                  title:
+                      AppLocalizations.of(context)!.understandingTheIndicator,
+                  description: AppLocalizations.of(context)!
+                      .understandingParabolicSARDesc,
+                  icon: Icons.lightbulb_outline,
+                ),
+                StrategyCard(
                   title: AppLocalizations.of(context)!.trendReversal,
                   description:
                       AppLocalizations.of(context)!.trendReversalDescription,

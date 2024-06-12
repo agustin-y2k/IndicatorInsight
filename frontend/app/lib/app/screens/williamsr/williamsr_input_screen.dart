@@ -1,11 +1,13 @@
 // williamsr_input_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'williamsr_recommendation_screen.dart';
 import 'williamsr_chart_screen.dart';
 import 'williamsr_strategies_screen.dart';
+import 'package:flutter_application/app/http_service.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_application/app/auth_token_provider.dart';
 
 class WilliamsRInputScreen extends StatefulWidget {
   const WilliamsRInputScreen({Key? key}) : super(key: key);
@@ -38,13 +40,13 @@ class _WilliamsRInputScreenState extends State<WilliamsRInputScreen> {
     );
   }
 
-  Future<void> calculateWilliamsR(String symbol) async {
+  Future<void> calculateWilliamsR(String symbol, String authToken) async {
     if (!_validateSymbol(symbol)) {
       return;
     }
 
     final url = Uri.parse(
-        'http://179.42.171.30:12018/companies/$symbol/indicators/williams_r');
+        'http://192.168.18.4:8000/companies/$symbol/indicators/williams_r');
 
     setState(() {
       _isLoading = true;
@@ -52,10 +54,13 @@ class _WilliamsRInputScreenState extends State<WilliamsRInputScreen> {
     });
 
     try {
-      final response = await http.post(
-        url,
+      final response =
+          await Provider.of<HttpService>(context, listen: false).post(
+        url.toString(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization':
+              'Bearer $authToken', // Usamos el token de autenticación
         },
       );
 
@@ -112,6 +117,8 @@ class _WilliamsRInputScreenState extends State<WilliamsRInputScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authTokenProvider = Provider.of<AuthTokenProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -186,7 +193,8 @@ class _WilliamsRInputScreenState extends State<WilliamsRInputScreen> {
                       : ElevatedButton(
                           onPressed: () {
                             final symbol = symbolController.text.toUpperCase();
-                            calculateWilliamsR(symbol);
+                            final authToken = authTokenProvider.authToken ?? '';
+                            calculateWilliamsR(symbol, authToken);
                           },
                           child: Text(
                               AppLocalizations.of(context)!.getRecommendation),

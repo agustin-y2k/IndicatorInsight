@@ -5,7 +5,6 @@ from fastapi import HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordBearer
 from datetime import datetime, timedelta, timezone
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 import bcrypt
 import re
 from dotenv import load_dotenv

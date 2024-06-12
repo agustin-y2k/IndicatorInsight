@@ -50,13 +50,6 @@ class ParabolicSARHelpScreen extends StatelessWidget {
             child: ListView(
               children: [
                 HelpCard(
-                  title:
-                      AppLocalizations.of(context)!.understandingTheIndicator,
-                  description: AppLocalizations.of(context)!
-                      .understandingParabolicSARDesc,
-                  icon: Icons.lightbulb_outline,
-                ),
-                HelpCard(
                   title: AppLocalizations.of(context)!.recommendationLogic,
                   items: [
                     AppLocalizations.of(context)!.buyRecommendationParabolicSAR,

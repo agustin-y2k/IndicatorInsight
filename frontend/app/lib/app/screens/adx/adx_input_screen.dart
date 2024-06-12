@@ -48,8 +48,8 @@ class _ADXInputScreenState extends State<ADXInputScreen> {
       return;
     }
 
-    final url = Uri.parse(
-        'http://179.42.171.30:12018/companies/$symbol/indicators/adx');
+    final url =
+        Uri.parse('http://192.168.18.4:8000/companies/$symbol/indicators/adx');
 
     setState(() {
       _isLoading = true;
@@ -59,7 +59,6 @@ class _ADXInputScreenState extends State<ADXInputScreen> {
     try {
       final response =
           await Provider.of<HttpService>(context, listen: false).post(
-        // Usamos el servicio HTTP y obtenemos el token de autenticación del AuthTokenProvider
         url.toString(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -120,8 +119,7 @@ class _ADXInputScreenState extends State<ADXInputScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authTokenProvider = Provider.of<AuthTokenProvider>(
-        context); // Obtener el provider del token de autenticación
+    final authTokenProvider = Provider.of<AuthTokenProvider>(context);
 
     return Scaffold(
       appBar: AppBar(

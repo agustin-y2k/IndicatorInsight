@@ -50,13 +50,6 @@ class MACDHelpScreen extends StatelessWidget {
             child: ListView(
               children: [
                 HelpCard(
-                  title:
-                      AppLocalizations.of(context)!.understandingTheIndicator,
-                  description:
-                      AppLocalizations.of(context)!.understandingMacdDesc,
-                  icon: Icons.lightbulb_outline,
-                ),
-                HelpCard(
                   title: AppLocalizations.of(context)!.recommendationLogic,
                   description:
                       AppLocalizations.of(context)!.recommendationLogicDescMacd,

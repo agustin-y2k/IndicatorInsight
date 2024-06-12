@@ -50,23 +50,10 @@ class ADXHelpScreen extends StatelessWidget {
             child: ListView(
               children: [
                 HelpCard(
-                  title:
-                      AppLocalizations.of(context)!.understandingTheIndicator,
-                  description:
-                      AppLocalizations.of(context)!.understandingADXDesc,
-                  icon: Icons.lightbulb_outline,
-                ),
-                HelpCard(
                   title: AppLocalizations.of(context)!.recommendationLogic,
                   description:
                       AppLocalizations.of(context)!.recommendationLogicDescAdx,
                   icon: Icons.analytics,
-                ),
-                HelpCard(
-                  title: AppLocalizations.of(context)!.directionalIndicators,
-                  description:
-                      AppLocalizations.of(context)!.directionalIndicatorsDesc,
-                  icon: Icons.swap_horizontal_circle,
                 ),
                 HelpCard(
                   title: AppLocalizations.of(context)!.recommendationTypes,
@@ -77,7 +64,7 @@ class ADXHelpScreen extends StatelessWidget {
                     AppLocalizations.of(context)!.strongSellRecommendationAdx,
                     AppLocalizations.of(context)!.neutralRecommendationAdx,
                   ],
-                  icon: Icons.lightbulb,
+                  icon: Icons.recommend,
                 ),
               ],
             ),

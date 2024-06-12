@@ -50,6 +50,13 @@ class WilliamsRStrategiesScreen extends StatelessWidget {
             child: ListView(
               children: [
                 StrategyCard(
+                  title:
+                      AppLocalizations.of(context)!.understandingTheIndicator,
+                  description:
+                      AppLocalizations.of(context)!.understandingWilliamsRDesc,
+                  icon: Icons.lightbulb_outline,
+                ),
+                StrategyCard(
                   title: AppLocalizations.of(context)!.overboughtOversoldLevels,
                   description: AppLocalizations.of(context)!
                       .overboughtOversoldLevelsWRDesc,
