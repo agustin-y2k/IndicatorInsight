@@ -1,4 +1,0 @@
-#Tue Jun 11 19:27:08 ART 2024
-base.0=/home/agustin/Documentos/tesis/IndicatorInsight/proyecto/indicator-insight/frontend/app/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
