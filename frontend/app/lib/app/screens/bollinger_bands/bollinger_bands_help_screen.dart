@@ -50,13 +50,6 @@ class BollingerBandsHelpScreen extends StatelessWidget {
             child: ListView(
               children: [
                 HelpCard(
-                  title:
-                      AppLocalizations.of(context)!.understandingTheIndicator,
-                  description: AppLocalizations.of(context)!
-                      .understandingBollingerBandsDesc,
-                  icon: Icons.lightbulb_outline,
-                ),
-                HelpCard(
                   title: AppLocalizations.of(context)!.bollingerBandsLevels,
                   description:
                       AppLocalizations.of(context)!.bollingerBandsLevelsDesc,
@@ -74,7 +67,7 @@ class BollingerBandsHelpScreen extends StatelessWidget {
                     AppLocalizations.of(context)!
                         .neutralRecommendationBollinger,
                   ],
-                  icon: Icons.lightbulb,
+                  icon: Icons.recommend,
                 ),
               ],
             ),

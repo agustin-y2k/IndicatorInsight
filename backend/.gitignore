@@ -1,0 +1,20 @@
+### venv ###
+# Virtualenv
+pyvenv.cfg
+.venv
+venv
+.env
+env
+pip-selfcheck.json
+__pycache__/
+indicators/__pycache__/
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/

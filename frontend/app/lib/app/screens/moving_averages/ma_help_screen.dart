@@ -89,7 +89,7 @@ class MAHelpScreen extends StatelessWidget {
                     AppLocalizations.of(context)!
                         .neutralRecommendationMovingAverages,
                   ],
-                  icon: Icons.lightbulb,
+                  icon: Icons.recommend,
                 ),
               ],
             ),

@@ -1,11 +1,13 @@
 // bollinger_bands_input_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'bollinger_bands_recommendation_screen.dart';
 import 'bollinger_bands_chart_screen.dart';
 import 'bollinger_bands_strategies_screen.dart';
+import 'package:flutter_application/app/http_service.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_application/app/auth_token_provider.dart';
 
 class BollingerBandsInputScreen extends StatefulWidget {
   const BollingerBandsInputScreen({Key? key}) : super(key: key);
@@ -41,13 +43,13 @@ class _BollingerBandsInputScreenState extends State<BollingerBandsInputScreen> {
     );
   }
 
-  Future<void> calculateBollingerBands(String symbol) async {
+  Future<void> calculateBollingerBands(String symbol, String authToken) async {
     if (!_validateSymbol(symbol)) {
       return;
     }
 
     final url = Uri.parse(
-        'http://179.42.171.30:12018/companies/$symbol/indicators/bollinger_bands');
+        'http://localhost:8000/companies/$symbol/indicators/bollinger_bands');
 
     setState(() {
       _isLoading = true;
@@ -55,10 +57,13 @@ class _BollingerBandsInputScreenState extends State<BollingerBandsInputScreen> {
     });
 
     try {
-      final response = await http.post(
-        url,
+      final response =
+          await Provider.of<HttpService>(context, listen: false).post(
+        url.toString(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization':
+              'Bearer $authToken', // Usamos el token de autenticación
         },
       );
 
@@ -115,6 +120,8 @@ class _BollingerBandsInputScreenState extends State<BollingerBandsInputScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authTokenProvider = Provider.of<AuthTokenProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -188,7 +195,8 @@ class _BollingerBandsInputScreenState extends State<BollingerBandsInputScreen> {
                       : ElevatedButton(
                           onPressed: () {
                             final symbol = symbolController.text.toUpperCase();
-                            calculateBollingerBands(symbol);
+                            final authToken = authTokenProvider.authToken ?? '';
+                            calculateBollingerBands(symbol, authToken);
                           },
                           child: Text(
                               AppLocalizations.of(context)!.getRecommendation),

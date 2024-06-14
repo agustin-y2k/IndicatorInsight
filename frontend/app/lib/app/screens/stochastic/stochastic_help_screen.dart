@@ -50,13 +50,6 @@ class StochasticHelpScreen extends StatelessWidget {
             child: ListView(
               children: [
                 HelpCard(
-                  title:
-                      AppLocalizations.of(context)!.understandingTheIndicator,
-                  description:
-                      AppLocalizations.of(context)!.understandingStochasticDesc,
-                  icon: Icons.lightbulb_outline,
-                ),
-                HelpCard(
                   title: AppLocalizations.of(context)!.recommendationTypes,
                   items: [
                     AppLocalizations.of(context)!.buyRecommendationStochastic,
@@ -68,7 +61,7 @@ class StochasticHelpScreen extends StatelessWidget {
                     AppLocalizations.of(context)!
                         .neutralRecommendationStochastic,
                   ],
-                  icon: Icons.lightbulb,
+                  icon: Icons.recommend,
                 ),
               ],
             ),

@@ -1,26 +1,16 @@
 # main.py
-from fastapi import FastAPI, HTTPException, Request, Response, Body, Depends
-from fastapi.responses import JSONResponse, ORJSONResponse
+from fastapi import FastAPI, HTTPException, Request, Response, Depends
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
-from fastapi.param_functions import Body
-from utils.indicators.ma_indicator import calculate_moving_averages
-from utils.indicators.adx_indicator import calculate_adx
-from utils.indicators.rsi_indicator import calculate_rsi
-from utils.indicators.macd_indicator import calculate_macd
-from utils.indicators.stochastic_indicator import calculate_stochastic
-from utils.indicators.willims_r_indicator import calculate_williams_r
-from utils.indicators.bollinger_bands_indicator import calculate_bollinger_bands
-from utils.indicators.parabolic_sar_indicator import calculate_parabolic_sar
-from utils.data_downloader import initialize_database
-from utils.fetch_data import fetch_data
 import logging
 import sys
 from prometheus_client import Counter, generate_latest, Histogram
-from auth import create_user, get_access_token, get_current_user, TokenData
-from pydantic import BaseModel
+from utils.data_downloader import initialize_database
+from routes.indicator_routes import router as indicator_router
+from routes.user_routes import router as user_router
 
 app = FastAPI(
     title="Indicator Insight API",
@@ -40,10 +30,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class User(BaseModel):
-    email: str
-    password: str
-
 # Configure GZipMiddleware
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
@@ -51,7 +37,6 @@ app.add_middleware(GZipMiddleware, minimum_size=1000)
 REQUEST_COUNT = Counter('http_requests_total', 'Total HTTP Requests')
 REQUEST_LATENCY = Histogram('http_request_latency_seconds', 'HTTP Request Latency')
 
-NO_DATA_ERROR = "No data found for the symbol"
 
 initialize_database()
 
@@ -79,14 +64,6 @@ async def generic_exception_handler(request, exc):
     logging.exception("Unhandled Exception: %s", exc)
     return JSONResponse(status_code=500, content={"error": "An internal server error occurred"})
 
-@app.post("/users/register")
-async def create_user_route(user_data: User):
-    return await create_user(user_data.email, user_data.password)
-
-@app.post("/users/login")
-async def login_for_access_token(user_data: User):
-    return await get_access_token(user_data.email, user_data.password)
-
 # API entry point
 @app.get("/")
 async def index():
@@ -107,121 +84,8 @@ async def custom_swagger_ui_html():
 async def get_openapi_json():
     return JSONResponse(get_openapi(title="API Docs", version="1.0.0", routes=app.routes))
 
-# Define endpoint for calculating moving averages for a company
-@app.post("/companies/{symbol}/indicators/moving_averages")
-async def calculate_moving_averages_for_company(symbol: str, moving_average_input: dict = Body(...), current_user: TokenData = Depends(get_current_user)):
-    try:
-        symbol = symbol.upper()
-        symbol_data = fetch_data(symbol)
-        if not symbol_data:
-            raise ValueError(NO_DATA_ERROR)
-
-        moving_average_type = moving_average_input.get("moving_average_type")
-        periods = moving_average_input.get("periods", [])
-        if not moving_average_type:
-            raise ValueError("Moving average type is required in the request body")
-        moving_averages_data = calculate_moving_averages(symbol_data, moving_average_type, periods)
-        return moving_averages_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Define endpoint for calculating ADX for a company
-@app.post("/companies/{symbol}/indicators/adx")
-async def calculate_adx_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
-    try:
-        symbol = symbol.upper()
-        symbol_data = fetch_data(symbol)
-        if not symbol_data:
-            raise ValueError(NO_DATA_ERROR)
-
-        adx_data = calculate_adx(symbol_data)
-        return adx_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Define endpoint for calculating RSI for a company
-@app.post("/companies/{symbol}/indicators/rsi")
-async def calculate_rsi_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
-    try:
-        symbol = symbol.upper()
-        symbol_data = fetch_data(symbol)
-        if not symbol_data:
-            raise ValueError(NO_DATA_ERROR)
-
-        rsi_data = calculate_rsi(symbol_data)
-        return rsi_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Define endpoint for calculating MACD for a company
-@app.post("/companies/{symbol}/indicators/macd")
-async def calculate_macd_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
-    try:
-        symbol = symbol.upper()
-        symbol_data = fetch_data(symbol)
-        if not symbol_data:
-            raise ValueError(NO_DATA_ERROR)
-
-        macd_data = calculate_macd(symbol_data)
-        return macd_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Define endpoint for calculating stochastic for a company
-@app.post("/companies/{symbol}/indicators/stochastic")
-async def calculate_stochastic_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
-    try:
-        symbol = symbol.upper()
-        symbol_data = fetch_data(symbol)
-        if not symbol_data:
-            raise ValueError(NO_DATA_ERROR)
-
-        stochastic_data = calculate_stochastic(symbol_data)
-        return stochastic_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Define endpoint for calculating Williams R for a company
-@app.post("/companies/{symbol}/indicators/williams_r")
-async def calculate_williams_r_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
-    try:
-        symbol = symbol.upper()
-        symbol_data = fetch_data(symbol)
-        if not symbol_data:
-            raise ValueError(NO_DATA_ERROR)
-
-        williams_r_data = calculate_williams_r(symbol_data)
-        return williams_r_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Define endpoint for calculating Bollinger Bands for a company
-@app.post("/companies/{symbol}/indicators/bollinger_bands")
-async def calculate_bollinger_bands_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
-    try:
-        symbol = symbol.upper()
-        symbol_data = fetch_data(symbol)
-        if not symbol_data:
-            raise ValueError(NO_DATA_ERROR)
-
-        bollinger_bands_data = calculate_bollinger_bands(symbol_data)
-        return bollinger_bands_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Define endpoint for calculating Parabolic SAR for a company
-@app.post("/companies/{symbol}/indicators/parabolic_sar")
-async def calculate_parabolic_sar_for_company(symbol: str, current_user: TokenData = Depends(get_current_user)):
-    try:
-        symbol = symbol.upper()
-        symbol_data = fetch_data(symbol)
-        if not symbol_data:
-            raise ValueError(NO_DATA_ERROR)
-
-        parabolic_sar_data = calculate_parabolic_sar(symbol_data)
-        return parabolic_sar_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+app.include_router(user_router, prefix="/users", tags=["users"])
+app.include_router(indicator_router, prefix="/companies/{symbol}/indicators", tags=["indicators"])
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000)

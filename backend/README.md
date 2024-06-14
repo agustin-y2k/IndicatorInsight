@@ -41,10 +41,23 @@ For more detailed usage and parameter information, refer to the Swagger UI docum
 The project is structured as follows:
 
 - *main.py*: Contains the main logic of the FastAPI application.
-- *utils/*: Folder containing modules for calculating technical indicators and data downloading.
-- *config/*: Folder containing configuration files for Prometheus and possibly other services.
+- *main.py*: Contains the main logic of the FastAPI application.
 - *Dockerfile*: Configuration file for building the FastAPI Docker image.
-- *docker-compose.yml*: Configuration file for Docker Compose.
+- *docker-compose.yml*: Configuration file for Docker Compose to orchestrate containers.
+- *config/*
+- *prometheus.yml*: Configuration file for Prometheus.
+- *requirements.txt*: Python dependencies for the project.
+- *routes/*
+- *indicator_routes.py*: Routes and handlers for financial indicators.
+- *user_routes.py*: Routes and handlers for user management.
+- *models/*
+- *recommendation.py*: Model for stock recommendations.
+- *user.py*: Model for user data.
+- *utils/*
+- *auth.py*: Authentication and JWT token handling.
+- *data_downloader.py*: Functions for downloading and storing financial data.
+- *get_data.py*: Functions for retrieving financial data from MongoDB.
+- *indicators/*: Directory containing modules for calculating technical indicators.
 
 ## Metrics
 The application provides metrics that can be collected by Prometheus for subsequent visualization in Grafana. Available metrics include the total count of HTTP requests and request latency.

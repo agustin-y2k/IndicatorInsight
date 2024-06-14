@@ -4,7 +4,6 @@ from pymongo import MongoClient
 import logging
 from prometheus_client import Counter
 
-
 # Define the Prometheus counter for historical data downloads
 HISTORICAL_DATA_DOWNLOAD_COUNT = Counter('historical_data_download_total', 'Total Historical Data Downloads')
 
@@ -44,7 +43,6 @@ def download_and_store_historical_data(symbol):
         logging.exception(f"Error in download_and_store_historical_data for {symbol}: {e}")
     finally:
         client.close()
-
 
 def download_and_store_missing_data(symbol):
     try:

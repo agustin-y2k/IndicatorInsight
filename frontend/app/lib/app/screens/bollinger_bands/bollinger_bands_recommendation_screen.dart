@@ -267,6 +267,10 @@ class BollingerBandsRecommendationScreen extends StatelessWidget {
         return AppLocalizations.of(context)!.oversoldWideBands;
       case 'Price below Lower Band - Oversold':
         return AppLocalizations.of(context)!.bollingerBandsOversold;
+      case 'Price below Middle Band':
+        return AppLocalizations.of(context)!.belowMiddleBand;
+      case 'Price above Middle Band':
+        return AppLocalizations.of(context)!.aboveMiddleBand;
       case 'Narrow Bands - Neutral':
         return AppLocalizations.of(context)!.narrowBandsNeutral;
       case 'Within Bollinger Bands':

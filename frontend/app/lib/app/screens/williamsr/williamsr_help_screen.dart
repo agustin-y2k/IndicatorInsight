@@ -50,13 +50,6 @@ class WilliamsRHelpScreen extends StatelessWidget {
             child: ListView(
               children: [
                 HelpCard(
-                  title:
-                      AppLocalizations.of(context)!.understandingTheIndicator,
-                  description:
-                      AppLocalizations.of(context)!.understandingWilliamsRDesc,
-                  icon: Icons.lightbulb_outline,
-                ),
-                HelpCard(
                   title: AppLocalizations.of(context)!.recommendationTypes,
                   items: [
                     AppLocalizations.of(context)!.buyRecommendationWilliamsR,
@@ -68,7 +61,7 @@ class WilliamsRHelpScreen extends StatelessWidget {
                     AppLocalizations.of(context)!
                         .neutralRecommendationWilliamsR,
                   ],
-                  icon: Icons.lightbulb,
+                  icon: Icons.recommend,
                 ),
               ],
             ),
