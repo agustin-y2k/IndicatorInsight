@@ -55,7 +55,7 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
     });
 
     final url = Uri.parse(
-        'http://192.168.18.4:8000/companies/$symbol/indicators/moving_averages');
+        'http://localhost:8000/companies/$symbol/indicators/moving_averages');
 
     try {
       final response =
@@ -63,9 +63,12 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
         url.toString(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization':
-              'Bearer $authToken', // Usamos el token de autenticación
+          'Authorization': 'Bearer $authToken',
         },
+        body: jsonEncode({
+          'moving_average_type': movingAverageType,
+          'periods': periods,
+        }),
       );
 
       if (response.statusCode == 200) {

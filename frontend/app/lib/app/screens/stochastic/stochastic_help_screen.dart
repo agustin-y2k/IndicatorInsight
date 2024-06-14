@@ -61,7 +61,7 @@ class StochasticHelpScreen extends StatelessWidget {
                     AppLocalizations.of(context)!
                         .neutralRecommendationStochastic,
                   ],
-                  icon: Icons.lightbulb,
+                  icon: Icons.recommend,
                 ),
               ],
             ),

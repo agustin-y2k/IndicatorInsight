@@ -49,7 +49,7 @@ class _BollingerBandsInputScreenState extends State<BollingerBandsInputScreen> {
     }
 
     final url = Uri.parse(
-        'http://192.168.18.4:8000/companies/$symbol/indicators/bollinger_bands');
+        'http://localhost:8000/companies/$symbol/indicators/bollinger_bands');
 
     setState(() {
       _isLoading = true;

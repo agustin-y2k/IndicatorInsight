@@ -48,7 +48,7 @@ class _MACDInputScreenState extends State<MACDInputScreen> {
     }
 
     final url =
-        Uri.parse('http://192.168.18.4:8000/companies/$symbol/indicators/macd');
+        Uri.parse('http://localhost:8000/companies/$symbol/indicators/macd');
 
     setState(() {
       _isLoading = true;

@@ -49,7 +49,7 @@ class _ParabolicSARInputScreenState extends State<ParabolicSARInputScreen> {
     }
 
     final url = Uri.parse(
-        'http://192.168.18.4:8000/companies/$symbol/indicators/parabolic_sar');
+        'http://localhost:8000/companies/$symbol/indicators/parabolic_sar');
 
     setState(() {
       _isLoading = true;

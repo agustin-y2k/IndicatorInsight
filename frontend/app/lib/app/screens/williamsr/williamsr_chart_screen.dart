@@ -1,6 +1,6 @@
 // williamsr_chart_screen.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:webview_universal/webview_universal.dart';
 
 class WilliamsRChartScreen extends StatefulWidget {
   final String symbol;
@@ -54,14 +54,34 @@ class _WilliamsRChartScreenState extends State<WilliamsRChartScreen> {
   }
 }
 
-class TradingViewChart extends StatelessWidget {
+class TradingViewChart extends StatefulWidget {
   final String symbol;
 
   TradingViewChart({required this.symbol});
 
   @override
-  Widget build(BuildContext context) {
-    final String tradingViewHtml = '''
+  _TradingViewChartState createState() => _TradingViewChartState();
+}
+
+class _TradingViewChartState extends State<TradingViewChart> {
+  late WebViewController webViewController;
+
+  @override
+  void initState() {
+    super.initState();
+    webViewController = WebViewController()
+      ..init(
+        context: context,
+        setState: setState,
+        uri: Uri.dataFromString(
+          _getTradingViewHtml(widget.symbol),
+          mimeType: 'text/html',
+        ),
+      );
+  }
+
+  String _getTradingViewHtml(String symbol) {
+    return '''
       <!DOCTYPE html>
       <html>
         <head>
@@ -104,9 +124,12 @@ class TradingViewChart extends StatelessWidget {
         </body>
       </html>
     ''';
+  }
 
-    return InAppWebView(
-      initialData: InAppWebViewInitialData(data: tradingViewHtml),
+  @override
+  Widget build(BuildContext context) {
+    return WebView(
+      controller: webViewController,
     );
   }
 }
@@ -114,7 +137,7 @@ class TradingViewChart extends StatelessWidget {
 void main() {
   runApp(MaterialApp(
     home: const WilliamsRChartScreen(
-      symbol: '', // Provide initial symbol
+      symbol: '',
     ),
   ));
 }

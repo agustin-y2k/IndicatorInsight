@@ -2,7 +2,7 @@
 import talib
 import pandas as pd
 import logging
-from .recommendation import Recommendation
+from models.recommendation import Recommendation
 
 ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INSUFFICIENT_DATA = "Insufficient data to calculate MACD"

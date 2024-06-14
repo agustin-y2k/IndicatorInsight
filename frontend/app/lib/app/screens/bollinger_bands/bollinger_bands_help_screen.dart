@@ -67,7 +67,7 @@ class BollingerBandsHelpScreen extends StatelessWidget {
                     AppLocalizations.of(context)!
                         .neutralRecommendationBollinger,
                   ],
-                  icon: Icons.lightbulb,
+                  icon: Icons.recommend,
                 ),
               ],
             ),

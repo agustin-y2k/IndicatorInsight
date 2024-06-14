@@ -58,7 +58,7 @@ class RSIHelpScreen extends StatelessWidget {
                     AppLocalizations.of(context)!.strongSellRecommendationRSI,
                     AppLocalizations.of(context)!.neutralRecommendationRSI,
                   ],
-                  icon: Icons.lightbulb,
+                  icon: Icons.recommend,
                 ),
               ],
             ),

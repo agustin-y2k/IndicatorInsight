@@ -61,7 +61,7 @@ class WilliamsRHelpScreen extends StatelessWidget {
                     AppLocalizations.of(context)!
                         .neutralRecommendationWilliamsR,
                   ],
-                  icon: Icons.lightbulb,
+                  icon: Icons.recommend,
                 ),
               ],
             ),

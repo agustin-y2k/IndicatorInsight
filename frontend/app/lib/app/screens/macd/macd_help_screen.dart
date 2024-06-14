@@ -64,7 +64,7 @@ class MACDHelpScreen extends StatelessWidget {
                     AppLocalizations.of(context)!.strongSellRecommendationMacd,
                     AppLocalizations.of(context)!.neutralRecommendationMacd,
                   ],
-                  icon: Icons.lightbulb,
+                  icon: Icons.recommend,
                 ),
               ],
             ),

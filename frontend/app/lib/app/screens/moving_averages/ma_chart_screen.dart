@@ -1,6 +1,6 @@
 // ma_chart_screen.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:webview_universal/webview_universal.dart';
 import 'dart:convert';
 
 class MAChartScreen extends StatefulWidget {
@@ -50,15 +50,35 @@ class _MAChartScreenState extends State<MAChartScreen> {
   }
 }
 
-class TradingViewChart extends StatelessWidget {
+class TradingViewChart extends StatefulWidget {
   final String symbol;
   final List<Map<String, dynamic>> studies;
 
   TradingViewChart({required this.symbol, required this.studies});
 
   @override
-  Widget build(BuildContext context) {
-    final String tradingViewHtml = '''
+  _TradingViewChartState createState() => _TradingViewChartState();
+}
+
+class _TradingViewChartState extends State<TradingViewChart> {
+  late WebViewController webViewController;
+
+  @override
+  void initState() {
+    super.initState();
+    webViewController = WebViewController()
+      ..init(
+        context: context,
+        setState: setState,
+        uri: Uri.dataFromString(
+          _getTradingViewHtml(widget.symbol),
+          mimeType: 'text/html',
+        ),
+      );
+  }
+
+  String _getTradingViewHtml(String symbol) {
+    return '''
       <!DOCTYPE html>
       <html>
         <head>
@@ -77,7 +97,7 @@ class TradingViewChart extends StatelessWidget {
         <body>
           <div id="tradingview_chart"></div>
           <script type="text/javascript">
-            var chart = new TradingView.widget({
+            new TradingView.widget({
               "container_id": "tradingview_chart",
               "autosize": true,
               "symbol": "$symbol",
@@ -95,13 +115,16 @@ class TradingViewChart extends StatelessWidget {
               "details": true,
               "hotlist": true,
               "calendar": true,
-              "studies": ${jsonEncode(studies)}
+              "studies": ${jsonEncode(widget.studies)}
             });
           </script>
         </body>
       </html>
     ''';
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -110,7 +133,7 @@ class TradingViewChart extends StatelessWidget {
             Icon(Icons.show_chart, color: Colors.white),
             SizedBox(width: 10),
             Text(
-              '${symbol}',
+              '${widget.symbol}',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -132,8 +155,8 @@ class TradingViewChart extends StatelessWidget {
         ),
         elevation: 10,
       ),
-      body: InAppWebView(
-        initialData: InAppWebViewInitialData(data: tradingViewHtml),
+      body: WebView(
+        controller: webViewController,
       ),
     );
   }

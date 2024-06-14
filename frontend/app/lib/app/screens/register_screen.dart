@@ -75,7 +75,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.18.4:8000/users/register'),
+        Uri.parse('http://localhost:8000/users/register'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

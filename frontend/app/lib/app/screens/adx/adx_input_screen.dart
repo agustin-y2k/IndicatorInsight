@@ -43,13 +43,12 @@ class _ADXInputScreenState extends State<ADXInputScreen> {
   }
 
   Future<void> calculateADX(String symbol, String authToken) async {
-    // Añadimos authToken como parámetro
     if (!_validateSymbol(symbol)) {
       return;
     }
 
     final url =
-        Uri.parse('http://192.168.18.4:8000/companies/$symbol/indicators/adx');
+        Uri.parse('http://localhost:8000/companies/$symbol/indicators/adx');
 
     setState(() {
       _isLoading = true;

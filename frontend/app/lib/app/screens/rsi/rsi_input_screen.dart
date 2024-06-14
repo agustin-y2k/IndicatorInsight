@@ -48,7 +48,7 @@ class _RSIScreenState extends State<RSIScreen> {
     }
 
     final url =
-        Uri.parse('http://192.168.18.4:8000/companies/$symbol/indicators/rsi');
+        Uri.parse('http://localhost:8000/companies/$symbol/indicators/rsi');
 
     setState(() {
       _isLoading = true;

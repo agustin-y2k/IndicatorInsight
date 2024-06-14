@@ -46,7 +46,7 @@ class _WilliamsRInputScreenState extends State<WilliamsRInputScreen> {
     }
 
     final url = Uri.parse(
-        'http://192.168.18.4:8000/companies/$symbol/indicators/williams_r');
+        'http://localhost:8000/companies/$symbol/indicators/williams_r');
 
     setState(() {
       _isLoading = true;

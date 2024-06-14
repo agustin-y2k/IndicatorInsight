@@ -48,7 +48,7 @@ class _StochasticInputScreenState extends State<StochasticInputScreen> {
     }
 
     final url = Uri.parse(
-        'http://192.168.18.4:8000/companies/$symbol/indicators/stochastic');
+        'http://localhost:8000/companies/$symbol/indicators/stochastic');
 
     setState(() {
       _isLoading = true;
