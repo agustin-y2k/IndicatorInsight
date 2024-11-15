@@ -50,21 +50,51 @@ class MACDHelpScreen extends StatelessWidget {
             child: ListView(
               children: [
                 HelpCard(
-                  title: AppLocalizations.of(context)!.recommendationLogic,
-                  description:
-                      AppLocalizations.of(context)!.recommendationLogicDescMacd,
-                  icon: Icons.analytics,
+                  title: AppLocalizations.of(context)!.macdLine,
+                  description: AppLocalizations.of(context)!.macdLineDesc,
+                  icon: Icons.show_chart,
                 ),
                 HelpCard(
-                  title: AppLocalizations.of(context)!.recommendationTypes,
+                  title: AppLocalizations.of(context)!.signalLine,
+                  description: AppLocalizations.of(context)!.signalLineDesc,
+                  icon: Icons.trending_up,
+                ),
+                HelpCard(
+                  title: AppLocalizations.of(context)!.histogram,
+                  description: AppLocalizations.of(context)!.histogramDesc,
+                  icon: Icons.bar_chart,
+                ),
+                HelpCard(
+                  title: AppLocalizations.of(context)!.trendAnalysis,
+                  description:
+                      AppLocalizations.of(context)!.macdTrendAnalysisDesc,
                   items: [
-                    AppLocalizations.of(context)!.buyRecommendationMacd,
-                    AppLocalizations.of(context)!.strongBuyRecommendationMacd,
-                    AppLocalizations.of(context)!.sellRecommendationMacd,
-                    AppLocalizations.of(context)!.strongSellRecommendationMacd,
-                    AppLocalizations.of(context)!.neutralRecommendationMacd,
+                    AppLocalizations.of(context)!.macdbullishTrend,
+                    AppLocalizations.of(context)!.macdbearishTrend,
+                    AppLocalizations.of(context)!.macdneutralTrend,
                   ],
-                  icon: Icons.recommend,
+                  icon: Icons.assessment,
+                ),
+                HelpCard(
+                  title: AppLocalizations.of(context)!.divergence,
+                  description: AppLocalizations.of(context)!.divergenceDesc,
+                  items: [
+                    AppLocalizations.of(context)!.macdbullishDivergence,
+                    AppLocalizations.of(context)!.macdbearishDivergence,
+                    AppLocalizations.of(context)!.noDivergence,
+                  ],
+                  icon: Icons.compare_arrows,
+                ),
+                HelpCard(
+                  title: AppLocalizations.of(context)!.histogramAnalysis,
+                  description:
+                      AppLocalizations.of(context)!.histogramAnalysisDesc,
+                  items: [
+                    AppLocalizations.of(context)!.histogramExpanding,
+                    AppLocalizations.of(context)!.histogramContracting,
+                    AppLocalizations.of(context)!.histogramStable,
+                  ],
+                  icon: Icons.insights,
                 ),
               ],
             ),
@@ -132,20 +162,16 @@ class HelpCard extends StatelessWidget {
     IconData iconData;
     Color iconColor;
 
-    if (item == AppLocalizations.of(context)!.buyRecommendationMacd) {
+    if (item == AppLocalizations.of(context)!.macdbullishTrend ||
+        item == AppLocalizations.of(context)!.macdbullishDivergence ||
+        item == AppLocalizations.of(context)!.histogramExpanding) {
       iconData = Icons.arrow_upward;
       iconColor = Colors.green;
-    } else if (item == AppLocalizations.of(context)!.sellRecommendationMacd) {
+    } else if (item == AppLocalizations.of(context)!.macdbearishTrend ||
+        item == AppLocalizations.of(context)!.macdbearishDivergence ||
+        item == AppLocalizations.of(context)!.histogramContracting) {
       iconData = Icons.arrow_downward;
       iconColor = Colors.red;
-    } else if (item ==
-        AppLocalizations.of(context)!.strongBuyRecommendationMacd) {
-      iconData = Icons.arrow_upward;
-      iconColor = Color.fromARGB(255, 0, 90, 5);
-    } else if (item ==
-        AppLocalizations.of(context)!.strongSellRecommendationMacd) {
-      iconData = Icons.arrow_downward;
-      iconColor = Color.fromARGB(255, 128, 0, 0);
     } else {
       iconData = Icons.radio_button_unchecked;
       iconColor = Colors.blue;

@@ -1,13 +1,18 @@
 // rsi_chart_screen.dart
 import 'package:flutter/material.dart';
 import 'package:webview_universal/webview_universal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RSIChartScreen extends StatefulWidget {
   final String symbol;
+  final String interval;
+  final int period;
 
   const RSIChartScreen({
     Key? key,
     required this.symbol,
+    required this.interval,
+    this.period = 14,
   }) : super(key: key);
 
   @override
@@ -25,9 +30,9 @@ class _RSIChartScreenState extends State<RSIChartScreen> {
             Icon(Icons.show_chart, color: Colors.white),
             SizedBox(width: 10),
             Text(
-              '${widget.symbol}',
+              '${widget.symbol} - ${AppLocalizations.of(context)!.providedByTradingView}',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -49,6 +54,8 @@ class _RSIChartScreenState extends State<RSIChartScreen> {
       ),
       body: TradingViewChart(
         symbol: widget.symbol,
+        interval: widget.interval,
+        period: widget.period,
       ),
     );
   }
@@ -56,8 +63,14 @@ class _RSIChartScreenState extends State<RSIChartScreen> {
 
 class TradingViewChart extends StatefulWidget {
   final String symbol;
+  final String interval;
+  final int period;
 
-  TradingViewChart({required this.symbol});
+  const TradingViewChart({
+    required this.symbol,
+    required this.interval,
+    required this.period,
+  });
 
   @override
   _TradingViewChartState createState() => _TradingViewChartState();
@@ -74,13 +87,20 @@ class _TradingViewChartState extends State<TradingViewChart> {
         context: context,
         setState: setState,
         uri: Uri.dataFromString(
-          _getTradingViewHtml(widget.symbol),
+          _getTradingViewHtml(widget.symbol, widget.interval, widget.period),
           mimeType: 'text/html',
         ),
       );
   }
 
-  String _getTradingViewHtml(String symbol) {
+  String _getTradingViewHtml(String symbol, String interval, int period) {
+    final intervalMap = {
+      'daily': 'D',
+      'weekly': 'W',
+      'monthly': 'M',
+    };
+    final tvInterval = intervalMap[interval] ?? 'D';
+
     return '''
       <!DOCTYPE html>
       <html>
@@ -100,11 +120,11 @@ class _TradingViewChartState extends State<TradingViewChart> {
         <body>
           <div id="tradingview_chart"></div>
           <script type="text/javascript">
-            var chart = new TradingView.widget({
+            new TradingView.widget({
               "container_id": "tradingview_chart",
               "autosize": true,
               "symbol": "$symbol",
-              "interval": "D",
+              "interval": "$tvInterval",
               "timezone": "Etc/UTC",
               "theme": "light",
               "style": "1",
@@ -118,7 +138,14 @@ class _TradingViewChartState extends State<TradingViewChart> {
               "details": true,
               "hotlist": true,
               "calendar": true,
-              "studies": ["RSI@tv-basicstudies"]
+              "studies": [
+                {
+                  "id": "RSI@tv-basicstudies",
+                  "inputs": {
+                    "length": $period
+                  }
+                }
+              ]
             });
           </script>
         </body>
@@ -132,12 +159,4 @@ class _TradingViewChartState extends State<TradingViewChart> {
       controller: webViewController,
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: const RSIChartScreen(
-      symbol: '',
-    ),
-  ));
 }

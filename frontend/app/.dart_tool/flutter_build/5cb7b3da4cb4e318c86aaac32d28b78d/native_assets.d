@@ -1,1 +1,0 @@
- /home/agustin/Documentos/tesis/IndicatorInsight/proyecto/pruebas/IndicatorInsight/frontend/flutter_application/.dart_tool/flutter_build/5cb7b3da4cb4e318c86aaac32d28b78d/native_assets.yaml: 

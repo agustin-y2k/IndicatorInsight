@@ -93,11 +93,23 @@ abstract class AppLocalizations {
     Locale('es')
   ];
 
-  /// No description provided for @register.
+  /// No description provided for @analysis.
   ///
   /// In en, this message translates to:
-  /// **'Register'**
-  String get register;
+  /// **'Analysis'**
+  String get analysis;
+
+  /// No description provided for @help.
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get help;
+
+  /// No description provided for @indicators.
+  ///
+  /// In en, this message translates to:
+  /// **'Indicators'**
+  String get indicators;
 
   /// No description provided for @login.
   ///
@@ -105,11 +117,11 @@ abstract class AppLocalizations {
   /// **'Login'**
   String get login;
 
-  /// No description provided for @logout.
+  /// No description provided for @register.
   ///
   /// In en, this message translates to:
-  /// **'Logout'**
-  String get logout;
+  /// **'Register'**
+  String get register;
 
   /// No description provided for @email.
   ///
@@ -123,53 +135,17 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get password;
 
-  /// No description provided for @badRequest.
-  ///
-  /// In en, this message translates to:
-  /// **'Bad Request'**
-  String get badRequest;
-
-  /// No description provided for @emailOrPasswordIncorrect.
-  ///
-  /// In en, this message translates to:
-  /// **'Email or password is incorrect'**
-  String get emailOrPasswordIncorrect;
-
-  /// No description provided for @userNotFound.
-  ///
-  /// In en, this message translates to:
-  /// **'User not found'**
-  String get userNotFound;
-
-  /// No description provided for @internalServerError.
-  ///
-  /// In en, this message translates to:
-  /// **'Internal Server Error'**
-  String get internalServerError;
-
-  /// No description provided for @unknownError.
-  ///
-  /// In en, this message translates to:
-  /// **'Unknown error'**
-  String get unknownError;
-
-  /// No description provided for @unauthorized.
-  ///
-  /// In en, this message translates to:
-  /// **'Unauthorized'**
-  String get unauthorized;
-
   /// No description provided for @pleaseFillAllFields.
   ///
   /// In en, this message translates to:
   /// **'Please fill all fields'**
   String get pleaseFillAllFields;
 
-  /// No description provided for @userAlreadyExists.
+  /// No description provided for @userRegisteredSuccessfully.
   ///
   /// In en, this message translates to:
-  /// **'User already exists'**
-  String get userAlreadyExists;
+  /// **'User registered successfully'**
+  String get userRegisteredSuccessfully;
 
   /// No description provided for @invalidEmailFormat.
   ///
@@ -183,89 +159,137 @@ abstract class AppLocalizations {
   /// **'Password must be at least 8 characters long and contain at least one digit, one uppercase letter, one lowercase letter, and one special character'**
   String get invalidPasswordFormat;
 
-  /// No description provided for @userRegisteredSuccessfully.
+  /// No description provided for @unknownError.
   ///
   /// In en, this message translates to:
-  /// **'User registered successfully'**
-  String get userRegisteredSuccessfully;
+  /// **'An unknown error occurred'**
+  String get unknownError;
 
-  /// No description provided for @data.
+  /// No description provided for @userAlreadyExists.
   ///
   /// In en, this message translates to:
-  /// **'Data'**
-  String get data;
+  /// **'User already exists'**
+  String get userAlreadyExists;
 
-  /// No description provided for @pleaseEnterSymbol.
+  /// No description provided for @internalServerError.
   ///
   /// In en, this message translates to:
-  /// **'Please enter a symbol'**
-  String get pleaseEnterSymbol;
+  /// **'Internal server error'**
+  String get internalServerError;
 
-  /// No description provided for @pleaseEnterPeriod.
+  /// No description provided for @badRequest.
   ///
   /// In en, this message translates to:
-  /// **'Please enter a period'**
-  String get pleaseEnterPeriod;
+  /// **'Bad request'**
+  String get badRequest;
 
-  /// No description provided for @failedToCalculate.
+  /// No description provided for @emailOrPasswordIncorrect.
   ///
   /// In en, this message translates to:
-  /// **'Failed to calculate: {error}'**
-  String failedToCalculate(Object error);
+  /// **'Email or password incorrect'**
+  String get emailOrPasswordIncorrect;
 
-  /// No description provided for @errorOccurred.
+  /// No description provided for @userNotFound.
   ///
   /// In en, this message translates to:
-  /// **'An error occurred: {error}'**
-  String errorOccurred(Object error);
+  /// **'User not found'**
+  String get userNotFound;
 
-  /// No description provided for @indicators.
+  /// No description provided for @noAccountRegister.
   ///
   /// In en, this message translates to:
-  /// **'Indicators'**
-  String get indicators;
+  /// **'Don\'t have an account? Register'**
+  String get noAccountRegister;
 
-  /// No description provided for @oscillator.
+  /// No description provided for @alreadyHaveAccountLogin.
   ///
   /// In en, this message translates to:
-  /// **'Oscillator'**
-  String get oscillator;
+  /// **'Already have an account? Login'**
+  String get alreadyHaveAccountLogin;
 
-  /// No description provided for @movingAverages.
+  /// No description provided for @forgotPassword.
   ///
   /// In en, this message translates to:
-  /// **'Moving Averages'**
-  String get movingAverages;
+  /// **'Forgot password'**
+  String get forgotPassword;
 
-  /// No description provided for @movingAveragesType.
+  /// No description provided for @pleaseEnterEmail.
   ///
   /// In en, this message translates to:
-  /// **'Moving Averages Type'**
-  String get movingAveragesType;
+  /// **'Please enter your email'**
+  String get pleaseEnterEmail;
 
-  /// No description provided for @enterPeriod.
+  /// No description provided for @resetLinkSent.
   ///
   /// In en, this message translates to:
-  /// **'Period (comma separated)'**
-  String get enterPeriod;
+  /// **'A reset link has been sent to your email'**
+  String get resetLinkSent;
 
-  /// No description provided for @stochasticOscillator.
+  /// No description provided for @sendResetLink.
   ///
   /// In en, this message translates to:
-  /// **'Stochastic Oscillator'**
-  String get stochasticOscillator;
+  /// **'Send Reset Link'**
+  String get sendResetLink;
 
-  /// No description provided for @bollingerBands.
+  /// No description provided for @passwordResetFailed.
   ///
   /// In en, this message translates to:
-  /// **'Bollinger Bands'**
-  String get bollingerBands;
+  /// **'Password reset failed'**
+  String get passwordResetFailed;
 
-  /// No description provided for @parabolicSAR.
+  /// No description provided for @passwordResetSuccess.
   ///
   /// In en, this message translates to:
-  /// **'Parabolic SAR'**
-  String get parabolicSAR;
+  /// **'Password reset successful'**
+  String get passwordResetSuccess;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
+
+  /// No description provided for @enterResetCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the reset code sent to your email'**
+  String get enterResetCode;
+
+  /// No description provided for @verifyCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Code'**
+  String get verifyCode;
+
+  /// No description provided for @invalidResetCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid reset code'**
+  String get invalidResetCode;
+
+  /// No description provided for @sendResetCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Code'**
+  String get sendResetCode;
 
   /// No description provided for @enterSymbol.
   ///
@@ -273,11 +297,35 @@ abstract class AppLocalizations {
   /// **'Enter Symbol'**
   String get enterSymbol;
 
-  /// No description provided for @getRecommendation.
+  /// No description provided for @selectInterval.
   ///
   /// In en, this message translates to:
-  /// **'Get Recommendation'**
-  String get getRecommendation;
+  /// **'Select Interval'**
+  String get selectInterval;
+
+  /// No description provided for @intervalDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get intervalDaily;
+
+  /// No description provided for @intervalWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get intervalWeekly;
+
+  /// No description provided for @intervalMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get intervalMonthly;
+
+  /// No description provided for @viewAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'View Analysis'**
+  String get viewAnalysis;
 
   /// No description provided for @viewChart.
   ///
@@ -285,23 +333,41 @@ abstract class AppLocalizations {
   /// **'View Chart'**
   String get viewChart;
 
-  /// No description provided for @strategies.
+  /// No description provided for @pleaseEnterSymbol.
   ///
   /// In en, this message translates to:
-  /// **'Strategies'**
-  String get strategies;
+  /// **'Please enter a symbol'**
+  String get pleaseEnterSymbol;
 
-  /// No description provided for @help.
+  /// No description provided for @failedToCalculate.
   ///
   /// In en, this message translates to:
-  /// **'Help'**
-  String get help;
+  /// **'Failed to calculate. {reason}'**
+  String failedToCalculate(Object reason);
 
-  /// No description provided for @recommendation.
+  /// No description provided for @errorOccurred.
   ///
   /// In en, this message translates to:
-  /// **'Recommendation'**
-  String get recommendation;
+  /// **'An error occurred: {errorMessage}'**
+  String errorOccurred(Object errorMessage);
+
+  /// No description provided for @adx.
+  ///
+  /// In en, this message translates to:
+  /// **'ADX'**
+  String get adx;
+
+  /// No description provided for @values.
+  ///
+  /// In en, this message translates to:
+  /// **'Valores'**
+  String get values;
+
+  /// No description provided for @enterADXPeriodWithDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter ADX Period (Default is 14)'**
+  String get enterADXPeriodWithDefault;
 
   /// No description provided for @trendStrength.
   ///
@@ -314,186 +380,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last Cross'**
   String get lastCross;
-
-  /// No description provided for @reason.
-  ///
-  /// In en, this message translates to:
-  /// **'Reason'**
-  String get reason;
-
-  /// No description provided for @description.
-  ///
-  /// In en, this message translates to:
-  /// **'Description'**
-  String get description;
-
-  /// No description provided for @buy.
-  ///
-  /// In en, this message translates to:
-  /// **'BUY'**
-  String get buy;
-
-  /// No description provided for @sell.
-  ///
-  /// In en, this message translates to:
-  /// **'SELL'**
-  String get sell;
-
-  /// No description provided for @neutral.
-  ///
-  /// In en, this message translates to:
-  /// **'NEUTRAL'**
-  String get neutral;
-
-  /// No description provided for @strongBuy.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG BUY'**
-  String get strongBuy;
-
-  /// No description provided for @strongSell.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG SELL'**
-  String get strongSell;
-
-  /// No description provided for @overbought.
-  ///
-  /// In en, this message translates to:
-  /// **'Overbought'**
-  String get overbought;
-
-  /// No description provided for @oversold.
-  ///
-  /// In en, this message translates to:
-  /// **'Oversold'**
-  String get oversold;
-
-  /// No description provided for @strongOversold.
-  ///
-  /// In en, this message translates to:
-  /// **'Strong Oversold'**
-  String get strongOversold;
-
-  /// No description provided for @strongOverbought.
-  ///
-  /// In en, this message translates to:
-  /// **'Strong Overbought'**
-  String get strongOverbought;
-
-  /// No description provided for @noClearSignal.
-  ///
-  /// In en, this message translates to:
-  /// **'No clear signal'**
-  String get noClearSignal;
-
-  /// No description provided for @signalStrength.
-  ///
-  /// In en, this message translates to:
-  /// **'Signal Strength'**
-  String get signalStrength;
-
-  /// No description provided for @strongSignal.
-  ///
-  /// In en, this message translates to:
-  /// **'Strong Signal'**
-  String get strongSignal;
-
-  /// No description provided for @moderateSignal.
-  ///
-  /// In en, this message translates to:
-  /// **'Moderate Signal'**
-  String get moderateSignal;
-
-  /// No description provided for @weakSignal.
-  ///
-  /// In en, this message translates to:
-  /// **'Weak Signal'**
-  String get weakSignal;
-
-  /// No description provided for @bullishCross.
-  ///
-  /// In en, this message translates to:
-  /// **'Bullish Cross'**
-  String get bullishCross;
-
-  /// No description provided for @bearishCross.
-  ///
-  /// In en, this message translates to:
-  /// **'Bearish Cross'**
-  String get bearishCross;
-
-  /// No description provided for @divergence.
-  ///
-  /// In en, this message translates to:
-  /// **'Divergence'**
-  String get divergence;
-
-  /// No description provided for @entryExitSignal.
-  ///
-  /// In en, this message translates to:
-  /// **'Entry/Exit Signal'**
-  String get entryExitSignal;
-
-  /// No description provided for @histogram.
-  ///
-  /// In en, this message translates to:
-  /// **'Histogram'**
-  String get histogram;
-
-  /// No description provided for @signalLine.
-  ///
-  /// In en, this message translates to:
-  /// **'Signal Line'**
-  String get signalLine;
-
-  /// No description provided for @macdLine.
-  ///
-  /// In en, this message translates to:
-  /// **'MACD Line'**
-  String get macdLine;
-
-  /// No description provided for @bullish.
-  ///
-  /// In en, this message translates to:
-  /// **'Bullish'**
-  String get bullish;
-
-  /// No description provided for @bearish.
-  ///
-  /// In en, this message translates to:
-  /// **'Bearish'**
-  String get bearish;
-
-  /// No description provided for @date.
-  ///
-  /// In en, this message translates to:
-  /// **'Date'**
-  String get date;
-
-  /// No description provided for @value.
-  ///
-  /// In en, this message translates to:
-  /// **'Value'**
-  String get value;
-
-  /// No description provided for @type.
-  ///
-  /// In en, this message translates to:
-  /// **'Type'**
-  String get type;
-
-  /// No description provided for @crossingPoints.
-  ///
-  /// In en, this message translates to:
-  /// **'Crossing Points'**
-  String get crossingPoints;
-
-  /// No description provided for @adxIndicatorDetails.
-  ///
-  /// In en, this message translates to:
-  /// **'ADX Indicator Details'**
-  String get adxIndicatorDetails;
 
   /// No description provided for @currentADX.
   ///
@@ -513,167 +399,95 @@ abstract class AppLocalizations {
   /// **'Current -DI'**
   String get currentDIMinus;
 
-  /// No description provided for @absenceOfClearTrend.
+  /// No description provided for @noSignificantTrend.
   ///
   /// In en, this message translates to:
-  /// **'Absence of clear trend'**
-  String get absenceOfClearTrend;
+  /// **'No significant trend detected'**
+  String get noSignificantTrend;
 
-  /// No description provided for @clearBullishTrend.
+  /// No description provided for @moderateBullishTrend.
   ///
   /// In en, this message translates to:
-  /// **'Clear bullish trend'**
-  String get clearBullishTrend;
+  /// **'Moderate bullish trend observed'**
+  String get moderateBullishTrend;
 
-  /// No description provided for @clearBearishTrend.
+  /// No description provided for @moderateBearishTrend.
   ///
   /// In en, this message translates to:
-  /// **'Clear bearish trend'**
-  String get clearBearishTrend;
+  /// **'Moderate bearish trend observed'**
+  String get moderateBearishTrend;
 
-  /// No description provided for @sidewaysTrend.
+  /// No description provided for @sidewaysModerate.
   ///
   /// In en, this message translates to:
-  /// **'Sideways trend'**
-  String get sidewaysTrend;
+  /// **'Sideways trend with moderate strength'**
+  String get sidewaysModerate;
 
-  /// No description provided for @strongBullishTrend.
+  /// No description provided for @strongBullishPeak.
   ///
   /// In en, this message translates to:
-  /// **'Strong bullish trend (possible peak)'**
-  String get strongBullishTrend;
+  /// **'Strong bullish trend detected, possible peak'**
+  String get strongBullishPeak;
 
-  /// No description provided for @strongBearishTrend.
+  /// No description provided for @strongBearishPeak.
   ///
   /// In en, this message translates to:
-  /// **'Strong bearish trend (possible peak)'**
-  String get strongBearishTrend;
+  /// **'Strong bearish trend detected, possible peak'**
+  String get strongBearishPeak;
 
-  /// No description provided for @veryStrongTrend.
+  /// No description provided for @veryStrongTrendNearPeak.
   ///
   /// In en, this message translates to:
-  /// **'Very strong trend (trend peak)'**
-  String get veryStrongTrend;
+  /// **'Very strong trend detected, near peak strength'**
+  String get veryStrongTrendNearPeak;
 
-  /// No description provided for @understandingTheIndicator.
+  /// No description provided for @bullishCross.
   ///
   /// In en, this message translates to:
-  /// **'Understanding the indicator'**
-  String get understandingTheIndicator;
+  /// **'Bullish Cross'**
+  String get bullishCross;
 
-  /// No description provided for @understandingADXDesc.
+  /// No description provided for @bearishCross.
   ///
   /// In en, this message translates to:
-  /// **'The ADX is a technical analysis indicator used to quantify the strength of a trend. It ranges from 0 to 100, with higher values indicating a stronger trend.'**
-  String get understandingADXDesc;
+  /// **'Bearish Cross'**
+  String get bearishCross;
 
-  /// No description provided for @recommendationLogic.
+  /// No description provided for @adxExplanation.
   ///
   /// In en, this message translates to:
-  /// **'Recommendation Logic:'**
-  String get recommendationLogic;
+  /// **'ADX Explanation'**
+  String get adxExplanation;
 
-  /// No description provided for @recommendationLogicDescAdx.
+  /// No description provided for @adxExplanationDesc.
   ///
   /// In en, this message translates to:
-  /// **'The ADX value helps determine the strength of the trend:\n- Below 25: Absence of clear trend.\n- 25 to 40: Clear trend (bullish or bearish).\n- 40 to 50: Strong trend (possible peak).\n- Above 50: Very strong trend (trend peak).'**
-  String get recommendationLogicDescAdx;
+  /// **'The ADX (Average Directional Index) is a technical indicator used to quantify trend strength.'**
+  String get adxExplanationDesc;
 
-  /// No description provided for @recommendationTypes.
+  /// No description provided for @crossTypes.
   ///
   /// In en, this message translates to:
-  /// **'Recommendation Types:'**
-  String get recommendationTypes;
+  /// **'Cross Types'**
+  String get crossTypes;
 
-  /// No description provided for @buyRecommendationAdx.
+  /// No description provided for @bollingerBands.
   ///
   /// In en, this message translates to:
-  /// **'BUY: ADX value is above 25 and the +DI crosses above the -DI, indicating a potential bullish trend.'**
-  String get buyRecommendationAdx;
+  /// **'Bollinger Bands'**
+  String get bollingerBands;
 
-  /// No description provided for @sellRecommendationAdx.
+  /// No description provided for @enterBBPeriodWithDefault.
   ///
   /// In en, this message translates to:
-  /// **'SELL: ADX value is above 25 and the +DI crosses below the -DI, indicating a potential bearish trend.'**
-  String get sellRecommendationAdx;
+  /// **'Enter Bollinger Bands Period (Default is 20)'**
+  String get enterBBPeriodWithDefault;
 
-  /// No description provided for @neutralRecommendationAdx.
+  /// No description provided for @enterBBStdDevWithDefault.
   ///
   /// In en, this message translates to:
-  /// **'NEUTRAL: ADX value is below 25, indicating a weak or absent trend.'**
-  String get neutralRecommendationAdx;
-
-  /// No description provided for @strongBuyRecommendationAdx.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG BUY: ADX value is above 50 and the +DI crosses above the -DI, indicating a very strong bullish trend.'**
-  String get strongBuyRecommendationAdx;
-
-  /// No description provided for @strongSellRecommendationAdx.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG SELL: ADX value is above 50 and the +DI crosses below the -DI, indicating a very strong bearish trend.'**
-  String get strongSellRecommendationAdx;
-
-  /// No description provided for @adxDivergenceDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'ADX divergence occurs when the price movement is not confirmed by the ADX indicator. For example, if the price is making new highs, but the ADX indicator is making lower highs, it may indicate a weakening trend, or potential reversal.'**
-  String get adxDivergenceDesc;
-
-  /// No description provided for @adxEntryExitSignalDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Some traders use specific ADX threshold levels as entry or exit signals. For example, they may enter a trade when the ADX crosses above a certain value, indicating a strong trend, and exit when it falls below another threshold, suggesting a weakening trend. These threshold levels may vary depending on the trader\'s strategy and market conditions.'**
-  String get adxEntryExitSignalDesc;
-
-  /// No description provided for @understandingBollingerBandsDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Bollinger Bands are a type of statistical chart characterizing the prices and volatility over time of a financial instrument or commodity. They consist of a middle band (SMA) and two outer bands (standard deviations above and below the SMA).'**
-  String get understandingBollingerBandsDesc;
-
-  /// No description provided for @bollingerBandsLevels.
-  ///
-  /// In en, this message translates to:
-  /// **'Bollinger Bands Levels'**
-  String get bollingerBandsLevels;
-
-  /// No description provided for @bollingerBandsLevelsDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'The Bollinger Bands indicator consists of three lines: the upper band, middle band (SMA), and lower band. The position of the price relative to these bands can provide trading signals.'**
-  String get bollingerBandsLevelsDesc;
-
-  /// No description provided for @buyRecommendationBollinger.
-  ///
-  /// In en, this message translates to:
-  /// **'BUY: The price is below the lower band - Oversold.'**
-  String get buyRecommendationBollinger;
-
-  /// No description provided for @strongBuyRecommendationBollinger.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG BUY: The price is below the lower band - Oversold with wide bands.'**
-  String get strongBuyRecommendationBollinger;
-
-  /// No description provided for @sellRecommendationBollinger.
-  ///
-  /// In en, this message translates to:
-  /// **'SELL: The price is above the upper band - Overbought.'**
-  String get sellRecommendationBollinger;
-
-  /// No description provided for @strongSellRecommendationBollinger.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG SELL: The price is above the upper band - Overbought with wide bands.'**
-  String get strongSellRecommendationBollinger;
-
-  /// No description provided for @neutralRecommendationBollinger.
-  ///
-  /// In en, this message translates to:
-  /// **'NEUTRAL: Narrow bands - Neutral or within the Bollinger bands.'**
-  String get neutralRecommendationBollinger;
+  /// **'Enter Bollinger Bands Standard Deviation (Default is 2)'**
+  String get enterBBStdDevWithDefault;
 
   /// No description provided for @upperBand.
   ///
@@ -699,605 +513,263 @@ abstract class AppLocalizations {
   /// **'Band Width'**
   String get bandWidth;
 
-  /// No description provided for @overboughtWideBands.
+  /// No description provided for @signalStrength.
   ///
   /// In en, this message translates to:
-  /// **'Price above Upper Band - Overbought with Wide Bands'**
-  String get overboughtWideBands;
+  /// **'Signal Strength'**
+  String get signalStrength;
 
-  /// No description provided for @bollingerBandsOverbought.
+  /// No description provided for @description.
   ///
   /// In en, this message translates to:
-  /// **'Price above Upper Band - Overbought'**
-  String get bollingerBandsOverbought;
+  /// **'Description'**
+  String get description;
 
-  /// No description provided for @oversoldWideBands.
+  /// No description provided for @strongSignal.
   ///
   /// In en, this message translates to:
-  /// **'Price below Lower Band - Oversold with Wide Bands'**
-  String get oversoldWideBands;
+  /// **'Strong Signal'**
+  String get strongSignal;
 
-  /// No description provided for @bollingerBandsOversold.
+  /// No description provided for @moderateSignal.
   ///
   /// In en, this message translates to:
-  /// **'Price below Lower Band - Oversold'**
-  String get bollingerBandsOversold;
+  /// **'Moderate Signal'**
+  String get moderateSignal;
 
-  /// No description provided for @narrowBandsNeutral.
+  /// No description provided for @weakSignal.
   ///
   /// In en, this message translates to:
-  /// **'Narrow Bands - Neutral'**
-  String get narrowBandsNeutral;
+  /// **'Weak Signal'**
+  String get weakSignal;
 
-  /// No description provided for @withinBollingerBands.
+  /// No description provided for @bollingerBandsDesc.
   ///
   /// In en, this message translates to:
-  /// **'Within Bollinger Bands'**
-  String get withinBollingerBands;
+  /// **'Bollinger Bands are a volatility indicator used in technical analysis to measure price fluctuations of a financial asset. This indicator consists of three lines: the middle line, a simple moving average, and two bands above and below, representing standard deviations. The bands expand and contract based on the asset\'s volatility. When the price nears the upper band, the asset may be overbought; when it approaches the lower band, it may be oversold. Traders use Bollinger Bands to identify potential buy and sell points, periods of high or low volatility, and to anticipate price breakouts when bands remain narrow for an extended period.'**
+  String get bollingerBandsDesc;
 
-  /// No description provided for @bollinger_band_squeeze_title.
+  /// No description provided for @calculateBBFailed.
   ///
   /// In en, this message translates to:
-  /// **'Bollinger Band Squeeze'**
-  String get bollinger_band_squeeze_title;
+  /// **'Failed to calculate Bollinger Bands'**
+  String get calculateBBFailed;
 
-  /// No description provided for @bollinger_band_squeeze_description.
+  /// No description provided for @bBoverboughtHighVolatility.
   ///
   /// In en, this message translates to:
-  /// **'The Bollinger Band Squeeze strategy is based on the principle that periods of low volatility are often followed by periods of high volatility. When the bands squeeze together, it indicates that the volatility is low and a breakout could occur. Traders watch for a price move above or below the bands as a signal for potential entry.'**
-  String get bollinger_band_squeeze_description;
+  /// **'The price is above the upper band, indicating a possible overbought condition with high volatility.'**
+  String get bBoverboughtHighVolatility;
 
-  /// No description provided for @bollinger_band_breakout_title.
+  /// No description provided for @bBoverbought.
   ///
   /// In en, this message translates to:
-  /// **'Bollinger Band Breakout'**
-  String get bollinger_band_breakout_title;
+  /// **'The price is above the upper band, which may suggest a potential overbought condition.'**
+  String get bBoverbought;
 
-  /// No description provided for @bollinger_band_breakout_description.
+  /// No description provided for @bBoversoldHighVolatility.
   ///
   /// In en, this message translates to:
-  /// **'The Bollinger Band Breakout strategy looks for price breaking out of the upper or lower bands. A breakout above the upper band can signal that the price is in a strong uptrend, while a breakout below the lower band can signal a strong downtrend. Traders often use this strategy to enter trades in the direction of the breakout.'**
-  String get bollinger_band_breakout_description;
+  /// **'The price is below the lower band, indicating a possible oversold condition with high volatility.'**
+  String get bBoversoldHighVolatility;
 
-  /// No description provided for @reversion_to_mean_title.
+  /// No description provided for @bBoversold.
   ///
   /// In en, this message translates to:
-  /// **'Reversion to the Mean'**
-  String get reversion_to_mean_title;
+  /// **'The price is below the lower band, which may suggest a potential oversold condition.'**
+  String get bBoversold;
 
-  /// No description provided for @reversion_to_mean_description.
+  /// No description provided for @bBpotentialBreakout.
   ///
   /// In en, this message translates to:
-  /// **'This strategy assumes that price tends to return to the middle band (the simple moving average) after touching the upper or lower bands. When the price hits the upper band, traders might look for sell signals, anticipating that the price will revert back to the mean. Conversely, when the price hits the lower band, traders might look for buy signals.'**
-  String get reversion_to_mean_description;
+  /// **'The bands are narrow, suggesting low volatility and a possible breakout pattern.'**
+  String get bBpotentialBreakout;
 
-  /// No description provided for @double_bottoms_and_tops_title.
+  /// No description provided for @bBextendedNarrowBands.
   ///
   /// In en, this message translates to:
-  /// **'Double Bottoms and Tops'**
-  String get double_bottoms_and_tops_title;
+  /// **'The bands have remained narrow over an extended period, indicating low volatility with a high breakout potential.'**
+  String get bBextendedNarrowBands;
 
-  /// No description provided for @double_bottoms_and_tops_description.
+  /// No description provided for @bBwithinBands.
   ///
   /// In en, this message translates to:
-  /// **'Double bottoms and tops are reversal patterns that can be identified using Bollinger Bands. A double bottom occurs when the price makes two lows around the same level, often with a lower low touching or going below the lower band, followed by a rally. A double top occurs when the price makes two highs around the same level, often with an upper high touching or exceeding the upper band, followed by a decline.'**
-  String get double_bottoms_and_tops_description;
+  /// **'The price is within the Bollinger bands, indicating typical price movement within a neutral range.'**
+  String get bBwithinBands;
 
-  /// No description provided for @belowMiddleBand.
+  /// No description provided for @mildUpwardTrend.
   ///
   /// In en, this message translates to:
-  /// **'Price below Middle Band\''**
-  String get belowMiddleBand;
+  /// **'The price is above the middle band, indicating a mild upward trend.'**
+  String get mildUpwardTrend;
 
-  /// No description provided for @aboveMiddleBand.
+  /// No description provided for @mildDownwardTrend.
   ///
   /// In en, this message translates to:
-  /// **'Price above Middle Band'**
-  String get aboveMiddleBand;
+  /// **'The price is below the middle band, indicating a mild downward trend.'**
+  String get mildDownwardTrend;
 
-  /// No description provided for @understandingMacdDesc.
+  /// No description provided for @macd.
   ///
   /// In en, this message translates to:
-  /// **'The MACD is a trend-following momentum indicator that shows the relationship between two moving averages of a security’s price. It consists of the MACD line, signal line, and histogram.'**
-  String get understandingMacdDesc;
+  /// **'MACD'**
+  String get macd;
 
-  /// No description provided for @buyRecommendationMacd.
+  /// No description provided for @macdLine.
   ///
   /// In en, this message translates to:
-  /// **'BUY: The MACD crosses above the signal line, indicating a bullish trend.'**
-  String get buyRecommendationMacd;
+  /// **'MACD Line'**
+  String get macdLine;
 
-  /// No description provided for @sellRecommendationMacd.
+  /// No description provided for @signalLine.
   ///
   /// In en, this message translates to:
-  /// **'SELL: The MACD crosses below the signal line, indicating a bearish trend.'**
-  String get sellRecommendationMacd;
+  /// **'Signal Line'**
+  String get signalLine;
 
-  /// No description provided for @neutralRecommendationMacd.
+  /// No description provided for @histogram.
   ///
   /// In en, this message translates to:
-  /// **'NEUTRAL: No clear signal is identified by the MACD indicator, possibly due to the proximity between the MACD and the signal line.'**
-  String get neutralRecommendationMacd;
+  /// **'Histogram'**
+  String get histogram;
 
-  /// No description provided for @strongBuyRecommendationMacd.
+  /// No description provided for @trendAnalysis.
   ///
   /// In en, this message translates to:
-  /// **'STRONG BUY: The MACD crosses above the signal line with an increasing histogram, indicating a strong bullish trend.'**
-  String get strongBuyRecommendationMacd;
+  /// **'Trend Analysis'**
+  String get trendAnalysis;
 
-  /// No description provided for @strongSellRecommendationMacd.
+  /// No description provided for @divergence.
   ///
   /// In en, this message translates to:
-  /// **'STRONG SELL: The MACD crosses below the signal line with a decreasing histogram, indicating a strong bearish trend.'**
-  String get strongSellRecommendationMacd;
+  /// **'Divergence'**
+  String get divergence;
 
-  /// No description provided for @recommendationLogicDescMacd.
+  /// No description provided for @histogramAnalysis.
   ///
   /// In en, this message translates to:
-  /// **'When the MACD line crosses above the signal line, it is considered a bullish signal, indicating a potential buy opportunity. Conversely, when the MACD line crosses below the signal line, it is considered a bearish signal, indicating a potential sell opportunity.'**
-  String get recommendationLogicDescMacd;
+  /// **'Histogram Analysis'**
+  String get histogramAnalysis;
 
-  /// No description provided for @macdLineSignalCorss.
+  /// No description provided for @macdbullishTrend.
   ///
   /// In en, this message translates to:
-  /// **'MACD Line and Signal Line Crossover'**
-  String get macdLineSignalCorss;
+  /// **'Bullish - MACD line is above the Signal line'**
+  String get macdbullishTrend;
 
-  /// No description provided for @macdLineSignalCorssDesc.
+  /// No description provided for @macdbearishTrend.
   ///
   /// In en, this message translates to:
-  /// **'This strategy involves identifying buy and sell signals based on the crossover of the MACD line and the signal line. A bullish crossover occurs when the MACD line crosses above the signal line, indicating a potential buy signal. Conversely, a bearish crossover occurs when the MACD line crosses below the signal line, indicating a potential sell signal.'**
-  String get macdLineSignalCorssDesc;
+  /// **'Bearish - MACD line is below the Signal line'**
+  String get macdbearishTrend;
 
-  /// No description provided for @macdHistogram.
+  /// No description provided for @macdneutralTrend.
   ///
   /// In en, this message translates to:
-  /// **'MACD Histogram'**
-  String get macdHistogram;
+  /// **'Neutral - MACD line is equal to the Signal line'**
+  String get macdneutralTrend;
 
-  /// No description provided for @macdHistogramDesc.
+  /// No description provided for @macdbullishDivergence.
   ///
   /// In en, this message translates to:
-  /// **'In this strategy, traders look for changes in the MACD histogram. When the histogram moves from negative to positive territory, it suggests increasing bullish momentum. Conversely, when the histogram moves from positive to negative territory, it suggests increasing bearish momentum.'**
-  String get macdHistogramDesc;
+  /// **'Bullish Divergence - MACD decreasing while price is increasing'**
+  String get macdbullishDivergence;
 
-  /// No description provided for @macdDivergencePrice.
+  /// No description provided for @macdbearishDivergence.
   ///
   /// In en, this message translates to:
-  /// **'Divergence with Price'**
-  String get macdDivergencePrice;
+  /// **'Bearish Divergence - MACD increasing while price is decreasing'**
+  String get macdbearishDivergence;
 
-  /// No description provided for @macdDivergencePriceDesc.
+  /// No description provided for @noDivergence.
   ///
   /// In en, this message translates to:
-  /// **'Similar to RSI divergence, traders can use MACD divergence to identify potential trend reversals. A bullish divergence occurs when the price makes a lower low, but the MACD indicator forms a higher low. Conversely, a bearish divergence occurs when the price makes a higher high, but the MACD indicator forms a lower high.'**
-  String get macdDivergencePriceDesc;
+  /// **'No significant divergence detected'**
+  String get noDivergence;
 
-  /// No description provided for @bearishDivergence.
+  /// No description provided for @histogramExpanding.
   ///
   /// In en, this message translates to:
-  /// **'Bearish Divergence'**
-  String get bearishDivergence;
+  /// **'Histogram expanding - trend strengthening'**
+  String get histogramExpanding;
 
-  /// No description provided for @macdSignalBullish.
+  /// No description provided for @histogramContracting.
   ///
   /// In en, this message translates to:
-  /// **'MACD and signal in bullish territory'**
-  String get macdSignalBullish;
+  /// **'Histogram contracting - trend weakening'**
+  String get histogramContracting;
 
-  /// No description provided for @conflictingSignals.
+  /// No description provided for @histogramStable.
   ///
   /// In en, this message translates to:
-  /// **'Conflicting signals'**
-  String get conflictingSignals;
+  /// **'Histogram stable - steady trend'**
+  String get histogramStable;
 
-  /// No description provided for @bullishDivergence.
+  /// No description provided for @macdLineDesc.
   ///
   /// In en, this message translates to:
-  /// **'Bullish Divergence'**
-  String get bullishDivergence;
+  /// **'The MACD line is calculated as the difference between the 12-day and 26-day exponential moving averages, showing trend direction and momentum.'**
+  String get macdLineDesc;
 
-  /// No description provided for @macdSignalBearish.
+  /// No description provided for @signalLineDesc.
   ///
   /// In en, this message translates to:
-  /// **'MACD and signal in bearish territory'**
-  String get macdSignalBearish;
+  /// **'The Signal line is the 9-day EMA of the MACD line, helping to identify potential buy and sell signals through crossovers.'**
+  String get signalLineDesc;
 
-  /// No description provided for @currentParabolicSAR.
+  /// No description provided for @histogramDesc.
   ///
   /// In en, this message translates to:
-  /// **'Current Parabolic SAR'**
-  String get currentParabolicSAR;
+  /// **'The histogram displays the difference between the MACD and Signal lines, visualizing the trend’s strength.'**
+  String get histogramDesc;
 
-  /// No description provided for @previousParabolicSAR.
+  /// No description provided for @macdTrendAnalysisDesc.
   ///
   /// In en, this message translates to:
-  /// **'Previous Parabolic SAR'**
-  String get previousParabolicSAR;
+  /// **'The MACD Trend Analysis assesses the relationship between the MACD and Signal lines to indicate if the trend is bullish, bearish, or neutral.'**
+  String get macdTrendAnalysisDesc;
 
-  /// No description provided for @trendDirection.
+  /// No description provided for @divergenceDesc.
   ///
   /// In en, this message translates to:
-  /// **'Trend Direction'**
-  String get trendDirection;
+  /// **'Divergence occurs when MACD and price move in opposite directions, signaling a potential trend reversal.'**
+  String get divergenceDesc;
 
-  /// No description provided for @upwardTrend.
+  /// No description provided for @histogramAnalysisDesc.
   ///
   /// In en, this message translates to:
-  /// **'Upward Trend'**
-  String get upwardTrend;
+  /// **'Histogram analysis examines size changes in the histogram to assess if the trend is strengthening, weakening, or stable.'**
+  String get histogramAnalysisDesc;
 
-  /// No description provided for @downwardTrend.
+  /// No description provided for @movingAverages.
   ///
   /// In en, this message translates to:
-  /// **'Downward Trend'**
-  String get downwardTrend;
+  /// **'Moving Averages'**
+  String get movingAverages;
 
-  /// No description provided for @noClearTrend.
+  /// No description provided for @movingAveragesDesc.
   ///
   /// In en, this message translates to:
-  /// **'No Clear Trend'**
-  String get noClearTrend;
+  /// **'Moving averages (MA) are indicators that help smooth price data to identify trends. Here are common types:'**
+  String get movingAveragesDesc;
 
-  /// No description provided for @buyRecommendationParabolicSAR.
+  /// No description provided for @smaPeriods.
   ///
   /// In en, this message translates to:
-  /// **'BUY: SAR is currently below the price, indicating a potential bullish trend.'**
-  String get buyRecommendationParabolicSAR;
+  /// **'SMA Periods (comma-separated)'**
+  String get smaPeriods;
 
-  /// No description provided for @strongBuyRecommendationParabolicSAR.
+  /// No description provided for @emaPeriods.
   ///
   /// In en, this message translates to:
-  /// **'STRONG BUY: SAR is significantly below the price, indicating a strong bullish trend.'**
-  String get strongBuyRecommendationParabolicSAR;
+  /// **'EMA Periods (comma-separated)'**
+  String get emaPeriods;
 
-  /// No description provided for @sellRecommendationParabolicSAR.
+  /// No description provided for @wmaPeriods.
   ///
   /// In en, this message translates to:
-  /// **'SELL: SAR is currently above the price, indicating a potential bearish trend.'**
-  String get sellRecommendationParabolicSAR;
-
-  /// No description provided for @strongSellRecommendationParabolicSAR.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG SELL: SAR is significantly above the price, indicating a strong bearish trend.'**
-  String get strongSellRecommendationParabolicSAR;
-
-  /// No description provided for @neutralRecommendationParabolicSAR.
-  ///
-  /// In en, this message translates to:
-  /// **'NEUTRAL: SAR is not significantly above or below the price, suggesting a lack of clear trend direction.'**
-  String get neutralRecommendationParabolicSAR;
-
-  /// No description provided for @understandingParabolicSARDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'The Parabolic SAR (Stop and Reverse) is a technical indicator used to identify potential reversals in the price direction of an asset. It is represented by a series of dots above or below the price chart, indicating the potential direction of the trend.'**
-  String get understandingParabolicSARDesc;
-
-  /// No description provided for @recommendationLogicItem1.
-  ///
-  /// In en, this message translates to:
-  /// **'If the current SAR value is greater than the previous SAR value and the current price is greater than the previous price, it indicates an uptrend and a possible buying opportunity.'**
-  String get recommendationLogicItem1;
-
-  /// No description provided for @recommendationLogicItem2.
-  ///
-  /// In en, this message translates to:
-  /// **'If the current SAR value is lower than the previous SAR value and the current price is lower than the previous price, it indicates a bearish trend and a possible selling opportunity.'**
-  String get recommendationLogicItem2;
-
-  /// No description provided for @trendReversal.
-  ///
-  /// In en, this message translates to:
-  /// **'Trend Reversal'**
-  String get trendReversal;
-
-  /// No description provided for @trailingStopLoss.
-  ///
-  /// In en, this message translates to:
-  /// **'Trailing Stop Loss'**
-  String get trailingStopLoss;
-
-  /// No description provided for @trendFollowing.
-  ///
-  /// In en, this message translates to:
-  /// **'Trend Following'**
-  String get trendFollowing;
-
-  /// No description provided for @trendReversalDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'This strategy involves identifying potential trend reversals based on the movement of the Parabolic SAR indicator. A reversal from above the price to below the price suggests a potential bullish trend reversal, while a reversal from below the price to above the price suggests a potential bearish trend reversal.'**
-  String get trendReversalDescription;
-
-  /// No description provided for @trailingStopLossDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'In this strategy, traders use the Parabolic SAR as a trailing stop loss mechanism. As the price moves in favor of the trade, the Parabolic SAR moves closer to the price, acting as a dynamic stop loss level. If the price reverses and the Parabolic SAR crosses the price, it triggers a stop loss.'**
-  String get trailingStopLossDescription;
-
-  /// No description provided for @trendFollowingDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Traders can use the Parabolic SAR to follow the trend by entering positions in the direction of the SAR. In an uptrend, traders look for buy signals when the SAR moves below the price, indicating bullish momentum. In a downtrend, traders look for sell signals when the SAR moves above the price, indicating bearish momentum.'**
-  String get trendFollowingDescription;
-
-  /// No description provided for @understandingRSIDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements. It is primarily used to identify overbought or oversold conditions in a market.'**
-  String get understandingRSIDesc;
-
-  /// No description provided for @buyRecommendationRSI.
-  ///
-  /// In en, this message translates to:
-  /// **'BUY: RSI < 30 and starts to rise, indicating an oversold condition and a potential buying opportunity.'**
-  String get buyRecommendationRSI;
-
-  /// No description provided for @strongBuyRecommendationRSI.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG BUY: RSI < 20 and starts to rise, indicating a very oversold condition and a strong buying opportunity.'**
-  String get strongBuyRecommendationRSI;
-
-  /// No description provided for @sellRecommendationRSI.
-  ///
-  /// In en, this message translates to:
-  /// **'SELL: RSI > 70 and starts to fall, indicating an overbought condition and a potential selling opportunity.'**
-  String get sellRecommendationRSI;
-
-  /// No description provided for @strongSellRecommendationRSI.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG SELL: RSI > 80 and starts to fall, indicating a very overbought condition and a strong selling opportunity.'**
-  String get strongSellRecommendationRSI;
-
-  /// No description provided for @neutralRecommendationRSI.
-  ///
-  /// In en, this message translates to:
-  /// **'NEUTRAL: RSI between 30 and 70, indicating no clear overbought or oversold conditions.'**
-  String get neutralRecommendationRSI;
-
-  /// No description provided for @overboughtOversoldLevels.
-  ///
-  /// In en, this message translates to:
-  /// **'Overbought/Oversold Levels'**
-  String get overboughtOversoldLevels;
-
-  /// No description provided for @overboughtOversoldLevelsRSIDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'This strategy involves identifying overbought and oversold conditions using the RSI indicator. When the RSI value exceeds 70, it\'s considered overbought, indicating a potential sell signal. Conversely, when the RSI value drops below 30, it\'s considered oversold, indicating a potential buy signal.'**
-  String get overboughtOversoldLevelsRSIDesc;
-
-  /// No description provided for @divergenceRSIDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'In this strategy, traders look for divergences between the price and the RSI indicator. A bullish divergence occurs when the price makes a lower low, but the RSI indicator forms a higher low, suggesting potential upward momentum. Conversely, a bearish divergence occurs when the price makes a higher high, but the RSI indicator forms a lower high, suggesting potential downward momentum.'**
-  String get divergenceRSIDesc;
-
-  /// No description provided for @trendConfirmation.
-  ///
-  /// In en, this message translates to:
-  /// **'Trend Confirmation'**
-  String get trendConfirmation;
-
-  /// No description provided for @trengConfirmationRSIDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'This strategy involves using the RSI indicator to confirm trends identified by other indicators or price action. When the RSI value confirms a bullish trend by staying above a certain threshold (e.g., 50), it reinforces the bullish bias. Similarly, when the RSI value confirms a bearish trend by staying below a certain threshold, it reinforces the bearish bias.'**
-  String get trengConfirmationRSIDesc;
-
-  /// No description provided for @understandingStochasticDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'The Stochastic Oscillator is a momentum indicator that compares a particular closing price of a security to a range of its prices over a certain period of time. It oscillates between 0 and 100 and is used to identify potential overbought or oversold conditions in a market.'**
-  String get understandingStochasticDesc;
-
-  /// No description provided for @buyRecommendationStochastic.
-  ///
-  /// In en, this message translates to:
-  /// **'BUY: The stochastic indicator suggests a potential buying opportunity when SlowK and SlowD are low (below 20) and SlowK crosses above SlowD.'**
-  String get buyRecommendationStochastic;
-
-  /// No description provided for @strongBuyRecommendationStochastic.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG BUY: The stochastic indicator shows a strong buying signal when SlowK and SlowD are very low (below 10) and SlowK crosses above SlowD.'**
-  String get strongBuyRecommendationStochastic;
-
-  /// No description provided for @sellRecommendationStochastic.
-  ///
-  /// In en, this message translates to:
-  /// **'SELL: The stochastic indicator suggests a potential selling opportunity when SlowK and SlowD are high (above 80) and SlowK crosses below SlowD.'**
-  String get sellRecommendationStochastic;
-
-  /// No description provided for @strongSellRecommendationStochastic.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG SELL: The stochastic indicator shows a strong selling signal when SlowK and SlowD are very high (above 90) and SlowK crosses below SlowD.'**
-  String get strongSellRecommendationStochastic;
-
-  /// No description provided for @neutralRecommendationStochastic.
-  ///
-  /// In en, this message translates to:
-  /// **'NEUTRAL: The stochastic indicator indicates a neutral condition when SlowK and SlowD are between 20 and 80, suggesting that there is no clear signal of overbought or oversold.'**
-  String get neutralRecommendationStochastic;
-
-  /// No description provided for @overboughtOversoldLevelsStochasticDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'This strategy involves identifying overbought and oversold conditions using the stochastic oscillator. When the %K line crosses above 80, it indicates overbought conditions and suggests a potential sell signal. Conversely, when the %K line crosses below 20, it indicates oversold conditions and suggests a potential buy signal.'**
-  String get overboughtOversoldLevelsStochasticDesc;
-
-  /// No description provided for @divergenceStochasticDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'In this strategy, traders look for divergences between the price and the stochastic oscillator. A bullish divergence occurs when the price makes a lower low, but the stochastic oscillator forms a higher low, suggesting potential upward momentum. Conversely, a bearish divergence occurs when the price makes a higher high, but the stochastic oscillator forms a lower high, suggesting potential downward momentum.'**
-  String get divergenceStochasticDesc;
-
-  /// No description provided for @trendConfirmationStochasticDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'This strategy involves using the stochastic oscillator to confirm trends identified by other indicators or price action. When the %K line confirms a bullish trend by staying above a certain threshold (e.g., 50), it reinforces the bullish bias. Similarly, when the %K line confirms a bearish trend by staying below a certain threshold, it reinforces the bearish bias.'**
-  String get trendConfirmationStochasticDesc;
-
-  /// No description provided for @understandingWilliamsRDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'The Williams %R (%R) indicator is a momentum oscillator that measures overbought or oversold levels. It oscillates between -100 and 0, where values above -20 are considered overbought and values below -80 are considered oversold.'**
-  String get understandingWilliamsRDesc;
-
-  /// No description provided for @buyRecommendationWilliamsR.
-  ///
-  /// In en, this message translates to:
-  /// **'BUY: Williams %R is between -80 and -50, indicating an oversold condition and a potential buying opportunity.'**
-  String get buyRecommendationWilliamsR;
-
-  /// No description provided for @strongBuyRecommendationWilliamsR.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG BUY: Williams %R is below -80, indicating a very oversold condition and a strong buying opportunity.'**
-  String get strongBuyRecommendationWilliamsR;
-
-  /// No description provided for @sellRecommendationWilliamsR.
-  ///
-  /// In en, this message translates to:
-  /// **'SELL: Williams %R is between -20 and -50, indicating an overbought condition and a potential selling opportunity.'**
-  String get sellRecommendationWilliamsR;
-
-  /// No description provided for @strongSellRecommendationWilliamsR.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG SELL: Williams %R is above -20, indicating a very overbought condition and a strong selling opportunity.'**
-  String get strongSellRecommendationWilliamsR;
-
-  /// No description provided for @neutralRecommendationWilliamsR.
-  ///
-  /// In en, this message translates to:
-  /// **'NEUTRAL: Williams %R doesn\'t present a clear signal of overbought or oversold conditions, suggesting a neutral condition.'**
-  String get neutralRecommendationWilliamsR;
-
-  /// No description provided for @overboughtOversoldLevelsWRDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'This strategy involves identifying overbought and oversold conditions using the Williams %R indicator. When the Williams %R value exceeds -20, it\'s considered overbought, indicating a potential sell signal. Conversely, when the Williams %R value drops below -80, it\'s considered oversold, indicating a potential buy signal.'**
-  String get overboughtOversoldLevelsWRDesc;
-
-  /// No description provided for @divergenceWRDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'In this strategy, traders look for divergences between the price and the Williams %R indicator. A bullish divergence occurs when the price makes a lower low, but the Williams %R indicator forms a higher low, suggesting potential upward momentum. Conversely, a bearish divergence occurs when the price makes a higher high, but the Williams %R indicator forms a lower high, suggesting potential downward momentum.'**
-  String get divergenceWRDesc;
-
-  /// No description provided for @trengConfirmationWRDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'This strategy involves using the Williams %R indicator to confirm trends identified by other indicators or price action. When the Williams %R value confirms a bullish trend by staying above a certain threshold (e.g., -50), it reinforces the bullish bias. Similarly, when the Williams %R value confirms a bearish trend by staying below a certain threshold, it reinforces the bearish bias.'**
-  String get trengConfirmationWRDesc;
-
-  /// No description provided for @movingAveragesCrossover.
-  ///
-  /// In en, this message translates to:
-  /// **'Moving Averages Crossover'**
-  String get movingAveragesCrossover;
-
-  /// No description provided for @movingAveragesCrossoverDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'This strategy involves using two moving averages with different time periods. When the shorter moving average crosses above the longer one, it\'s considered a buy signal, indicating a possible uptrend. Conversely, when the shorter moving average crosses below the longer one, it\'s considered a sell signal, indicating a possible downtrend.'**
-  String get movingAveragesCrossoverDesc;
-
-  /// No description provided for @movingAveragesSupportResistance.
-  ///
-  /// In en, this message translates to:
-  /// **'Moving Averages as Support and Resistance'**
-  String get movingAveragesSupportResistance;
-
-  /// No description provided for @movingAveragesSupportResistanceDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'In this strategy, a single moving average is used as a dynamic support or resistance level. When the price approaches the moving average from above, it may act as resistance, and when the price approaches from below, it may act as support. Traders may look for buying opportunities when the price bounces off the moving average from below and selling opportunities when the price bounces from above.'**
-  String get movingAveragesSupportResistanceDesc;
-
-  /// No description provided for @movingAveragesReversalSignal.
-  ///
-  /// In en, this message translates to:
-  /// **'Moving Averages Reversal Signal'**
-  String get movingAveragesReversalSignal;
-
-  /// No description provided for @movingAveragesReversalSignalDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Some traders use moving averages to identify potential reversal points in the market. For example, when the price significantly deviates from a particular moving average, it may indicate that the current trend is overextended and a reversal is likely. Traders may look for reversal signals when the price approaches the moving average again.'**
-  String get movingAveragesReversalSignalDesc;
-
-  /// No description provided for @simpleMovingAverage.
-  ///
-  /// In en, this message translates to:
-  /// **'Simple Moving Average (SMA)'**
-  String get simpleMovingAverage;
-
-  /// No description provided for @simpleMovingAverageDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'The SMA is calculated by averaging the closing prices over a specified period. It smooths out price data to identify trends over a longer duration.'**
-  String get simpleMovingAverageDesc;
-
-  /// No description provided for @exponentialMovingAverage.
-  ///
-  /// In en, this message translates to:
-  /// **'Exponential Moving Average (EMA)'**
-  String get exponentialMovingAverage;
-
-  /// No description provided for @exponentialMovingAverageDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'The EMA gives more weight to recent prices, making it more responsive to new information. It is useful for identifying short-term trends.'**
-  String get exponentialMovingAverageDesc;
-
-  /// No description provided for @weightedMovingAverage.
-  ///
-  /// In en, this message translates to:
-  /// **'Weighted Moving Average (WMA)'**
-  String get weightedMovingAverage;
-
-  /// No description provided for @weightedMovingAverageDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'The WMA assigns different weights to each closing price within the given period, giving more importance to recent data points.'**
-  String get weightedMovingAverageDesc;
-
-  /// No description provided for @buyRecommendationMovingAverages.
-  ///
-  /// In en, this message translates to:
-  /// **'BUY: If the last closing price is above the last moving average value.'**
-  String get buyRecommendationMovingAverages;
-
-  /// No description provided for @strongBuyRecommendationMovingAverages.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG BUY: If the last closing price is more than 5% above the last moving average value.'**
-  String get strongBuyRecommendationMovingAverages;
-
-  /// No description provided for @sellRecommendationMovingAverages.
-  ///
-  /// In en, this message translates to:
-  /// **'SELL: If the last closing price is below the last moving average value.'**
-  String get sellRecommendationMovingAverages;
-
-  /// No description provided for @strongSellRecommendationMovingAverages.
-  ///
-  /// In en, this message translates to:
-  /// **'STRONG SELL: If the last closing price is more than 5% below the last moving average value.'**
-  String get strongSellRecommendationMovingAverages;
-
-  /// No description provided for @neutralRecommendationMovingAverages.
-  ///
-  /// In en, this message translates to:
-  /// **'NEUTRAL: If the last closing price is equal to the last moving average value.'**
-  String get neutralRecommendationMovingAverages;
+  /// **'WMA Periods (comma-separated)'**
+  String get wmaPeriods;
 
   /// No description provided for @goldenCross.
   ///
@@ -1305,23 +777,215 @@ abstract class AppLocalizations {
   /// **'Golden Cross'**
   String get goldenCross;
 
-  /// No description provided for @goldenCrossDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Golden Cross: Indicates a potential buy signal when the short-term moving average crosses above the long-term moving average.'**
-  String get goldenCrossDesc;
-
   /// No description provided for @deathCross.
   ///
   /// In en, this message translates to:
   /// **'Death Cross'**
   String get deathCross;
 
+  /// No description provided for @type.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @value.
+  ///
+  /// In en, this message translates to:
+  /// **'Value'**
+  String get value;
+
+  /// No description provided for @smaDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'SMA (Simple Moving Average): Average of prices over a specified period.'**
+  String get smaDesc;
+
+  /// No description provided for @emaDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'EMA (Exponential Moving Average): Gives more weight to recent prices, making it more responsive to new information.'**
+  String get emaDesc;
+
+  /// No description provided for @wmaDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'WMA (Weighted Moving Average): Assigns higher weights to recent prices for a balanced trend indication.'**
+  String get wmaDesc;
+
+  /// No description provided for @crossTypesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Crosses between moving averages can indicate potential changes in trend direction.'**
+  String get crossTypesDesc;
+
+  /// No description provided for @goldenCrossDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Golden Cross: Occurs when a short-term MA crosses above a long-term MA, signaling a potential upward trend.'**
+  String get goldenCrossDesc;
+
   /// No description provided for @deathCrossDesc.
   ///
   /// In en, this message translates to:
-  /// **'Death Cross: Indicates a potential sell signal when the short-term moving average crosses below the long-term moving average.'**
+  /// **'Death Cross: Occurs when a short-term MA crosses below a long-term MA, signaling a potential downward trend.'**
   String get deathCrossDesc;
+
+  /// No description provided for @enterRSIPeriodWithDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingrese el Período RSI (Predeterminado es 14)'**
+  String get enterRSIPeriodWithDefault;
+
+  /// No description provided for @rsi.
+  ///
+  /// In en, this message translates to:
+  /// **'RSI'**
+  String get rsi;
+
+  /// No description provided for @rsiIndicatorDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Detalles del Indicador RSI'**
+  String get rsiIndicatorDetails;
+
+  /// No description provided for @rsiExplanationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'El Índice de Fuerza Relativa (RSI) es un oscilador de momentum que mide la velocidad y el cambio en los movimientos de precios. Los valores de RSI van de 0 a 100, y se utiliza comúnmente para identificar condiciones de sobrecompra o sobreventa.'**
+  String get rsiExplanationDesc;
+
+  /// No description provided for @rsiValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Valor RSI'**
+  String get rsiValue;
+
+  /// No description provided for @rsiSmaValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Valor SMA del RSI'**
+  String get rsiSmaValue;
+
+  /// No description provided for @interpretation.
+  ///
+  /// In en, this message translates to:
+  /// **'Interpretación'**
+  String get interpretation;
+
+  /// No description provided for @condition.
+  ///
+  /// In en, this message translates to:
+  /// **'Condición'**
+  String get condition;
+
+  /// No description provided for @trend.
+  ///
+  /// In en, this message translates to:
+  /// **'Tendencia'**
+  String get trend;
+
+  /// No description provided for @rsioverbought.
+  ///
+  /// In en, this message translates to:
+  /// **'Sobrecomprado'**
+  String get rsioverbought;
+
+  /// No description provided for @rsioversold.
+  ///
+  /// In en, this message translates to:
+  /// **'Sobrevendido'**
+  String get rsioversold;
+
+  /// No description provided for @rsineutral.
+  ///
+  /// In en, this message translates to:
+  /// **'Neutral'**
+  String get rsineutral;
+
+  /// No description provided for @rsibullishTrend.
+  ///
+  /// In en, this message translates to:
+  /// **'Tendencia Alcista'**
+  String get rsibullishTrend;
+
+  /// No description provided for @rsibearishTrend.
+  ///
+  /// In en, this message translates to:
+  /// **'Tendencia Bajista'**
+  String get rsibearishTrend;
+
+  /// No description provided for @rsiSmaDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Promedio Móvil Simple del RSI para suavizar la tendencia'**
+  String get rsiSmaDescription;
+
+  /// No description provided for @rsinoClearDivergence.
+  ///
+  /// In en, this message translates to:
+  /// **'Sin Divergencia Clara'**
+  String get rsinoClearDivergence;
+
+  /// No description provided for @rsibullishDivergence.
+  ///
+  /// In en, this message translates to:
+  /// **'Divergencia Alcista - RSI subiendo mientras el precio cae'**
+  String get rsibullishDivergence;
+
+  /// No description provided for @rsibearishDivergence.
+  ///
+  /// In en, this message translates to:
+  /// **'Divergencia Bajista - RSI bajando mientras el precio sube'**
+  String get rsibearishDivergence;
+
+  /// No description provided for @conditionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Condition is based on RSI levels: overbought (>= 70), oversold (<= 30), and neutral (between 30 and 70).'**
+  String get conditionDescription;
+
+  /// No description provided for @trendDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Trend is determined by the RSI level: bullish if above 50, bearish if below 50, or neutral if near 50.'**
+  String get trendDescription;
+
+  /// No description provided for @divergenceDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Divergence compares RSI and price direction. Bullish divergence occurs when the price falls while RSI rises, and bearish divergence occurs when the price rises while RSI falls.'**
+  String get divergenceDescription;
+
+  /// No description provided for @errorNoDataFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No data found for the symbol'**
+  String get errorNoDataFound;
+
+  /// No description provided for @errorInsufficientData.
+  ///
+  /// In en, this message translates to:
+  /// **'Insufficient data to calculate ADX'**
+  String get errorInsufficientData;
+
+  /// No description provided for @errorUnexpected.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred'**
+  String get errorUnexpected;
+
+  /// No description provided for @providedByTradingView.
+  ///
+  /// In en, this message translates to:
+  /// **'Provided by TradingView'**
+  String get providedByTradingView;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

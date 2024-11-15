@@ -5,13 +5,19 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get register => 'Register';
+  String get analysis => 'Analysis';
+
+  @override
+  String get help => 'Help';
+
+  @override
+  String get indicators => 'Indicators';
 
   @override
   String get login => 'Login';
 
   @override
-  String get logout => 'Logout';
+  String get register => 'Register';
 
   @override
   String get email => 'Email';
@@ -20,28 +26,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password => 'Password';
 
   @override
-  String get badRequest => 'Bad Request';
-
-  @override
-  String get emailOrPasswordIncorrect => 'Email or password is incorrect';
-
-  @override
-  String get userNotFound => 'User not found';
-
-  @override
-  String get internalServerError => 'Internal Server Error';
-
-  @override
-  String get unknownError => 'Unknown error';
-
-  @override
-  String get unauthorized => 'Unauthorized';
-
-  @override
   String get pleaseFillAllFields => 'Please fill all fields';
 
   @override
-  String get userAlreadyExists => 'User already exists';
+  String get userRegisteredSuccessfully => 'User registered successfully';
 
   @override
   String get invalidEmailFormat => 'Invalid email format';
@@ -50,164 +38,119 @@ class AppLocalizationsEn extends AppLocalizations {
   String get invalidPasswordFormat => 'Password must be at least 8 characters long and contain at least one digit, one uppercase letter, one lowercase letter, and one special character';
 
   @override
-  String get userRegisteredSuccessfully => 'User registered successfully';
+  String get unknownError => 'An unknown error occurred';
 
   @override
-  String get data => 'Data';
+  String get userAlreadyExists => 'User already exists';
 
   @override
-  String get pleaseEnterSymbol => 'Please enter a symbol';
+  String get internalServerError => 'Internal server error';
 
   @override
-  String get pleaseEnterPeriod => 'Please enter a period';
+  String get badRequest => 'Bad request';
 
   @override
-  String failedToCalculate(Object error) {
-    return 'Failed to calculate: $error';
-  }
+  String get emailOrPasswordIncorrect => 'Email or password incorrect';
 
   @override
-  String errorOccurred(Object error) {
-    return 'An error occurred: $error';
-  }
+  String get userNotFound => 'User not found';
 
   @override
-  String get indicators => 'Indicators';
+  String get noAccountRegister => 'Don\'t have an account? Register';
 
   @override
-  String get oscillator => 'Oscillator';
+  String get alreadyHaveAccountLogin => 'Already have an account? Login';
 
   @override
-  String get movingAverages => 'Moving Averages';
+  String get forgotPassword => 'Forgot password';
 
   @override
-  String get movingAveragesType => 'Moving Averages Type';
+  String get pleaseEnterEmail => 'Please enter your email';
 
   @override
-  String get enterPeriod => 'Period (comma separated)';
+  String get resetLinkSent => 'A reset link has been sent to your email';
 
   @override
-  String get stochasticOscillator => 'Stochastic Oscillator';
+  String get sendResetLink => 'Send Reset Link';
 
   @override
-  String get bollingerBands => 'Bollinger Bands';
+  String get passwordResetFailed => 'Password reset failed';
 
   @override
-  String get parabolicSAR => 'Parabolic SAR';
+  String get passwordResetSuccess => 'Password reset successful';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get enterResetCode => 'Enter the reset code sent to your email';
+
+  @override
+  String get verifyCode => 'Verify Code';
+
+  @override
+  String get invalidResetCode => 'Invalid reset code';
+
+  @override
+  String get sendResetCode => 'Send Reset Code';
 
   @override
   String get enterSymbol => 'Enter Symbol';
 
   @override
-  String get getRecommendation => 'Get Recommendation';
+  String get selectInterval => 'Select Interval';
+
+  @override
+  String get intervalDaily => 'Daily';
+
+  @override
+  String get intervalWeekly => 'Weekly';
+
+  @override
+  String get intervalMonthly => 'Monthly';
+
+  @override
+  String get viewAnalysis => 'View Analysis';
 
   @override
   String get viewChart => 'View Chart';
 
   @override
-  String get strategies => 'Strategies';
+  String get pleaseEnterSymbol => 'Please enter a symbol';
 
   @override
-  String get help => 'Help';
+  String failedToCalculate(Object reason) {
+    return 'Failed to calculate. $reason';
+  }
 
   @override
-  String get recommendation => 'Recommendation';
+  String errorOccurred(Object errorMessage) {
+    return 'An error occurred: $errorMessage';
+  }
+
+  @override
+  String get adx => 'ADX';
+
+  @override
+  String get values => 'Valores';
+
+  @override
+  String get enterADXPeriodWithDefault => 'Enter ADX Period (Default is 14)';
 
   @override
   String get trendStrength => 'Trend Strength';
 
   @override
   String get lastCross => 'Last Cross';
-
-  @override
-  String get reason => 'Reason';
-
-  @override
-  String get description => 'Description';
-
-  @override
-  String get buy => 'BUY';
-
-  @override
-  String get sell => 'SELL';
-
-  @override
-  String get neutral => 'NEUTRAL';
-
-  @override
-  String get strongBuy => 'STRONG BUY';
-
-  @override
-  String get strongSell => 'STRONG SELL';
-
-  @override
-  String get overbought => 'Overbought';
-
-  @override
-  String get oversold => 'Oversold';
-
-  @override
-  String get strongOversold => 'Strong Oversold';
-
-  @override
-  String get strongOverbought => 'Strong Overbought';
-
-  @override
-  String get noClearSignal => 'No clear signal';
-
-  @override
-  String get signalStrength => 'Signal Strength';
-
-  @override
-  String get strongSignal => 'Strong Signal';
-
-  @override
-  String get moderateSignal => 'Moderate Signal';
-
-  @override
-  String get weakSignal => 'Weak Signal';
-
-  @override
-  String get bullishCross => 'Bullish Cross';
-
-  @override
-  String get bearishCross => 'Bearish Cross';
-
-  @override
-  String get divergence => 'Divergence';
-
-  @override
-  String get entryExitSignal => 'Entry/Exit Signal';
-
-  @override
-  String get histogram => 'Histogram';
-
-  @override
-  String get signalLine => 'Signal Line';
-
-  @override
-  String get macdLine => 'MACD Line';
-
-  @override
-  String get bullish => 'Bullish';
-
-  @override
-  String get bearish => 'Bearish';
-
-  @override
-  String get date => 'Date';
-
-  @override
-  String get value => 'Value';
-
-  @override
-  String get type => 'Type';
-
-  @override
-  String get crossingPoints => 'Crossing Points';
-
-  @override
-  String get adxIndicatorDetails => 'ADX Indicator Details';
 
   @override
   String get currentADX => 'Current ADX';
@@ -219,85 +162,49 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currentDIMinus => 'Current -DI';
 
   @override
-  String get absenceOfClearTrend => 'Absence of clear trend';
+  String get noSignificantTrend => 'No significant trend detected';
 
   @override
-  String get clearBullishTrend => 'Clear bullish trend';
+  String get moderateBullishTrend => 'Moderate bullish trend observed';
 
   @override
-  String get clearBearishTrend => 'Clear bearish trend';
+  String get moderateBearishTrend => 'Moderate bearish trend observed';
 
   @override
-  String get sidewaysTrend => 'Sideways trend';
+  String get sidewaysModerate => 'Sideways trend with moderate strength';
 
   @override
-  String get strongBullishTrend => 'Strong bullish trend (possible peak)';
+  String get strongBullishPeak => 'Strong bullish trend detected, possible peak';
 
   @override
-  String get strongBearishTrend => 'Strong bearish trend (possible peak)';
+  String get strongBearishPeak => 'Strong bearish trend detected, possible peak';
 
   @override
-  String get veryStrongTrend => 'Very strong trend (trend peak)';
+  String get veryStrongTrendNearPeak => 'Very strong trend detected, near peak strength';
 
   @override
-  String get understandingTheIndicator => 'Understanding the indicator';
+  String get bullishCross => 'Bullish Cross';
 
   @override
-  String get understandingADXDesc => 'The ADX is a technical analysis indicator used to quantify the strength of a trend. It ranges from 0 to 100, with higher values indicating a stronger trend.';
+  String get bearishCross => 'Bearish Cross';
 
   @override
-  String get recommendationLogic => 'Recommendation Logic:';
+  String get adxExplanation => 'ADX Explanation';
 
   @override
-  String get recommendationLogicDescAdx => 'The ADX value helps determine the strength of the trend:\n- Below 25: Absence of clear trend.\n- 25 to 40: Clear trend (bullish or bearish).\n- 40 to 50: Strong trend (possible peak).\n- Above 50: Very strong trend (trend peak).';
+  String get adxExplanationDesc => 'The ADX (Average Directional Index) is a technical indicator used to quantify trend strength.';
 
   @override
-  String get recommendationTypes => 'Recommendation Types:';
+  String get crossTypes => 'Cross Types';
 
   @override
-  String get buyRecommendationAdx => 'BUY: ADX value is above 25 and the +DI crosses above the -DI, indicating a potential bullish trend.';
+  String get bollingerBands => 'Bollinger Bands';
 
   @override
-  String get sellRecommendationAdx => 'SELL: ADX value is above 25 and the +DI crosses below the -DI, indicating a potential bearish trend.';
+  String get enterBBPeriodWithDefault => 'Enter Bollinger Bands Period (Default is 20)';
 
   @override
-  String get neutralRecommendationAdx => 'NEUTRAL: ADX value is below 25, indicating a weak or absent trend.';
-
-  @override
-  String get strongBuyRecommendationAdx => 'STRONG BUY: ADX value is above 50 and the +DI crosses above the -DI, indicating a very strong bullish trend.';
-
-  @override
-  String get strongSellRecommendationAdx => 'STRONG SELL: ADX value is above 50 and the +DI crosses below the -DI, indicating a very strong bearish trend.';
-
-  @override
-  String get adxDivergenceDesc => 'ADX divergence occurs when the price movement is not confirmed by the ADX indicator. For example, if the price is making new highs, but the ADX indicator is making lower highs, it may indicate a weakening trend, or potential reversal.';
-
-  @override
-  String get adxEntryExitSignalDesc => 'Some traders use specific ADX threshold levels as entry or exit signals. For example, they may enter a trade when the ADX crosses above a certain value, indicating a strong trend, and exit when it falls below another threshold, suggesting a weakening trend. These threshold levels may vary depending on the trader\'s strategy and market conditions.';
-
-  @override
-  String get understandingBollingerBandsDesc => 'Bollinger Bands are a type of statistical chart characterizing the prices and volatility over time of a financial instrument or commodity. They consist of a middle band (SMA) and two outer bands (standard deviations above and below the SMA).';
-
-  @override
-  String get bollingerBandsLevels => 'Bollinger Bands Levels';
-
-  @override
-  String get bollingerBandsLevelsDesc => 'The Bollinger Bands indicator consists of three lines: the upper band, middle band (SMA), and lower band. The position of the price relative to these bands can provide trading signals.';
-
-  @override
-  String get buyRecommendationBollinger => 'BUY: The price is below the lower band - Oversold.';
-
-  @override
-  String get strongBuyRecommendationBollinger => 'STRONG BUY: The price is below the lower band - Oversold with wide bands.';
-
-  @override
-  String get sellRecommendationBollinger => 'SELL: The price is above the upper band - Overbought.';
-
-  @override
-  String get strongSellRecommendationBollinger => 'STRONG SELL: The price is above the upper band - Overbought with wide bands.';
-
-  @override
-  String get neutralRecommendationBollinger => 'NEUTRAL: Narrow bands - Neutral or within the Bollinger bands.';
+  String get enterBBStdDevWithDefault => 'Enter Bollinger Bands Standard Deviation (Default is 2)';
 
   @override
   String get upperBand => 'Upper Band';
@@ -312,314 +219,239 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bandWidth => 'Band Width';
 
   @override
-  String get overboughtWideBands => 'Price above Upper Band - Overbought with Wide Bands';
+  String get signalStrength => 'Signal Strength';
 
   @override
-  String get bollingerBandsOverbought => 'Price above Upper Band - Overbought';
+  String get description => 'Description';
 
   @override
-  String get oversoldWideBands => 'Price below Lower Band - Oversold with Wide Bands';
+  String get strongSignal => 'Strong Signal';
 
   @override
-  String get bollingerBandsOversold => 'Price below Lower Band - Oversold';
+  String get moderateSignal => 'Moderate Signal';
 
   @override
-  String get narrowBandsNeutral => 'Narrow Bands - Neutral';
+  String get weakSignal => 'Weak Signal';
 
   @override
-  String get withinBollingerBands => 'Within Bollinger Bands';
+  String get bollingerBandsDesc => 'Bollinger Bands are a volatility indicator used in technical analysis to measure price fluctuations of a financial asset. This indicator consists of three lines: the middle line, a simple moving average, and two bands above and below, representing standard deviations. The bands expand and contract based on the asset\'s volatility. When the price nears the upper band, the asset may be overbought; when it approaches the lower band, it may be oversold. Traders use Bollinger Bands to identify potential buy and sell points, periods of high or low volatility, and to anticipate price breakouts when bands remain narrow for an extended period.';
 
   @override
-  String get bollinger_band_squeeze_title => 'Bollinger Band Squeeze';
+  String get calculateBBFailed => 'Failed to calculate Bollinger Bands';
 
   @override
-  String get bollinger_band_squeeze_description => 'The Bollinger Band Squeeze strategy is based on the principle that periods of low volatility are often followed by periods of high volatility. When the bands squeeze together, it indicates that the volatility is low and a breakout could occur. Traders watch for a price move above or below the bands as a signal for potential entry.';
+  String get bBoverboughtHighVolatility => 'The price is above the upper band, indicating a possible overbought condition with high volatility.';
 
   @override
-  String get bollinger_band_breakout_title => 'Bollinger Band Breakout';
+  String get bBoverbought => 'The price is above the upper band, which may suggest a potential overbought condition.';
 
   @override
-  String get bollinger_band_breakout_description => 'The Bollinger Band Breakout strategy looks for price breaking out of the upper or lower bands. A breakout above the upper band can signal that the price is in a strong uptrend, while a breakout below the lower band can signal a strong downtrend. Traders often use this strategy to enter trades in the direction of the breakout.';
+  String get bBoversoldHighVolatility => 'The price is below the lower band, indicating a possible oversold condition with high volatility.';
 
   @override
-  String get reversion_to_mean_title => 'Reversion to the Mean';
+  String get bBoversold => 'The price is below the lower band, which may suggest a potential oversold condition.';
 
   @override
-  String get reversion_to_mean_description => 'This strategy assumes that price tends to return to the middle band (the simple moving average) after touching the upper or lower bands. When the price hits the upper band, traders might look for sell signals, anticipating that the price will revert back to the mean. Conversely, when the price hits the lower band, traders might look for buy signals.';
+  String get bBpotentialBreakout => 'The bands are narrow, suggesting low volatility and a possible breakout pattern.';
 
   @override
-  String get double_bottoms_and_tops_title => 'Double Bottoms and Tops';
+  String get bBextendedNarrowBands => 'The bands have remained narrow over an extended period, indicating low volatility with a high breakout potential.';
 
   @override
-  String get double_bottoms_and_tops_description => 'Double bottoms and tops are reversal patterns that can be identified using Bollinger Bands. A double bottom occurs when the price makes two lows around the same level, often with a lower low touching or going below the lower band, followed by a rally. A double top occurs when the price makes two highs around the same level, often with an upper high touching or exceeding the upper band, followed by a decline.';
+  String get bBwithinBands => 'The price is within the Bollinger bands, indicating typical price movement within a neutral range.';
 
   @override
-  String get belowMiddleBand => 'Price below Middle Band\'';
+  String get mildUpwardTrend => 'The price is above the middle band, indicating a mild upward trend.';
 
   @override
-  String get aboveMiddleBand => 'Price above Middle Band';
+  String get mildDownwardTrend => 'The price is below the middle band, indicating a mild downward trend.';
 
   @override
-  String get understandingMacdDesc => 'The MACD is a trend-following momentum indicator that shows the relationship between two moving averages of a security’s price. It consists of the MACD line, signal line, and histogram.';
+  String get macd => 'MACD';
 
   @override
-  String get buyRecommendationMacd => 'BUY: The MACD crosses above the signal line, indicating a bullish trend.';
+  String get macdLine => 'MACD Line';
 
   @override
-  String get sellRecommendationMacd => 'SELL: The MACD crosses below the signal line, indicating a bearish trend.';
+  String get signalLine => 'Signal Line';
 
   @override
-  String get neutralRecommendationMacd => 'NEUTRAL: No clear signal is identified by the MACD indicator, possibly due to the proximity between the MACD and the signal line.';
+  String get histogram => 'Histogram';
 
   @override
-  String get strongBuyRecommendationMacd => 'STRONG BUY: The MACD crosses above the signal line with an increasing histogram, indicating a strong bullish trend.';
+  String get trendAnalysis => 'Trend Analysis';
 
   @override
-  String get strongSellRecommendationMacd => 'STRONG SELL: The MACD crosses below the signal line with a decreasing histogram, indicating a strong bearish trend.';
+  String get divergence => 'Divergence';
 
   @override
-  String get recommendationLogicDescMacd => 'When the MACD line crosses above the signal line, it is considered a bullish signal, indicating a potential buy opportunity. Conversely, when the MACD line crosses below the signal line, it is considered a bearish signal, indicating a potential sell opportunity.';
+  String get histogramAnalysis => 'Histogram Analysis';
 
   @override
-  String get macdLineSignalCorss => 'MACD Line and Signal Line Crossover';
+  String get macdbullishTrend => 'Bullish - MACD line is above the Signal line';
 
   @override
-  String get macdLineSignalCorssDesc => 'This strategy involves identifying buy and sell signals based on the crossover of the MACD line and the signal line. A bullish crossover occurs when the MACD line crosses above the signal line, indicating a potential buy signal. Conversely, a bearish crossover occurs when the MACD line crosses below the signal line, indicating a potential sell signal.';
+  String get macdbearishTrend => 'Bearish - MACD line is below the Signal line';
 
   @override
-  String get macdHistogram => 'MACD Histogram';
+  String get macdneutralTrend => 'Neutral - MACD line is equal to the Signal line';
 
   @override
-  String get macdHistogramDesc => 'In this strategy, traders look for changes in the MACD histogram. When the histogram moves from negative to positive territory, it suggests increasing bullish momentum. Conversely, when the histogram moves from positive to negative territory, it suggests increasing bearish momentum.';
+  String get macdbullishDivergence => 'Bullish Divergence - MACD decreasing while price is increasing';
 
   @override
-  String get macdDivergencePrice => 'Divergence with Price';
+  String get macdbearishDivergence => 'Bearish Divergence - MACD increasing while price is decreasing';
 
   @override
-  String get macdDivergencePriceDesc => 'Similar to RSI divergence, traders can use MACD divergence to identify potential trend reversals. A bullish divergence occurs when the price makes a lower low, but the MACD indicator forms a higher low. Conversely, a bearish divergence occurs when the price makes a higher high, but the MACD indicator forms a lower high.';
+  String get noDivergence => 'No significant divergence detected';
 
   @override
-  String get bearishDivergence => 'Bearish Divergence';
+  String get histogramExpanding => 'Histogram expanding - trend strengthening';
 
   @override
-  String get macdSignalBullish => 'MACD and signal in bullish territory';
+  String get histogramContracting => 'Histogram contracting - trend weakening';
 
   @override
-  String get conflictingSignals => 'Conflicting signals';
+  String get histogramStable => 'Histogram stable - steady trend';
 
   @override
-  String get bullishDivergence => 'Bullish Divergence';
+  String get macdLineDesc => 'The MACD line is calculated as the difference between the 12-day and 26-day exponential moving averages, showing trend direction and momentum.';
 
   @override
-  String get macdSignalBearish => 'MACD and signal in bearish territory';
+  String get signalLineDesc => 'The Signal line is the 9-day EMA of the MACD line, helping to identify potential buy and sell signals through crossovers.';
 
   @override
-  String get currentParabolicSAR => 'Current Parabolic SAR';
+  String get histogramDesc => 'The histogram displays the difference between the MACD and Signal lines, visualizing the trend’s strength.';
 
   @override
-  String get previousParabolicSAR => 'Previous Parabolic SAR';
+  String get macdTrendAnalysisDesc => 'The MACD Trend Analysis assesses the relationship between the MACD and Signal lines to indicate if the trend is bullish, bearish, or neutral.';
 
   @override
-  String get trendDirection => 'Trend Direction';
+  String get divergenceDesc => 'Divergence occurs when MACD and price move in opposite directions, signaling a potential trend reversal.';
 
   @override
-  String get upwardTrend => 'Upward Trend';
+  String get histogramAnalysisDesc => 'Histogram analysis examines size changes in the histogram to assess if the trend is strengthening, weakening, or stable.';
 
   @override
-  String get downwardTrend => 'Downward Trend';
+  String get movingAverages => 'Moving Averages';
 
   @override
-  String get noClearTrend => 'No Clear Trend';
+  String get movingAveragesDesc => 'Moving averages (MA) are indicators that help smooth price data to identify trends. Here are common types:';
 
   @override
-  String get buyRecommendationParabolicSAR => 'BUY: SAR is currently below the price, indicating a potential bullish trend.';
+  String get smaPeriods => 'SMA Periods (comma-separated)';
 
   @override
-  String get strongBuyRecommendationParabolicSAR => 'STRONG BUY: SAR is significantly below the price, indicating a strong bullish trend.';
+  String get emaPeriods => 'EMA Periods (comma-separated)';
 
   @override
-  String get sellRecommendationParabolicSAR => 'SELL: SAR is currently above the price, indicating a potential bearish trend.';
-
-  @override
-  String get strongSellRecommendationParabolicSAR => 'STRONG SELL: SAR is significantly above the price, indicating a strong bearish trend.';
-
-  @override
-  String get neutralRecommendationParabolicSAR => 'NEUTRAL: SAR is not significantly above or below the price, suggesting a lack of clear trend direction.';
-
-  @override
-  String get understandingParabolicSARDesc => 'The Parabolic SAR (Stop and Reverse) is a technical indicator used to identify potential reversals in the price direction of an asset. It is represented by a series of dots above or below the price chart, indicating the potential direction of the trend.';
-
-  @override
-  String get recommendationLogicItem1 => 'If the current SAR value is greater than the previous SAR value and the current price is greater than the previous price, it indicates an uptrend and a possible buying opportunity.';
-
-  @override
-  String get recommendationLogicItem2 => 'If the current SAR value is lower than the previous SAR value and the current price is lower than the previous price, it indicates a bearish trend and a possible selling opportunity.';
-
-  @override
-  String get trendReversal => 'Trend Reversal';
-
-  @override
-  String get trailingStopLoss => 'Trailing Stop Loss';
-
-  @override
-  String get trendFollowing => 'Trend Following';
-
-  @override
-  String get trendReversalDescription => 'This strategy involves identifying potential trend reversals based on the movement of the Parabolic SAR indicator. A reversal from above the price to below the price suggests a potential bullish trend reversal, while a reversal from below the price to above the price suggests a potential bearish trend reversal.';
-
-  @override
-  String get trailingStopLossDescription => 'In this strategy, traders use the Parabolic SAR as a trailing stop loss mechanism. As the price moves in favor of the trade, the Parabolic SAR moves closer to the price, acting as a dynamic stop loss level. If the price reverses and the Parabolic SAR crosses the price, it triggers a stop loss.';
-
-  @override
-  String get trendFollowingDescription => 'Traders can use the Parabolic SAR to follow the trend by entering positions in the direction of the SAR. In an uptrend, traders look for buy signals when the SAR moves below the price, indicating bullish momentum. In a downtrend, traders look for sell signals when the SAR moves above the price, indicating bearish momentum.';
-
-  @override
-  String get understandingRSIDesc => 'The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements. It is primarily used to identify overbought or oversold conditions in a market.';
-
-  @override
-  String get buyRecommendationRSI => 'BUY: RSI < 30 and starts to rise, indicating an oversold condition and a potential buying opportunity.';
-
-  @override
-  String get strongBuyRecommendationRSI => 'STRONG BUY: RSI < 20 and starts to rise, indicating a very oversold condition and a strong buying opportunity.';
-
-  @override
-  String get sellRecommendationRSI => 'SELL: RSI > 70 and starts to fall, indicating an overbought condition and a potential selling opportunity.';
-
-  @override
-  String get strongSellRecommendationRSI => 'STRONG SELL: RSI > 80 and starts to fall, indicating a very overbought condition and a strong selling opportunity.';
-
-  @override
-  String get neutralRecommendationRSI => 'NEUTRAL: RSI between 30 and 70, indicating no clear overbought or oversold conditions.';
-
-  @override
-  String get overboughtOversoldLevels => 'Overbought/Oversold Levels';
-
-  @override
-  String get overboughtOversoldLevelsRSIDesc => 'This strategy involves identifying overbought and oversold conditions using the RSI indicator. When the RSI value exceeds 70, it\'s considered overbought, indicating a potential sell signal. Conversely, when the RSI value drops below 30, it\'s considered oversold, indicating a potential buy signal.';
-
-  @override
-  String get divergenceRSIDesc => 'In this strategy, traders look for divergences between the price and the RSI indicator. A bullish divergence occurs when the price makes a lower low, but the RSI indicator forms a higher low, suggesting potential upward momentum. Conversely, a bearish divergence occurs when the price makes a higher high, but the RSI indicator forms a lower high, suggesting potential downward momentum.';
-
-  @override
-  String get trendConfirmation => 'Trend Confirmation';
-
-  @override
-  String get trengConfirmationRSIDesc => 'This strategy involves using the RSI indicator to confirm trends identified by other indicators or price action. When the RSI value confirms a bullish trend by staying above a certain threshold (e.g., 50), it reinforces the bullish bias. Similarly, when the RSI value confirms a bearish trend by staying below a certain threshold, it reinforces the bearish bias.';
-
-  @override
-  String get understandingStochasticDesc => 'The Stochastic Oscillator is a momentum indicator that compares a particular closing price of a security to a range of its prices over a certain period of time. It oscillates between 0 and 100 and is used to identify potential overbought or oversold conditions in a market.';
-
-  @override
-  String get buyRecommendationStochastic => 'BUY: The stochastic indicator suggests a potential buying opportunity when SlowK and SlowD are low (below 20) and SlowK crosses above SlowD.';
-
-  @override
-  String get strongBuyRecommendationStochastic => 'STRONG BUY: The stochastic indicator shows a strong buying signal when SlowK and SlowD are very low (below 10) and SlowK crosses above SlowD.';
-
-  @override
-  String get sellRecommendationStochastic => 'SELL: The stochastic indicator suggests a potential selling opportunity when SlowK and SlowD are high (above 80) and SlowK crosses below SlowD.';
-
-  @override
-  String get strongSellRecommendationStochastic => 'STRONG SELL: The stochastic indicator shows a strong selling signal when SlowK and SlowD are very high (above 90) and SlowK crosses below SlowD.';
-
-  @override
-  String get neutralRecommendationStochastic => 'NEUTRAL: The stochastic indicator indicates a neutral condition when SlowK and SlowD are between 20 and 80, suggesting that there is no clear signal of overbought or oversold.';
-
-  @override
-  String get overboughtOversoldLevelsStochasticDesc => 'This strategy involves identifying overbought and oversold conditions using the stochastic oscillator. When the %K line crosses above 80, it indicates overbought conditions and suggests a potential sell signal. Conversely, when the %K line crosses below 20, it indicates oversold conditions and suggests a potential buy signal.';
-
-  @override
-  String get divergenceStochasticDesc => 'In this strategy, traders look for divergences between the price and the stochastic oscillator. A bullish divergence occurs when the price makes a lower low, but the stochastic oscillator forms a higher low, suggesting potential upward momentum. Conversely, a bearish divergence occurs when the price makes a higher high, but the stochastic oscillator forms a lower high, suggesting potential downward momentum.';
-
-  @override
-  String get trendConfirmationStochasticDesc => 'This strategy involves using the stochastic oscillator to confirm trends identified by other indicators or price action. When the %K line confirms a bullish trend by staying above a certain threshold (e.g., 50), it reinforces the bullish bias. Similarly, when the %K line confirms a bearish trend by staying below a certain threshold, it reinforces the bearish bias.';
-
-  @override
-  String get understandingWilliamsRDesc => 'The Williams %R (%R) indicator is a momentum oscillator that measures overbought or oversold levels. It oscillates between -100 and 0, where values above -20 are considered overbought and values below -80 are considered oversold.';
-
-  @override
-  String get buyRecommendationWilliamsR => 'BUY: Williams %R is between -80 and -50, indicating an oversold condition and a potential buying opportunity.';
-
-  @override
-  String get strongBuyRecommendationWilliamsR => 'STRONG BUY: Williams %R is below -80, indicating a very oversold condition and a strong buying opportunity.';
-
-  @override
-  String get sellRecommendationWilliamsR => 'SELL: Williams %R is between -20 and -50, indicating an overbought condition and a potential selling opportunity.';
-
-  @override
-  String get strongSellRecommendationWilliamsR => 'STRONG SELL: Williams %R is above -20, indicating a very overbought condition and a strong selling opportunity.';
-
-  @override
-  String get neutralRecommendationWilliamsR => 'NEUTRAL: Williams %R doesn\'t present a clear signal of overbought or oversold conditions, suggesting a neutral condition.';
-
-  @override
-  String get overboughtOversoldLevelsWRDesc => 'This strategy involves identifying overbought and oversold conditions using the Williams %R indicator. When the Williams %R value exceeds -20, it\'s considered overbought, indicating a potential sell signal. Conversely, when the Williams %R value drops below -80, it\'s considered oversold, indicating a potential buy signal.';
-
-  @override
-  String get divergenceWRDesc => 'In this strategy, traders look for divergences between the price and the Williams %R indicator. A bullish divergence occurs when the price makes a lower low, but the Williams %R indicator forms a higher low, suggesting potential upward momentum. Conversely, a bearish divergence occurs when the price makes a higher high, but the Williams %R indicator forms a lower high, suggesting potential downward momentum.';
-
-  @override
-  String get trengConfirmationWRDesc => 'This strategy involves using the Williams %R indicator to confirm trends identified by other indicators or price action. When the Williams %R value confirms a bullish trend by staying above a certain threshold (e.g., -50), it reinforces the bullish bias. Similarly, when the Williams %R value confirms a bearish trend by staying below a certain threshold, it reinforces the bearish bias.';
-
-  @override
-  String get movingAveragesCrossover => 'Moving Averages Crossover';
-
-  @override
-  String get movingAveragesCrossoverDesc => 'This strategy involves using two moving averages with different time periods. When the shorter moving average crosses above the longer one, it\'s considered a buy signal, indicating a possible uptrend. Conversely, when the shorter moving average crosses below the longer one, it\'s considered a sell signal, indicating a possible downtrend.';
-
-  @override
-  String get movingAveragesSupportResistance => 'Moving Averages as Support and Resistance';
-
-  @override
-  String get movingAveragesSupportResistanceDesc => 'In this strategy, a single moving average is used as a dynamic support or resistance level. When the price approaches the moving average from above, it may act as resistance, and when the price approaches from below, it may act as support. Traders may look for buying opportunities when the price bounces off the moving average from below and selling opportunities when the price bounces from above.';
-
-  @override
-  String get movingAveragesReversalSignal => 'Moving Averages Reversal Signal';
-
-  @override
-  String get movingAveragesReversalSignalDesc => 'Some traders use moving averages to identify potential reversal points in the market. For example, when the price significantly deviates from a particular moving average, it may indicate that the current trend is overextended and a reversal is likely. Traders may look for reversal signals when the price approaches the moving average again.';
-
-  @override
-  String get simpleMovingAverage => 'Simple Moving Average (SMA)';
-
-  @override
-  String get simpleMovingAverageDesc => 'The SMA is calculated by averaging the closing prices over a specified period. It smooths out price data to identify trends over a longer duration.';
-
-  @override
-  String get exponentialMovingAverage => 'Exponential Moving Average (EMA)';
-
-  @override
-  String get exponentialMovingAverageDesc => 'The EMA gives more weight to recent prices, making it more responsive to new information. It is useful for identifying short-term trends.';
-
-  @override
-  String get weightedMovingAverage => 'Weighted Moving Average (WMA)';
-
-  @override
-  String get weightedMovingAverageDesc => 'The WMA assigns different weights to each closing price within the given period, giving more importance to recent data points.';
-
-  @override
-  String get buyRecommendationMovingAverages => 'BUY: If the last closing price is above the last moving average value.';
-
-  @override
-  String get strongBuyRecommendationMovingAverages => 'STRONG BUY: If the last closing price is more than 5% above the last moving average value.';
-
-  @override
-  String get sellRecommendationMovingAverages => 'SELL: If the last closing price is below the last moving average value.';
-
-  @override
-  String get strongSellRecommendationMovingAverages => 'STRONG SELL: If the last closing price is more than 5% below the last moving average value.';
-
-  @override
-  String get neutralRecommendationMovingAverages => 'NEUTRAL: If the last closing price is equal to the last moving average value.';
+  String get wmaPeriods => 'WMA Periods (comma-separated)';
 
   @override
   String get goldenCross => 'Golden Cross';
 
   @override
-  String get goldenCrossDesc => 'Golden Cross: Indicates a potential buy signal when the short-term moving average crosses above the long-term moving average.';
-
-  @override
   String get deathCross => 'Death Cross';
 
   @override
-  String get deathCrossDesc => 'Death Cross: Indicates a potential sell signal when the short-term moving average crosses below the long-term moving average.';
+  String get type => 'Type';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get value => 'Value';
+
+  @override
+  String get smaDesc => 'SMA (Simple Moving Average): Average of prices over a specified period.';
+
+  @override
+  String get emaDesc => 'EMA (Exponential Moving Average): Gives more weight to recent prices, making it more responsive to new information.';
+
+  @override
+  String get wmaDesc => 'WMA (Weighted Moving Average): Assigns higher weights to recent prices for a balanced trend indication.';
+
+  @override
+  String get crossTypesDesc => 'Crosses between moving averages can indicate potential changes in trend direction.';
+
+  @override
+  String get goldenCrossDesc => 'Golden Cross: Occurs when a short-term MA crosses above a long-term MA, signaling a potential upward trend.';
+
+  @override
+  String get deathCrossDesc => 'Death Cross: Occurs when a short-term MA crosses below a long-term MA, signaling a potential downward trend.';
+
+  @override
+  String get enterRSIPeriodWithDefault => 'Ingrese el Período RSI (Predeterminado es 14)';
+
+  @override
+  String get rsi => 'RSI';
+
+  @override
+  String get rsiIndicatorDetails => 'Detalles del Indicador RSI';
+
+  @override
+  String get rsiExplanationDesc => 'El Índice de Fuerza Relativa (RSI) es un oscilador de momentum que mide la velocidad y el cambio en los movimientos de precios. Los valores de RSI van de 0 a 100, y se utiliza comúnmente para identificar condiciones de sobrecompra o sobreventa.';
+
+  @override
+  String get rsiValue => 'Valor RSI';
+
+  @override
+  String get rsiSmaValue => 'Valor SMA del RSI';
+
+  @override
+  String get interpretation => 'Interpretación';
+
+  @override
+  String get condition => 'Condición';
+
+  @override
+  String get trend => 'Tendencia';
+
+  @override
+  String get rsioverbought => 'Sobrecomprado';
+
+  @override
+  String get rsioversold => 'Sobrevendido';
+
+  @override
+  String get rsineutral => 'Neutral';
+
+  @override
+  String get rsibullishTrend => 'Tendencia Alcista';
+
+  @override
+  String get rsibearishTrend => 'Tendencia Bajista';
+
+  @override
+  String get rsiSmaDescription => 'Promedio Móvil Simple del RSI para suavizar la tendencia';
+
+  @override
+  String get rsinoClearDivergence => 'Sin Divergencia Clara';
+
+  @override
+  String get rsibullishDivergence => 'Divergencia Alcista - RSI subiendo mientras el precio cae';
+
+  @override
+  String get rsibearishDivergence => 'Divergencia Bajista - RSI bajando mientras el precio sube';
+
+  @override
+  String get conditionDescription => 'Condition is based on RSI levels: overbought (>= 70), oversold (<= 30), and neutral (between 30 and 70).';
+
+  @override
+  String get trendDescription => 'Trend is determined by the RSI level: bullish if above 50, bearish if below 50, or neutral if near 50.';
+
+  @override
+  String get divergenceDescription => 'Divergence compares RSI and price direction. Bullish divergence occurs when the price falls while RSI rises, and bearish divergence occurs when the price rises while RSI falls.';
+
+  @override
+  String get errorNoDataFound => 'No data found for the symbol';
+
+  @override
+  String get errorInsufficientData => 'Insufficient data to calculate ADX';
+
+  @override
+  String get errorUnexpected => 'An unexpected error occurred';
+
+  @override
+  String get providedByTradingView => 'Provided by TradingView';
 }

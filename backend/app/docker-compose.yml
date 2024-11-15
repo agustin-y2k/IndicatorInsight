@@ -5,18 +5,31 @@ services:
   indicator_insight_api:
     build: .
     ports:
-      - "8000:8000"
+      - "8000"
     depends_on:
       - mongodb
     volumes:
       - .:/app
-    environment:
-      - SECRET_KEY=${SECRET_KEY}
+    env_file:
+      - ./config/.env
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
 
   mongodb:
     image: mongo
     ports:
       - "27018:27017"
+
+  nginx:
+    image: nginx
+    ports:
+      - "8000:8000"
+    depends_on:
+      - indicator_insight_api
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
 
   prometheus:
     image: prom/prometheus

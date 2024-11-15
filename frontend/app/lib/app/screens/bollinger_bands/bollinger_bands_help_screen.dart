@@ -50,24 +50,22 @@ class BollingerBandsHelpScreen extends StatelessWidget {
             child: ListView(
               children: [
                 HelpCard(
-                  title: AppLocalizations.of(context)!.bollingerBandsLevels,
-                  description:
-                      AppLocalizations.of(context)!.bollingerBandsLevelsDesc,
-                  icon: Icons.equalizer,
+                  title: AppLocalizations.of(context)!.bollingerBands,
+                  description: AppLocalizations.of(context)!.bollingerBandsDesc,
+                  icon: Icons.insights,
                 ),
                 HelpCard(
-                  title: AppLocalizations.of(context)!.recommendationTypes,
+                  title: AppLocalizations.of(context)!.analysis,
                   items: [
-                    AppLocalizations.of(context)!.buyRecommendationBollinger,
-                    AppLocalizations.of(context)!
-                        .strongBuyRecommendationBollinger,
-                    AppLocalizations.of(context)!.sellRecommendationBollinger,
-                    AppLocalizations.of(context)!
-                        .strongSellRecommendationBollinger,
-                    AppLocalizations.of(context)!
-                        .neutralRecommendationBollinger,
+                    AppLocalizations.of(context)!.bBoverboughtHighVolatility,
+                    AppLocalizations.of(context)!.bBoverbought,
+                    AppLocalizations.of(context)!.bBoversoldHighVolatility,
+                    AppLocalizations.of(context)!.bBoversold,
+                    AppLocalizations.of(context)!.bBpotentialBreakout,
+                    AppLocalizations.of(context)!.bBextendedNarrowBands,
+                    AppLocalizations.of(context)!.bBwithinBands,
                   ],
-                  icon: Icons.recommend,
+                  icon: Icons.compare_arrows,
                 ),
               ],
             ),
@@ -135,21 +133,18 @@ class HelpCard extends StatelessWidget {
     IconData iconData;
     Color iconColor;
 
-    if (item == AppLocalizations.of(context)!.buyRecommendationBollinger) {
-      iconData = Icons.arrow_upward;
+    if (item == AppLocalizations.of(context)!.bBoverbought ||
+        item == AppLocalizations.of(context)!.bBoverboughtHighVolatility) {
+      iconData = Icons.trending_up;
       iconColor = Colors.green;
-    } else if (item ==
-        AppLocalizations.of(context)!.sellRecommendationBollinger) {
-      iconData = Icons.arrow_downward;
+    } else if (item == AppLocalizations.of(context)!.bBoversold ||
+        item == AppLocalizations.of(context)!.bBoversoldHighVolatility) {
+      iconData = Icons.trending_down;
       iconColor = Colors.red;
-    } else if (item ==
-        AppLocalizations.of(context)!.strongBuyRecommendationBollinger) {
-      iconData = Icons.arrow_upward;
-      iconColor = Color.fromARGB(255, 0, 90, 5);
-    } else if (item ==
-        AppLocalizations.of(context)!.strongSellRecommendationBollinger) {
-      iconData = Icons.arrow_downward;
-      iconColor = Color.fromARGB(255, 128, 0, 0);
+    } else if (item == AppLocalizations.of(context)!.bBpotentialBreakout ||
+        item == AppLocalizations.of(context)!.bBextendedNarrowBands) {
+      iconData = Icons.trending_flat;
+      iconColor = Colors.orange;
     } else {
       iconData = Icons.radio_button_unchecked;
       iconColor = Colors.blue;

@@ -1,50 +1,68 @@
 // ma_chart_screen.dart
 import 'package:flutter/material.dart';
 import 'package:webview_universal/webview_universal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:convert';
 
 class MAChartScreen extends StatefulWidget {
-  const MAChartScreen({Key? key}) : super(key: key);
+  final String symbol;
+  final String interval;
+  final List<int> smaPeriods;
+  final List<int> emaPeriods;
+  final List<int> wmaPeriods;
+
+  const MAChartScreen({
+    Key? key,
+    required this.symbol,
+    required this.interval,
+    required this.smaPeriods,
+    required this.emaPeriods,
+    required this.wmaPeriods,
+  }) : super(key: key);
 
   @override
   _MAChartScreenState createState() => _MAChartScreenState();
 }
 
 class _MAChartScreenState extends State<MAChartScreen> {
-  TextEditingController symbolController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Stock Chart'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              controller: symbolController,
-              decoration: const InputDecoration(
-                labelText: 'Enter symbol (uppercase)',
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.show_chart, color: Colors.white),
+            SizedBox(width: 10),
+            Text(
+              '${widget.symbol} - ${AppLocalizations.of(context)!.providedByTradingView}',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                final symbol = symbolController.text.toUpperCase();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        TradingViewChart(symbol: symbol, studies: []),
-                  ),
-                );
-              },
-              child: const Text('Fetch Data'),
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue, Colors.purple],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        elevation: 10,
+      ),
+      body: TradingViewChart(
+        symbol: widget.symbol,
+        interval: widget.interval,
+        smaPeriods: widget.smaPeriods,
+        emaPeriods: widget.emaPeriods,
+        wmaPeriods: widget.wmaPeriods,
       ),
     );
   }
@@ -52,9 +70,18 @@ class _MAChartScreenState extends State<MAChartScreen> {
 
 class TradingViewChart extends StatefulWidget {
   final String symbol;
-  final List<Map<String, dynamic>> studies;
+  final String interval;
+  final List<int> smaPeriods;
+  final List<int> emaPeriods;
+  final List<int> wmaPeriods;
 
-  TradingViewChart({required this.symbol, required this.studies});
+  TradingViewChart({
+    required this.symbol,
+    required this.interval,
+    required this.smaPeriods,
+    required this.emaPeriods,
+    required this.wmaPeriods,
+  });
 
   @override
   _TradingViewChartState createState() => _TradingViewChartState();
@@ -71,13 +98,29 @@ class _TradingViewChartState extends State<TradingViewChart> {
         context: context,
         setState: setState,
         uri: Uri.dataFromString(
-          _getTradingViewHtml(widget.symbol),
+          _getTradingViewHtml(
+            widget.symbol,
+            widget.interval,
+            widget.smaPeriods,
+            widget.emaPeriods,
+            widget.wmaPeriods,
+          ),
           mimeType: 'text/html',
         ),
       );
   }
 
-  String _getTradingViewHtml(String symbol) {
+  String _getTradingViewHtml(String symbol, String interval,
+      List<int> smaPeriods, List<int> emaPeriods, List<int> wmaPeriods) {
+    final studies = _buildStudies(smaPeriods, emaPeriods, wmaPeriods);
+
+    final intervalMap = {
+      'daily': 'D',
+      'weekly': 'W',
+      'monthly': 'M',
+    };
+    final tvInterval = intervalMap[interval] ?? 'D';
+
     return '''
       <!DOCTYPE html>
       <html>
@@ -101,11 +144,11 @@ class _TradingViewChartState extends State<TradingViewChart> {
               "container_id": "tradingview_chart",
               "autosize": true,
               "symbol": "$symbol",
-              "interval": "D",
+              "interval": "$tvInterval",
               "timezone": "Etc/UTC",
               "theme": "light",
               "style": "1",
-              "locale": "en",
+              "locale": "es",
               "toolbar_bg": "#f1f3f6",
               "enable_publishing": false,
               "withdateranges": true,
@@ -115,7 +158,7 @@ class _TradingViewChartState extends State<TradingViewChart> {
               "details": true,
               "hotlist": true,
               "calendar": true,
-              "studies": ${jsonEncode(widget.studies)}
+              "studies": ${jsonEncode(studies)}
             });
           </script>
         </body>
@@ -123,41 +166,38 @@ class _TradingViewChartState extends State<TradingViewChart> {
     ''';
   }
 
+  List<Map<String, dynamic>> _buildStudies(
+      List<int> smaPeriods, List<int> emaPeriods, List<int> wmaPeriods) {
+    final studies = <Map<String, dynamic>>[];
+
+    for (var period in smaPeriods) {
+      studies.add({
+        "id": "MASimple@tv-basicstudies",
+        "inputs": {"length": period}
+      });
+    }
+
+    for (var period in emaPeriods) {
+      studies.add({
+        "id": "MAExp@tv-basicstudies",
+        "inputs": {"length": period}
+      });
+    }
+
+    for (var period in wmaPeriods) {
+      studies.add({
+        "id": "MAWeighted@tv-basicstudies",
+        "inputs": {"length": period}
+      });
+    }
+
+    return studies;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.show_chart, color: Colors.white),
-            SizedBox(width: 10),
-            Text(
-              '${widget.symbol}',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-        centerTitle: true,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blue, Colors.purple],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
-        elevation: 10,
-      ),
-      body: WebView(
-        controller: webViewController,
-      ),
+    return WebView(
+      controller: webViewController,
     );
   }
 }

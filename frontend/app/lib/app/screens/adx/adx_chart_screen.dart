@@ -1,13 +1,16 @@
 // adx_chart_screen.dart
 import 'package:flutter/material.dart';
 import 'package:webview_universal/webview_universal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ADXChartScreen extends StatefulWidget {
   final String symbol;
+  final String interval;
 
   const ADXChartScreen({
     Key? key,
     required this.symbol,
+    required this.interval,
   }) : super(key: key);
 
   @override
@@ -25,9 +28,9 @@ class _ADXChartScreenState extends State<ADXChartScreen> {
             Icon(Icons.show_chart, color: Colors.white),
             SizedBox(width: 10),
             Text(
-              '${widget.symbol}',
+              '${widget.symbol} - ${AppLocalizations.of(context)!.providedByTradingView}',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -49,6 +52,7 @@ class _ADXChartScreenState extends State<ADXChartScreen> {
       ),
       body: TradingViewChart(
         symbol: widget.symbol,
+        interval: widget.interval,
       ),
     );
   }
@@ -56,8 +60,12 @@ class _ADXChartScreenState extends State<ADXChartScreen> {
 
 class TradingViewChart extends StatefulWidget {
   final String symbol;
+  final String interval;
 
-  TradingViewChart({required this.symbol});
+  TradingViewChart({
+    required this.symbol,
+    required this.interval,
+  });
 
   @override
   _TradingViewChartState createState() => _TradingViewChartState();
@@ -74,13 +82,20 @@ class _TradingViewChartState extends State<TradingViewChart> {
         context: context,
         setState: setState,
         uri: Uri.dataFromString(
-          _getTradingViewHtml(widget.symbol),
+          _getTradingViewHtml(widget.symbol, widget.interval),
           mimeType: 'text/html',
         ),
       );
   }
 
-  String _getTradingViewHtml(String symbol) {
+  String _getTradingViewHtml(String symbol, String interval) {
+    final intervalMap = {
+      'daily': 'D',
+      'weekly': 'W',
+      'monthly': 'M',
+    };
+    final tvInterval = intervalMap[interval] ?? 'D';
+
     return '''
       <!DOCTYPE html>
       <html>
@@ -104,11 +119,11 @@ class _TradingViewChartState extends State<TradingViewChart> {
               "container_id": "tradingview_chart",
               "autosize": true,
               "symbol": "$symbol",
-              "interval": "D",
+              "interval": "$tvInterval",
               "timezone": "Etc/UTC",
               "theme": "light",
               "style": "1",
-              "locale": "en",
+              "locale": "es",
               "toolbar_bg": "#f1f3f6",
               "enable_publishing": false,
               "withdateranges": true,
@@ -118,7 +133,11 @@ class _TradingViewChartState extends State<TradingViewChart> {
               "details": true,
               "hotlist": true,
               "calendar": true,
-              "studies": ["DM@tv-basicstudies"]
+              "studies": [
+                {
+                  "id": "DM@tv-basicstudies"
+                }
+              ]
             });
           </script>
         </body>
@@ -132,12 +151,4 @@ class _TradingViewChartState extends State<TradingViewChart> {
       controller: webViewController,
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: const ADXChartScreen(
-      symbol: '',
-    ),
-  ));
 }

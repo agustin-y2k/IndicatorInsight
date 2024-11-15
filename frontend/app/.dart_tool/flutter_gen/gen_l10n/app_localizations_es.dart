@@ -5,19 +5,46 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get register => 'Registro';
+  String get analysis => 'Análisis';
+
+  @override
+  String get help => 'Ayuda';
+
+  @override
+  String get indicators => 'Indicadores';
 
   @override
   String get login => 'Iniciar Sesión';
 
   @override
-  String get logout => 'Cerrar Sesión';
+  String get register => 'Registrarse';
 
   @override
   String get email => 'Correo Electrónico';
 
   @override
   String get password => 'Contraseña';
+
+  @override
+  String get pleaseFillAllFields => 'Por favor, complete todos los campos';
+
+  @override
+  String get userRegisteredSuccessfully => 'Usuario registrado exitosamente';
+
+  @override
+  String get invalidEmailFormat => 'Formato de correo electrónico inválido';
+
+  @override
+  String get invalidPasswordFormat => 'La contraseña debe tener al menos 8 caracteres, incluir un dígito, una letra mayúscula, una letra minúscula y un carácter especial';
+
+  @override
+  String get unknownError => 'Ocurrió un error desconocido';
+
+  @override
+  String get userAlreadyExists => 'El usuario ya existe';
+
+  @override
+  String get internalServerError => 'Error interno del servidor';
 
   @override
   String get badRequest => 'Solicitud incorrecta';
@@ -29,89 +56,95 @@ class AppLocalizationsEs extends AppLocalizations {
   String get userNotFound => 'Usuario no encontrado';
 
   @override
-  String get internalServerError => 'Error interno del servidor';
+  String get noAccountRegister => '¿No tienes una cuenta? Regístrate';
 
   @override
-  String get unknownError => 'Error desconocido';
+  String get alreadyHaveAccountLogin => '¿Ya tienes una cuenta? Iniciar sesión';
 
   @override
-  String get unauthorized => 'No autorizado';
+  String get forgotPassword => '¿Olvidaste tu contraseña?';
 
   @override
-  String get pleaseFillAllFields => 'Por favor, complete todos los campos';
+  String get pleaseEnterEmail => 'Por favor, ingrese su correo electrónico';
 
   @override
-  String get userAlreadyExists => 'El usuario ya existe';
+  String get resetLinkSent => 'Se ha enviado un enlace de restablecimiento a su correo electrónico';
 
   @override
-  String get invalidEmailFormat => 'Formato de correo electrónico inválido';
+  String get sendResetLink => 'Enviar enlace de restablecimiento';
 
   @override
-  String get invalidPasswordFormat => 'La contraseña debe tener al menos 8 caracteres y contener al menos un dígito, una letra mayúscula, una letra minúscula y un carácter especial';
+  String get passwordResetFailed => 'Fallo en el restablecimiento de contraseña';
 
   @override
-  String get userRegisteredSuccessfully => 'Usuario registrado con éxito';
+  String get passwordResetSuccess => 'Restablecimiento de contraseña exitoso';
 
   @override
-  String get data => 'Datos';
+  String get newPassword => 'Nueva contraseña';
 
   @override
-  String get pleaseEnterSymbol => 'Por favor, ingrese un símbolo';
+  String get confirmPassword => 'Confirmar contraseña';
 
   @override
-  String get pleaseEnterPeriod => 'Por favor, ingrese al menos un período';
+  String get resetPassword => 'Restablecer contraseña';
 
   @override
-  String failedToCalculate(Object error) {
-    return 'Error al calcular: $error';
-  }
+  String get passwordsDoNotMatch => 'Las contraseñas no coinciden';
 
   @override
-  String errorOccurred(Object error) {
-    return 'Ocurrió un error: $error';
-  }
+  String get enterResetCode => 'Ingrese el código de restablecimiento';
 
   @override
-  String get indicators => 'Indicadores';
+  String get verifyCode => 'Verificar código';
 
   @override
-  String get oscillator => 'Oscilador';
+  String get invalidResetCode => 'Código de restablecimiento inválido';
 
   @override
-  String get movingAverages => 'Medias Móviles';
+  String get sendResetCode => 'Enviar código de restablecimiento';
 
   @override
-  String get movingAveragesType => 'Tipo de Medias Móviles';
+  String get enterSymbol => 'Ingrese el Símbolo';
 
   @override
-  String get enterPeriod => 'Períodos (separados por comas)';
+  String get selectInterval => 'Seleccione el Intervalo';
 
   @override
-  String get stochasticOscillator => 'Oscilador Estocástico';
+  String get intervalDaily => 'Diario';
 
   @override
-  String get bollingerBands => 'Bandas de Bollinger';
+  String get intervalWeekly => 'Semanal';
 
   @override
-  String get parabolicSAR => 'SAR Parabólico';
+  String get intervalMonthly => 'Mensual';
 
   @override
-  String get enterSymbol => 'Ingrese el símbolo';
-
-  @override
-  String get getRecommendation => 'Obtener Recomendación';
+  String get viewAnalysis => 'Ver Análisis';
 
   @override
   String get viewChart => 'Ver Gráfico';
 
   @override
-  String get strategies => 'Estrategias';
+  String get pleaseEnterSymbol => 'Por favor, ingrese un símbolo';
 
   @override
-  String get help => 'Ayuda';
+  String failedToCalculate(Object reason) {
+    return 'Error al calcular. $reason';
+  }
 
   @override
-  String get recommendation => 'Recomendación';
+  String errorOccurred(Object errorMessage) {
+    return 'Ocurrió un error: $errorMessage';
+  }
+
+  @override
+  String get adx => 'ADX';
+
+  @override
+  String get values => 'Valores';
+
+  @override
+  String get enterADXPeriodWithDefault => 'Ingrese el Periodo ADX (Por defecto es 14)';
 
   @override
   String get trendStrength => 'Fuerza de la Tendencia';
@@ -120,52 +153,34 @@ class AppLocalizationsEs extends AppLocalizations {
   String get lastCross => 'Último Cruce';
 
   @override
-  String get reason => 'Razón';
+  String get currentADX => 'ADX Actual';
 
   @override
-  String get description => 'Descripción';
+  String get currentDIPlus => '+DI Actual';
 
   @override
-  String get buy => 'COMPRA';
+  String get currentDIMinus => '-DI Actual';
 
   @override
-  String get sell => 'VENTA';
+  String get noSignificantTrend => 'No se detecta una tendencia significativa';
 
   @override
-  String get neutral => 'NEUTRAL';
+  String get moderateBullishTrend => 'Tendencia alcista moderada observada';
 
   @override
-  String get strongBuy => 'COMPRA FUERTE';
+  String get moderateBearishTrend => 'Tendencia bajista moderada observada';
 
   @override
-  String get strongSell => 'VENTA FUERTE';
+  String get sidewaysModerate => 'Tendencia lateral con fuerza moderada';
 
   @override
-  String get overbought => 'Sobrecompra';
+  String get strongBullishPeak => 'Tendencia alcista fuerte detectada, posible pico';
 
   @override
-  String get oversold => 'Sobreventa';
+  String get strongBearishPeak => 'Tendencia bajista fuerte detectada, posible pico';
 
   @override
-  String get strongOversold => 'Sobreventa Fuerte';
-
-  @override
-  String get strongOverbought => 'Sobrecompra Fuerte';
-
-  @override
-  String get noClearSignal => 'No hay una señal clara';
-
-  @override
-  String get signalStrength => 'Fuerza de la Señal';
-
-  @override
-  String get strongSignal => 'Señal Fuerte';
-
-  @override
-  String get moderateSignal => 'Señal Moderada';
-
-  @override
-  String get weakSignal => 'Señal Débil';
+  String get veryStrongTrendNearPeak => 'Tendencia muy fuerte detectada, cerca del pico';
 
   @override
   String get bullishCross => 'Cruce Alcista';
@@ -174,130 +189,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get bearishCross => 'Cruce Bajista';
 
   @override
-  String get divergence => 'Divergencia';
+  String get adxExplanation => 'Explicación de ADX';
 
   @override
-  String get entryExitSignal => 'Señal de Entrada/Salida';
+  String get adxExplanationDesc => 'El ADX (Índice Direccional Medio) es un indicador técnico utilizado para cuantificar la fuerza de la tendencia.';
 
   @override
-  String get histogram => 'Histograma';
+  String get crossTypes => 'Tipos de Cruce';
 
   @override
-  String get signalLine => 'Línea de Señal';
+  String get bollingerBands => 'Bandas de Bollinger';
 
   @override
-  String get macdLine => 'Línea MACD';
+  String get enterBBPeriodWithDefault => 'Ingrese el periodo de Bandas de Bollinger (por defecto es 20)';
 
   @override
-  String get bullish => 'Alcista';
-
-  @override
-  String get bearish => 'Bajista';
-
-  @override
-  String get date => 'Fecha';
-
-  @override
-  String get value => 'Valor';
-
-  @override
-  String get type => 'Tipo';
-
-  @override
-  String get crossingPoints => 'Puntos de Cruce';
-
-  @override
-  String get adxIndicatorDetails => 'Detalles del Indicador ADX';
-
-  @override
-  String get currentADX => 'ADX Actual';
-
-  @override
-  String get currentDIPlus => 'DI+ Actual';
-
-  @override
-  String get currentDIMinus => 'DI- Actual';
-
-  @override
-  String get absenceOfClearTrend => 'Ausencia de una tendencia clara';
-
-  @override
-  String get clearBullishTrend => 'Tendencia alcista clara';
-
-  @override
-  String get clearBearishTrend => 'Tendencia bajista clara';
-
-  @override
-  String get sidewaysTrend => 'Tendencia lateral';
-
-  @override
-  String get strongBullishTrend => 'Tendencia alcista fuerte (posible pico)';
-
-  @override
-  String get strongBearishTrend => 'Tendencia bajista fuerte (posible pico)';
-
-  @override
-  String get veryStrongTrend => 'Tendencia muy fuerte (pico de tendencia)';
-
-  @override
-  String get understandingTheIndicator => 'Entendiendo el indicador';
-
-  @override
-  String get understandingADXDesc => 'El ADX es un indicador de análisis técnico utilizado para cuantificar la fuerza de una tendencia. Va de 0 a 100, con valores más altos indicando una tendencia más fuerte.';
-
-  @override
-  String get recommendationLogic => 'Lógica de la Recomendación:';
-
-  @override
-  String get recommendationLogicDescAdx => 'El valor ADX ayuda a determinar la fuerza de la tendencia:\n- Por debajo de 25: Ausencia de tendencia clara.\n- 25 a 40: Tendencia clara (alcista o bajista).\n- 40 a 50: Tendencia fuerte (posible pico).\n- Más de 50: Tendencia muy fuerte (pico de tendencia).';
-
-  @override
-  String get recommendationTypes => 'Tipos de Recomendación:';
-
-  @override
-  String get buyRecommendationAdx => 'COMPRA: El valor de ADX está por encima de 25 y el +DI cruza por encima del -DI, indicando una posible tendencia alcista.';
-
-  @override
-  String get sellRecommendationAdx => 'VENTA: El valor de ADX está por encima de 25 y el +DI cruza por debajo del -DI, indicando una posible tendencia bajista.';
-
-  @override
-  String get neutralRecommendationAdx => 'NEUTRAL: El valor de ADX está por debajo de 25, indicando una tendencia débil o ausente.';
-
-  @override
-  String get strongBuyRecommendationAdx => 'COMPRA FUERTE: El valor de ADX está por encima de 50 y el +DI cruza por encima del -DI, indicando una tendencia alcista muy fuerte.';
-
-  @override
-  String get strongSellRecommendationAdx => 'VENTA FUERTE: El valor de ADX está por encima de 50 y el +DI cruza por debajo del -DI, indicando una tendencia bajista muy fuerte.';
-
-  @override
-  String get adxDivergenceDesc => 'La divergencia del ADX ocurre cuando el movimiento del precio no es confirmado por el indicador ADX. Por ejemplo, si el precio está alcanzando nuevos máximos, pero el indicador ADX está alcanzando máximos más bajos, puede indicar una tendencia debilitada o una posible reversión.';
-
-  @override
-  String get adxEntryExitSignalDesc => 'Algunos operadores utilizan niveles de umbral ADX específicos como señales de entrada o salida. Por ejemplo, pueden ingresar a una operación cuando el ADX cruza por encima de cierto valor, lo que indica una tendencia fuerte, y salir cuando cae por debajo de otro umbral, lo que sugiere una tendencia debilitada. Estos niveles de umbral pueden variar según la estrategia del comerciante y las condiciones del mercado.';
-
-  @override
-  String get understandingBollingerBandsDesc => 'Las Bandas de Bollinger son un indicador de análisis técnico que consiste en tres líneas: la banda superior, la banda media (SMA) y la banda inferior. La posición del precio en relación con estas bandas puede proporcionar señales comerciales.';
-
-  @override
-  String get bollingerBandsLevels => 'Niveles de Bandas de Bollinger';
-
-  @override
-  String get bollingerBandsLevelsDesc => 'Las Bandas de Bollinger consisten en tres niveles:\n- Banda Superior: 2 desviaciones estándar por encima de la SMA.\n- Banda Media (SMA): Media Móvil Simple del precio.\n- Banda Inferior: 2 desviaciones estándar por debajo de la SMA.';
-
-  @override
-  String get buyRecommendationBollinger => 'COMPRA: El precio está por debajo de la banda inferior - Sobrevendido.';
-
-  @override
-  String get strongBuyRecommendationBollinger => 'COMPRA FUERTE: El precio está por debajo de la banda inferior - Sobrevendido con bandas anchas.';
-
-  @override
-  String get sellRecommendationBollinger => 'VENTA: El precio está por encima de la banda superior - Sobrecomprado.';
-
-  @override
-  String get strongSellRecommendationBollinger => 'VENTA FUERTE: El precio está por encima de la banda superior - Sobrecomprado con bandas anchas.';
-
-  @override
-  String get neutralRecommendationBollinger => 'NEUTRAL: Bandas estrechas - Neutral o Dentro de las bandas de Bollinger.';
+  String get enterBBStdDevWithDefault => 'Ingrese la desviación estándar de Bandas de Bollinger (por defecto es 2)';
 
   @override
   String get upperBand => 'Banda Superior';
@@ -312,314 +219,239 @@ class AppLocalizationsEs extends AppLocalizations {
   String get bandWidth => 'Ancho de Banda';
 
   @override
-  String get overboughtWideBands => 'Precio por encima de la banda superior - Sobrecompra con bandas anchas';
+  String get signalStrength => 'Fuerza de Señal';
 
   @override
-  String get bollingerBandsOverbought => 'Precio por encima de la banda superior - Sobrecompra';
+  String get description => 'Descripción';
 
   @override
-  String get oversoldWideBands => 'Precio por debajo de la banda inferior - Sobreventa con bandas anchas';
+  String get strongSignal => 'Señal Fuerte';
 
   @override
-  String get bollingerBandsOversold => 'Precio por debajo de la banda inferior - Sobreventa';
+  String get moderateSignal => 'Señal Moderada';
 
   @override
-  String get narrowBandsNeutral => 'Precio cerca de la banda media - Sin una señal clara';
+  String get weakSignal => 'Señal Débil';
 
   @override
-  String get withinBollingerBands => 'Precio dentro de las bandas - Sin una señal clara';
+  String get bollingerBandsDesc => 'Las Bandas de Bollinger son un indicador de volatilidad utilizado en el análisis técnico para medir las fluctuaciones de precio de un activo financiero. Este indicador consiste en tres líneas: una línea media, que es una media móvil simple, y dos bandas por encima y por debajo que representan desviaciones estándar. Las bandas se expanden y contraen según la volatilidad del activo. Cuando el precio se acerca a la banda superior, el activo puede estar sobrecomprado; cuando se acerca a la banda inferior, puede estar sobrevendido. Los operadores utilizan las Bandas de Bollinger para identificar posibles puntos de compra y venta, períodos de alta o baja volatilidad, y para anticipar rupturas de precio cuando las bandas permanecen estrechas por un periodo prolongado.';
 
   @override
-  String get bollinger_band_squeeze_title => 'Apretón de la banda de Bollinger';
+  String get calculateBBFailed => 'No se pudo calcular las Bandas de Bollinger';
 
   @override
-  String get bollinger_band_squeeze_description => 'La estrategia de apreton de bandas de Bollinger se basa en el principio de que los períodos de baja volatilidad suelen ir seguidos de períodos de alta volatilidad. Cuando las bandas se juntan, indica que la volatilidad es baja y podría ocurrir una ruptura. Los operadores observan un movimiento de precios por encima o por debajo de las bandas como señal de una posible entrada.';
+  String get bBoverboughtHighVolatility => 'El precio está por encima de la banda superior, indicando una posible condición de sobrecompra con alta volatilidad.';
 
   @override
-  String get bollinger_band_breakout_title => 'Ruptura de la banda de Bollinger';
+  String get bBoverbought => 'El precio está por encima de la banda superior, lo cual puede sugerir una condición de sobrecompra potencial.';
 
   @override
-  String get bollinger_band_breakout_description => 'La estrategia de ruptura de las bandas Bollinger busca que el precio rompa las bandas superior o inferior. Una ruptura por encima de la banda superior puede indicar que el precio se encuentra en una fuerte tendencia alcista, mientras que una ruptura por debajo de la banda inferior puede indicar una fuerte tendencia a la baja. Los operadores suelen utilizar esta estrategia para realizar operaciones en la dirección de la ruptura.';
+  String get bBoversoldHighVolatility => 'El precio está por debajo de la banda inferior, indicando una posible condición de sobreventa con alta volatilidad.';
 
   @override
-  String get reversion_to_mean_title => 'Reversión a la media';
+  String get bBoversold => 'El precio está por debajo de la banda inferior, lo cual puede sugerir una condición de sobreventa potencial.';
 
   @override
-  String get reversion_to_mean_description => 'Esta estrategia supone que el precio tiende a volver a la banda media (la media móvil simple) después de tocar las bandas superior o inferior. Cuando el precio alcanza la banda superior, los operadores pueden buscar señales de venta, anticipando que el precio volverá a la media. Por el contrario, cuando el precio alcanza la banda inferior, los operadores pueden buscar señales de compra.';
+  String get bBpotentialBreakout => 'Las bandas están estrechas, lo que sugiere baja volatilidad y un posible patrón de ruptura.';
 
   @override
-  String get double_bottoms_and_tops_title => 'Dobles suelos y techos';
+  String get bBextendedNarrowBands => 'Las bandas han estado estrechas durante un período prolongado, lo que sugiere baja volatilidad con un alto potencial de ruptura.';
 
   @override
-  String get double_bottoms_and_tops_description => 'Los dobles suelos y techos son patrones de inversión que se pueden identificar utilizando las Bandas de Bollinger. Un doble suelo ocurre cuando el precio alcanza dos mínimos alrededor del mismo nivel, a menudo con un mínimo más bajo tocando o yendo por debajo de la banda inferior, seguido de un repunte. Un doble techo ocurre cuando el precio alcanza dos máximos alrededor del mismo nivel, a menudo con un máximo superior tocando o superando la banda superior, seguido de una caída.';
+  String get bBwithinBands => 'El precio se encuentra dentro de las Bandas de Bollinger, indicando un movimiento de precio típico dentro de un rango neutral.';
 
   @override
-  String get belowMiddleBand => 'Precio por debajo de la Banda Media';
+  String get mildUpwardTrend => 'El precio está por encima de la banda media, indicando una leve tendencia al alza.';
 
   @override
-  String get aboveMiddleBand => 'Precio por encima de la Banda Media';
+  String get mildDownwardTrend => 'El precio está por debajo de la banda media, indicando una leve tendencia a la baja.';
 
   @override
-  String get understandingMacdDesc => 'El MACD es un indicador de impulso que sigue la tendencia y muestra la relación entre dos promedios móviles del precio de un valor. Consta de la línea MACD, la línea de señal y el histograma.';
+  String get macd => 'MACD';
 
   @override
-  String get buyRecommendationMacd => 'COMPRA: El MACD cruza por encima de la línea de señal, indicando una tendencia alcista';
+  String get macdLine => 'Línea MACD';
 
   @override
-  String get sellRecommendationMacd => 'VENTA: El MACD cruza por debajo de la línea de señal, indicando una tendencia bajista';
+  String get signalLine => 'Línea de Señal';
 
   @override
-  String get neutralRecommendationMacd => 'NEUTRAL: No se identifica una señal clara por el indicador MACD, posiblemente debido a la proximidad entre el MACD y la línea de señal.';
+  String get histogram => 'Histograma';
 
   @override
-  String get strongBuyRecommendationMacd => 'COMPRA FUERTE: El MACD cruza por encima de la línea de señal con un histograma creciente, indicando una fuerte tendencia alcista.';
+  String get trendAnalysis => 'Análisis de Tendencia';
 
   @override
-  String get strongSellRecommendationMacd => 'VENTA FUERTE: El MACD cruza por debajo de la línea de señal con un histograma decreciente, indicando una fuerte tendencia bajista.';
+  String get divergence => 'Divergencia';
 
   @override
-  String get recommendationLogicDescMacd => 'Cuando la línea MACD cruza por encima de la línea de señal, se considera una señal alcista, lo que indica una posible oportunidad de compra. Por el contrario, cuando la línea MACD cruza por debajo de la línea de señal, se considera una señal bajista, lo que indica una posible oportunidad de venta.';
+  String get histogramAnalysis => 'Análisis del Histograma';
 
   @override
-  String get macdLineSignalCorss => 'Cruce de Línea MACD y Línea de Señal';
+  String get macdbullishTrend => 'Alcista - La línea MACD está por encima de la línea de señal';
 
   @override
-  String get macdLineSignalCorssDesc => 'Esta estrategia implica identificar señales de compra y venta basadas en el cruce de la línea MACD y la línea de señal. Un cruce alcista ocurre cuando la línea MACD cruza por encima de la línea de señal, lo que indica una señal de compra potencial. Por el contrario, una señal bajista El cruce se produce cuando la línea MACD cruza por debajo de la línea de señal, lo que indica una posible señal de venta.';
+  String get macdbearishTrend => 'Bajista - La línea MACD está por debajo de la línea de señal';
 
   @override
-  String get macdHistogram => 'Histograma MACD';
+  String get macdneutralTrend => 'Neutral - La línea MACD es igual a la línea de señal';
 
   @override
-  String get macdHistogramDesc => 'En esta estrategia, los operadores buscan cambios en el histograma MACD. Cuando el histograma pasa de territorio negativo a positivo, sugiere un creciente impulso alcista. Por el contrario, cuando el histograma pasa de territorio positivo a negativo, sugiere un impulso bajista creciente.';
+  String get macdbullishDivergence => 'Divergencia Alcista - La MACD disminuye mientras el precio aumenta';
 
   @override
-  String get macdDivergencePrice => 'Divergencia de Precio';
+  String get macdbearishDivergence => 'Divergencia Bajista - La MACD aumenta mientras el precio disminuye';
 
   @override
-  String get macdDivergencePriceDesc => 'De manera similar a la divergencia del RSI, los operadores pueden utilizar la divergencia del MACD para identificar posibles cambios de tendencia. Se produce una divergencia alcista cuando el precio alcanza un mínimo más bajo, pero el indicador MACD forma un mínimo más alto. Por el contrario, se produce una divergencia bajista cuando el precio alcanza un máximo más alto, pero el indicador MACD forma un máximo más bajo.';
+  String get noDivergence => 'No se detectó una divergencia significativa';
 
   @override
-  String get bearishDivergence => 'Divergencia Bajista';
+  String get histogramExpanding => 'El histograma se expande - la tendencia se fortalece';
 
   @override
-  String get macdSignalBullish => 'MACD y señal en territorio alcista';
+  String get histogramContracting => 'El histograma se contrae - la tendencia se debilita';
 
   @override
-  String get conflictingSignals => 'Señales Conflictivas';
+  String get histogramStable => 'El histograma está estable - la tendencia permanece constante';
 
   @override
-  String get bullishDivergence => 'Divergencia Alcista';
+  String get macdLineDesc => 'La línea MACD se calcula como la diferencia entre las medias móviles exponenciales de 12 y 26 días, mostrando la dirección y el impulso de la tendencia.';
 
   @override
-  String get macdSignalBearish => 'MACD y señal en territorio bajista';
+  String get signalLineDesc => 'La línea de señal es la media móvil exponencial de 9 días de la línea MACD, utilizada para identificar posibles señales de compra y venta mediante cruces.';
 
   @override
-  String get currentParabolicSAR => 'SAR Parabólico Actual';
+  String get histogramDesc => 'El histograma muestra la diferencia entre las líneas MACD y de señal, visualizando la fuerza de la tendencia.';
 
   @override
-  String get previousParabolicSAR => 'SAR Parabólico Anterior';
+  String get macdTrendAnalysisDesc => 'El análisis de tendencia de MACD evalúa la relación entre las líneas MACD y de señal para indicar si la tendencia es alcista, bajista o neutral.';
 
   @override
-  String get trendDirection => 'Dirección de la Tendencia';
+  String get divergenceDesc => 'La divergencia ocurre cuando MACD y el precio se mueven en direcciones opuestas, señalando un posible cambio de tendencia.';
 
   @override
-  String get upwardTrend => 'Tendencia Alcista';
+  String get histogramAnalysisDesc => 'El análisis del histograma examina los cambios en el tamaño del histograma para evaluar si la tendencia se fortalece, debilita o permanece estable.';
 
   @override
-  String get downwardTrend => 'Tendencia Bajista';
+  String get movingAverages => 'Medias Móviles';
 
   @override
-  String get noClearTrend => 'Sin Tendencia Clara';
+  String get movingAveragesDesc => 'Las medias móviles (MA) son indicadores que ayudan a suavizar los datos de precios para identificar tendencias. Aquí están los tipos comunes:';
 
   @override
-  String get buyRecommendationParabolicSAR => 'COMPRA: SAR está actualmente por debajo del precio, lo que indica una posible tendencia alcista.';
+  String get smaPeriods => 'Períodos SMA (separados por comas)';
 
   @override
-  String get strongBuyRecommendationParabolicSAR => 'COMPRA FUERTE: SAR está significativamente por debajo del precio, lo que indica una fuerte tendencia alcista.';
+  String get emaPeriods => 'Períodos EMA (separados por comas)';
 
   @override
-  String get sellRecommendationParabolicSAR => 'VENTA: SAR está actualmente por encima del precio, lo que indica una posible tendencia bajista.';
+  String get wmaPeriods => 'Períodos WMA (separados por comas)';
 
   @override
-  String get strongSellRecommendationParabolicSAR => 'VENTA FUERTE: SAR está significativamente por encima del precio, lo que indica una fuerte tendencia bajista.';
+  String get goldenCross => 'Cruce Dorado';
 
   @override
-  String get neutralRecommendationParabolicSAR => 'NEUTRAL: SAR no está significativamente por encima ni por debajo del precio, lo que sugiere la falta de una dirección clara de la tendencia.';
+  String get deathCross => 'Cruce de la Muerte';
 
   @override
-  String get understandingParabolicSARDesc => 'El SAR Parabólico (Stop and Reverse) es un indicador técnico que se utiliza para identificar posibles reversiones en la dirección del precio de un activo. Está representado por una serie de puntos encima o debajo del gráfico de precios, que indican la dirección potencial de la tendencia.';
+  String get type => 'Tipo';
 
   @override
-  String get recommendationLogicItem1 => 'Si el valor SAR actual es mayor que el valor SAR anterior y el precio actual es mayor que el precio anterior, indica una tendencia alcista y una posible oportunidad de compra.';
+  String get date => 'Fecha';
 
   @override
-  String get recommendationLogicItem2 => 'Si el valor SAR actual es menor que el valor SAR anterior y el precio actual es menor que el precio anterior, indica una tendencia bajista y una posible oportunidad de venta.';
+  String get value => 'Valor';
 
   @override
-  String get trendReversal => 'Reversión de Tendencia';
+  String get smaDesc => 'SMA (Media Móvil Simple): Promedio de precios durante un período específico.';
 
   @override
-  String get trailingStopLoss => 'Stop Loss Dinámico';
+  String get emaDesc => 'EMA (Media Móvil Exponencial): Da más peso a los precios recientes, siendo más sensible a la nueva información.';
 
   @override
-  String get trendFollowing => 'Seguimiento de Tendencia';
+  String get wmaDesc => 'WMA (Media Móvil Ponderada): Asigna mayor peso a los precios recientes para una indicación de tendencia equilibrada.';
 
   @override
-  String get trendReversalDescription => 'Esta estrategia implica identificar posibles cambios de tendencia en función del movimiento del indicador Parabolic SAR. Una reversión desde arriba del precio hacia debajo del precio sugiere una posible reversión de la tendencia alcista, mientras que una reversión desde debajo del precio hasta por encima del precio sugiere una posible reversión de la tendencia bajista.';
+  String get crossTypesDesc => 'Los cruces entre medias móviles pueden indicar posibles cambios en la dirección de la tendencia.';
 
   @override
-  String get trailingStopLossDescription => 'En esta estrategia, los operadores utilizan el SAR Parabólico como mecanismo de stop loss dinámico. A medida que el precio se mueve a favor de la operación, el SAR Parabólico se acerca al precio, actuando como un nivel dinámico de parada de pérdidas. Si el precio se revierte y el SAR Parabólico cruza el precio, se activa un stop loss.';
+  String get goldenCrossDesc => 'Cruz Dorada: Ocurre cuando una MA de corto plazo cruza por encima de una MA de largo plazo, señalando una posible tendencia al alza.';
 
   @override
-  String get trendFollowingDescription => 'Los operadores pueden utilizar el SAR Parabólico para seguir la tendencia ingresando posiciones en la dirección del SAR. En una tendencia alcista, los operadores buscan señales de compra cuando el SAR se mueve por debajo del precio, lo que indica un impulso alcista. En una tendencia bajista, los operadores buscan señales de venta cuando el SAR se mueve por encima del precio, lo que indica un impulso bajista.';
+  String get deathCrossDesc => 'Cruz de la Muerte: Ocurre cuando una MA de corto plazo cruza por debajo de una MA de largo plazo, señalando una posible tendencia a la baja.';
 
   @override
-  String get understandingRSIDesc => 'El índice de fuerza relativa (RSI) es un oscilador de impulso que mide la velocidad y el cambio de los movimientos de precios. Se utiliza principalmente para identificar condiciones de sobrecompra o sobreventa en un mercado.';
+  String get enterRSIPeriodWithDefault => 'Ingrese el Período RSI (Predeterminado es 14)';
 
   @override
-  String get buyRecommendationRSI => 'COMPRA: RSI < 30, indicando una condición de sobreventa y una posible oportunidad de compra.';
+  String get rsi => 'RSI';
 
   @override
-  String get strongBuyRecommendationRSI => 'COMPRA FUERTE: RSI < 20, indicando una condición muy sobrevendida y una fuerte oportunidad de compra.';
+  String get rsiIndicatorDetails => 'Detalles del Indicador RSI';
 
   @override
-  String get sellRecommendationRSI => 'VENTA: RSI > 70, indicando una condición de sobrecompra y una posible oportunidad de venta.';
+  String get rsiExplanationDesc => 'El Índice de Fuerza Relativa (RSI) es un oscilador de impulso que mide la velocidad y el cambio en los movimientos de precios. Los valores de RSI van de 0 a 100 y se usa comúnmente para identificar condiciones de sobrecompra o sobreventa.';
 
   @override
-  String get strongSellRecommendationRSI => 'VENTA FUERTE: RSI > 80, indicando una condición muy sobrecomprada y una fuerte oportunidad de venta.';
+  String get rsiValue => 'Valor del RSI';
 
   @override
-  String get neutralRecommendationRSI => 'NEUTRAL: RSI entre 30 y 70, sin una señal clara.';
+  String get rsiSmaValue => 'Valor del SMA del RSI';
 
   @override
-  String get overboughtOversoldLevels => 'Niveles de Sobrecompra/Sobreventa';
+  String get interpretation => 'Interpretación';
 
   @override
-  String get overboughtOversoldLevelsRSIDesc => 'Esta estrategia implica identificar condiciones de sobrecompra y sobreventa utilizando el indicador RSI. Cuando el valor del RSI supera 70, se considera sobrecompra, lo que indica una posible señal de venta. Por el contrario, cuando el valor del RSI cae por debajo de 30, se considera sobrevendido, lo que indica una posible señal de compra.';
+  String get condition => 'Condición';
 
   @override
-  String get divergenceRSIDesc => 'En esta estrategia, los operadores buscan divergencias entre el precio y el indicador RSI. Se produce una divergencia alcista cuando el precio alcanza un mínimo más bajo, pero el indicador RSI forma un mínimo más alto, lo que sugiere un posible impulso alcista. Por el contrario, se produce una divergencia bajista cuando el precio alcanza un máximo más alto, pero el indicador RSI forma un máximo más bajo, lo que sugiere un posible impulso a la baja.';
+  String get trend => 'Tendencia';
 
   @override
-  String get trendConfirmation => 'Confirmación de Tendencia';
+  String get rsioverbought => 'Sobrecomprado';
 
   @override
-  String get trengConfirmationRSIDesc => 'Esta estrategia implica el uso del indicador RSI para confirmar las tendencias identificadas por otros indicadores o la acción del precio. Cuando el valor del RSI confirma una tendencia alcista manteniéndose por encima de un cierto umbral (por ejemplo, 50), refuerza el sesgo alcista. De manera similar, cuando el valor del RSI confirma una tendencia bajista al mantenerse por debajo de cierto umbral, refuerza el sesgo bajista.';
+  String get rsioversold => 'Sobrevendido';
 
   @override
-  String get understandingStochasticDesc => 'El oscilador estocástico es un indicador de impulso que compara un precio de cierre particular de un valor con un rango de sus precios durante un período de tiempo determinado. Oscila entre 0 y 100 y se utiliza para identificar posibles condiciones de sobrecompra o sobreventa en un mercado.';
+  String get rsineutral => 'Neutral';
 
   @override
-  String get buyRecommendationStochastic => 'COMPRA: El indicador estocástico sugiere una posible oportunidad de compra cuando SlowK y SlowD son bajos (por debajo de 20) y SlowK cruza por encima de SlowD.';
+  String get rsibullishTrend => 'Tendencia Alcista';
 
   @override
-  String get strongBuyRecommendationStochastic => 'COMPRA FUERTE: El indicador estocástico muestra una fuerte señal de compra cuando SlowK y SlowD son muy bajos (por debajo de 10) y SlowK cruza por encima de SlowD.';
+  String get rsibearishTrend => 'Tendencia Bajista';
 
   @override
-  String get sellRecommendationStochastic => 'VENTA: El indicador estocástico sugiere una posible oportunidad de venta cuando SlowK y SlowD son altos (por encima de 80) y SlowK cruza por debajo de SlowD.';
+  String get rsiSmaDescription => 'Promedio Móvil Simple del RSI para suavizar la tendencia';
 
   @override
-  String get strongSellRecommendationStochastic => 'VENTA FUERTE: El indicador estocástico muestra una fuerte señal de venta cuando SlowK y SlowD son muy altos (por encima de 90) y SlowK cruza por debajo de SlowD.';
+  String get rsinoClearDivergence => 'Sin Divergencia Clara';
 
   @override
-  String get neutralRecommendationStochastic => 'NEUTRAL: El indicador estocástico indica una condición neutral cuando SlowK y SlowD están entre 20 y 80, lo que sugiere que no hay una clara señal de sobrecompra o sobreventa.';
+  String get rsibullishDivergence => 'Divergencia Alcista - RSI subiendo mientras el precio cae';
 
   @override
-  String get overboughtOversoldLevelsStochasticDesc => 'Esta estrategia implica identificar condiciones de sobrecompra y sobreventa utilizando el oscilador estocástico. Cuando la línea %K cruza por encima de 80, indica condiciones de sobrecompra y sugiere una posible señal de venta. Por el contrario, cuando la línea %K cruza por debajo de 20, indica condiciones de sobreventa y sugiere una posible señal de compra.';
+  String get rsibearishDivergence => 'Divergencia Bajista - RSI bajando mientras el precio sube';
 
   @override
-  String get divergenceStochasticDesc => 'En esta estrategia, los operadores buscan divergencias entre el precio y el oscilador estocástico. Se produce una divergencia alcista cuando el precio alcanza un mínimo más bajo, pero el oscilador estocástico forma un mínimo más alto, lo que sugiere un posible impulso alcista. Por el contrario, se produce una divergencia bajista cuando el precio alcanza un máximo más alto, pero el oscilador estocástico forma un máximo más bajo, lo que sugiere un posible impulso a la baja.';
+  String get conditionDescription => 'La condición se basa en los niveles del RSI: sobrecompra (>= 70), sobreventa (<= 30) y neutral (entre 30 y 70).';
 
   @override
-  String get trendConfirmationStochasticDesc => 'Esta estrategia implica el uso del oscilador estocástico para confirmar tendencias identificadas por otros indicadores o la acción del precio. Cuando la línea %K confirma una tendencia alcista manteniéndose por encima de un cierto umbral (por ejemplo, 50), refuerza el sesgo alcista. De manera similar, cuando la línea %K confirma una tendencia bajista al permanecer por debajo de cierto umbral, refuerza el sesgo bajista.';
+  String get trendDescription => 'La tendencia se determina por el nivel del RSI: alcista si está por encima de 50, bajista si está por debajo de 50 o neutral si está cerca de 50.';
 
   @override
-  String get understandingWilliamsRDesc => 'El indicador Williams %R (%R) es un oscilador de impulso que mide los niveles de sobrecompra o sobreventa. Oscila entre -100 y 0, donde los valores superiores a -20 se consideran sobrecomprados y los valores inferiores a -80 se consideran sobrevendidos. ';
+  String get divergenceDescription => 'La divergencia compara la dirección del RSI y del precio. La divergencia alcista ocurre cuando el precio cae mientras el RSI sube, y la divergencia bajista ocurre cuando el precio sube mientras el RSI cae.';
 
   @override
-  String get buyRecommendationWilliamsR => 'COMPRA: Williams %R se encuentra entre -80 y -50, indicando una condición de sobreventa y una posible oportunidad de compra.';
+  String get errorNoDataFound => 'No se encontraron datos para el símbolo';
 
   @override
-  String get strongBuyRecommendationWilliamsR => 'COMPRA FUERTE: Williams %R es inferior a -80, indicando una condición muy sobrevendida y una fuerte oportunidad de compra.';
+  String get errorInsufficientData => 'Datos insuficientes para calcular el ADX';
 
   @override
-  String get sellRecommendationWilliamsR => 'VENTA: Williams %R se encuentra entre -20 y -50, indicando una condición de sobrecompra y una posible oportunidad de venta.';
+  String get errorUnexpected => 'Ocurrió un error inesperado';
 
   @override
-  String get strongSellRecommendationWilliamsR => 'VENTA FUERTE: Williams %R es superior a -20, indicando una condición muy sobrecomprada y una fuerte oportunidad de venta.';
-
-  @override
-  String get neutralRecommendationWilliamsR => 'NEUTRAL: Williams %R no presenta una señal clara de sobrecompra o sobreventa, lo que sugiere una condición neutral.';
-
-  @override
-  String get overboughtOversoldLevelsWRDesc => 'Esta estrategia implica identificar condiciones de sobrecompra y sobreventa utilizando el indicador Williams %R. Cuando el valor Williams %R supera -20, se considera sobrecomprado, lo que indica una posible señal de venta. Por el contrario, cuando el valor Williams %R cae por debajo de -80, se considera sobrevendido, lo que indica una posible señal de compra.';
-
-  @override
-  String get divergenceWRDesc => 'En esta estrategia, los operadores buscan divergencias entre el precio y el indicador Williams %R. Se produce una divergencia alcista cuando el precio alcanza un mínimo más bajo, pero el indicador Williams %R forma un mínimo más alto, lo que sugiere un potencial impulso alcista. Por el contrario, se produce una divergencia bajista cuando el precio alcanza un máximo más alto, pero el indicador Williams %R forma un máximo más bajo, lo que sugiere un posible impulso a la baja.';
-
-  @override
-  String get trengConfirmationWRDesc => 'Esta estrategia implica el uso del indicador Williams %R para confirmar las tendencias identificadas por otros indicadores o la acción del precio. Cuando el valor Williams %R confirma una tendencia alcista manteniéndose por encima de un cierto umbral (por ejemplo, -50), refuerza el sesgo alcista. De manera similar, cuando el valor Williams %R confirma una tendencia bajista al permanecer por debajo de cierto umbral, refuerza el sesgo bajista.';
-
-  @override
-  String get movingAveragesCrossover => 'Cruce de Medias Móviles';
-
-  @override
-  String get movingAveragesCrossoverDesc => 'Esta estrategia implica el uso de dos medias móviles con diferentes períodos de tiempo. Cuando la media móvil más corta cruza por encima de la más larga, se considera una señal de compra, lo que indica una posible tendencia alcista. Por el contrario, cuando la media móvil más corta cruza por debajo de la más larga, se considera una señal de venta, lo que indica una posible tendencia bajista.';
-
-  @override
-  String get movingAveragesSupportResistance => 'Medias Móviles como Soporte/Resistencia';
-
-  @override
-  String get movingAveragesSupportResistanceDesc => 'En esta estrategia, se utiliza una única media móvil como nivel de soporte o resistencia dinámico. Cuando el precio se acerca a la media móvil desde arriba, puede actuar como resistencia, y cuando el precio se acerca desde abajo, puede actuar como soporte. Los operadores pueden buscar oportunidades de compra cuando el precio rebota en el promedio móvil desde abajo y oportunidades de venta cuando el precio rebota desde arriba.';
-
-  @override
-  String get movingAveragesReversalSignal => 'Señal de Reversión de Medias Móviles';
-
-  @override
-  String get movingAveragesReversalSignalDesc => 'Algunos operadores utilizan promedios móviles para identificar posibles puntos de reversión en el mercado. Por ejemplo, cuando el precio se desvía significativamente de una media móvil particular, puede indicar que la tendencia actual está demasiado extendida y es probable que se produzca una reversión. Los operadores pueden buscar señales de reversión cuando el precio se acerque nuevamente a la media móvil.';
-
-  @override
-  String get simpleMovingAverage => 'Media Móvil Simple (SMA)';
-
-  @override
-  String get simpleMovingAverageDesc => 'La SMA se calcula promediando los precios de cierre durante un período específico. Suaviza los datos de precios para identificar tendencias a largo plazo.';
-
-  @override
-  String get exponentialMovingAverage => 'Media Móvil Exponencial (EMA)';
-
-  @override
-  String get exponentialMovingAverageDesc => 'La EMA da más peso a los precios recientes, lo que la hace más receptiva a la nueva información. Es útil para identificar tendencias a corto plazo.';
-
-  @override
-  String get weightedMovingAverage => 'Media Móvil Ponderada (WMA)';
-
-  @override
-  String get weightedMovingAverageDesc => 'La WMA asigna diferentes ponderaciones a cada precio de cierre dentro del período determinado, dando más importancia a los datos recientes.';
-
-  @override
-  String get buyRecommendationMovingAverages => 'COMPRA: Si el último precio de cierre está por encima del último valor del promedio móvil.';
-
-  @override
-  String get strongBuyRecommendationMovingAverages => 'COMPRA FUERTE: Si el último precio de cierre está más de un 5% por encima del último valor del promedio móvil.';
-
-  @override
-  String get sellRecommendationMovingAverages => 'VENTA: Si el último precio de cierre está por debajo del último valor del promedio móvil.';
-
-  @override
-  String get strongSellRecommendationMovingAverages => 'VENTA FUERTE: Si el último precio de cierre está más de un 5% por debajo del último valor del promedio móvil.';
-
-  @override
-  String get neutralRecommendationMovingAverages => 'NEUTRAL: Si el último precio de cierre es igual al último valor del promedio móvil.';
-
-  @override
-  String get goldenCross => 'Cruz Dorada';
-
-  @override
-  String get goldenCrossDesc => 'Cruz Dorada: Indica una señal de compra potencial cuando el promedio móvil de corto plazo cruza por encima del promedio móvil de largo plazo.';
-
-  @override
-  String get deathCross => 'Cruz de la Muerte';
-
-  @override
-  String get deathCrossDesc => 'Cruz de la Muerte: Indica una señal de venta potencial cuando el promedio móvil de corto plazo cruza por debajo del promedio móvil de largo plazo.';
+  String get providedByTradingView => 'Proporcionado por TradingView';
 }

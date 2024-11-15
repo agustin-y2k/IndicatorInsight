@@ -1,13 +1,15 @@
 // macd_chart_screen.dart
 import 'package:flutter/material.dart';
 import 'package:webview_universal/webview_universal.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MACDChartScreen extends StatefulWidget {
   final String symbol;
-
+  final String interval;
   const MACDChartScreen({
     Key? key,
     required this.symbol,
+    required this.interval,
   }) : super(key: key);
 
   @override
@@ -25,9 +27,9 @@ class _MACDChartScreenState extends State<MACDChartScreen> {
             Icon(Icons.show_chart, color: Colors.white),
             SizedBox(width: 10),
             Text(
-              '${widget.symbol}',
+              '${widget.symbol} - ${AppLocalizations.of(context)!.providedByTradingView}',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -49,6 +51,7 @@ class _MACDChartScreenState extends State<MACDChartScreen> {
       ),
       body: TradingViewChart(
         symbol: widget.symbol,
+        interval: widget.interval,
       ),
     );
   }
@@ -56,8 +59,12 @@ class _MACDChartScreenState extends State<MACDChartScreen> {
 
 class TradingViewChart extends StatefulWidget {
   final String symbol;
+  final String interval;
 
-  TradingViewChart({required this.symbol});
+  TradingViewChart({
+    required this.symbol,
+    required this.interval,
+  });
 
   @override
   _TradingViewChartState createState() => _TradingViewChartState();
@@ -74,13 +81,20 @@ class _TradingViewChartState extends State<TradingViewChart> {
         context: context,
         setState: setState,
         uri: Uri.dataFromString(
-          _getTradingViewHtml(widget.symbol),
+          _getTradingViewHtml(widget.symbol, widget.interval),
           mimeType: 'text/html',
         ),
       );
   }
 
-  String _getTradingViewHtml(String symbol) {
+  String _getTradingViewHtml(String symbol, String interval) {
+    final intervalMap = {
+      'daily': 'D',
+      'weekly': 'W',
+      'monthly': 'M',
+    };
+    final tvInterval = intervalMap[interval] ?? 'D';
+
     return '''
       <!DOCTYPE html>
       <html>
@@ -100,11 +114,11 @@ class _TradingViewChartState extends State<TradingViewChart> {
         <body>
           <div id="tradingview_chart"></div>
           <script type="text/javascript">
-            var chart = new TradingView.widget({
+            new TradingView.widget({
               "container_id": "tradingview_chart",
               "autosize": true,
               "symbol": "$symbol",
-              "interval": "D",
+              "interval": "$tvInterval", // Usar el valor de intervalo proporcionado
               "timezone": "Etc/UTC",
               "theme": "light",
               "style": "1",
@@ -132,12 +146,4 @@ class _TradingViewChartState extends State<TradingViewChart> {
       controller: webViewController,
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: const MACDChartScreen(
-      symbol: '',
-    ),
-  ));
 }

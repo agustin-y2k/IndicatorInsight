@@ -5,10 +5,7 @@ import 'moving_averages/ma_input_screen.dart';
 import 'rsi/rsi_input_screen.dart';
 import 'adx/adx_input_screen.dart';
 import 'macd/macd_input_screen.dart';
-import 'stochastic/stochastic_input_screen.dart';
-import 'williamsr/williamsr_input_screen.dart';
 import 'bollinger_bands/bollinger_bands_input_screen.dart';
-import 'parabolic_sar/parabolic_sar_input_screen.dart';
 
 class IndicatorSelectionScreen extends StatelessWidget {
   const IndicatorSelectionScreen({Key? key}) : super(key: key);
@@ -65,47 +62,29 @@ class IndicatorSelectionScreen extends StatelessWidget {
                     AppLocalizations.of(context)!.movingAverages,
                     const MovingAveragesScreen(),
                   ),
-                  SizedBox(height: 16), // Espaciado fijo
+                  SizedBox(height: 16),
                   _buildIndicatorButton(
                     context,
                     'RSI',
-                    const RSIScreen(),
+                    const RSIInputScreen(),
                   ),
-                  SizedBox(height: 16), // Espaciado fijo
+                  SizedBox(height: 16),
                   _buildIndicatorButton(
                     context,
                     'ADX',
                     const ADXInputScreen(),
                   ),
-                  SizedBox(height: 16), // Espaciado fijo
+                  SizedBox(height: 16),
                   _buildIndicatorButton(
                     context,
                     'MACD',
                     const MACDInputScreen(),
                   ),
-                  SizedBox(height: 16), // Espaciado fijo
-                  _buildIndicatorButton(
-                    context,
-                    AppLocalizations.of(context)!.stochasticOscillator,
-                    const StochasticInputScreen(),
-                  ),
-                  SizedBox(height: 16), // Espaciado fijo
-                  _buildIndicatorButton(
-                    context,
-                    'Williams R%',
-                    const WilliamsRInputScreen(),
-                  ),
-                  SizedBox(height: 16), // Espaciado fijo
+                  SizedBox(height: 16),
                   _buildIndicatorButton(
                     context,
                     AppLocalizations.of(context)!.bollingerBands,
                     const BollingerBandsInputScreen(),
-                  ),
-                  SizedBox(height: 16), // Espaciado fijo
-                  _buildIndicatorButton(
-                    context,
-                    AppLocalizations.of(context)!.parabolicSAR,
-                    const ParabolicSARInputScreen(),
                   ),
                 ],
               ),
@@ -119,7 +98,7 @@ class IndicatorSelectionScreen extends StatelessWidget {
   Widget _buildIndicatorButton(
       BuildContext context, String text, Widget screen) {
     return SizedBox(
-      width: 280, // Tamaño fijo del botón
+      width: 280,
       child: ElevatedButton(
         onPressed: () {
           Navigator.push(

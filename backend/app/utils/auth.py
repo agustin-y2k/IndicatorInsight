@@ -11,31 +11,35 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Configuración de seguridad JWT
 SECRET_KEY = os.getenv("SECRET_KEY", "fallbacksecretkey")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
 
 client = MongoClient('mongodb', 27017)
 db = client['indicator_insight']
-# Comprobación y creación automática de la colección 'users'
+
 if 'users' not in db.list_collection_names():
     db.create_collection('users')
 
-# Asignación de la colección
 users_collection = db['users']
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-# Define una función para validar la fortaleza de la contraseña
 def validate_password(password: str) -> bool:
     if len(password) < 8:
+        print("Password too short, must be at least 8 characters long")
         return False
     if not re.search(r"\d", password):
+        print("Password must contain at least one digit")
         return False
-    if not re.search(r"[a-z]", password) or not re.search(r"[A-Z]", password):
+    if not re.search(r"[a-z]", password):
+        print("Password must contain at least one lowercase letter")
         return False
-    if not re.search(r"[!@#$%^&*()-_=+{};:,<.>]", password):
+    if not re.search(r"[A-Z]", password):
+        print("Password must contain at least one uppercase letter")
+        return False
+    if not re.search(r"[!@#$%^&*()\-_=+{};:,<.>]", password):
+        print("Password must contain at least one special character")
         return False
     return True
 
@@ -49,6 +53,13 @@ def create_access_token(data: dict, expires_delta: timedelta):
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
+def create_reset_token(email: str, expires_delta: timedelta = timedelta(hours=1)):
+    to_encode = {"sub": email}
+    expire = datetime.now(timezone.utc) + expires_delta
+    to_encode.update({"exp": expire})
+    reset_token = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return reset_token
 
 def decode_token(token: str):
     try:

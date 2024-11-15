@@ -1,27 +1,48 @@
 # rsi_indicator.py
-import talib
 import pandas as pd
+import numpy as np
 import logging
-from models.recommendation import Recommendation
 
 ERROR_NO_DATA_FOUND = "No data found for the symbol"
 ERROR_INVALID_DATA_FORMAT = "Invalid data format"
 ERROR_UNEXPECTED = "An unexpected error occurred"
 
-def calculate_rsi(company_data):
+def calculate_rsi(company_data, period=14, timeframe='daily'):
     try:
-        period = 14
         data_df = pd.DataFrame(company_data)
-        data_df['Date'] = data_df['Date'].astype(str)
+        data_df = resample_data(data_df, timeframe)
+        
+        if len(data_df) < period:
+            raise ValueError(ERROR_NO_DATA_FOUND)
 
-        rsi_label = f'RSI_{period}'
-        rsi_values = talib.RSI(data_df['Close'], timeperiod=period)
-        data_df[rsi_label] = rsi_values
-        last_rsi_value = round(data_df[rsi_label].iloc[-1], 2)
+        # Calculate RSI using Wilder's EMA method on closing prices
+        data_df['Change'] = data_df['Close'].diff()
+        data_df['Gain'] = np.where(data_df['Change'] > 0, data_df['Change'], 0)
+        data_df['Loss'] = np.where(data_df['Change'] < 0, -data_df['Change'], 0)
 
-        recommendation = identify_rsi_signal(last_rsi_value)
+        avg_gain = data_df['Gain'].rolling(window=period, min_periods=period).mean()
+        avg_loss = data_df['Loss'].rolling(window=period, min_periods=period).mean()
 
-        return {'RSI': last_rsi_value, 'Recommendation': recommendation}
+        for i in range(period, len(data_df)):
+            avg_gain.iloc[i] = (avg_gain.iloc[i - 1] * (period - 1) + data_df['Gain'].iloc[i]) / period
+            avg_loss.iloc[i] = (avg_loss.iloc[i - 1] * (period - 1) + data_df['Loss'].iloc[i]) / period
+
+        data_df['RS'] = avg_gain / avg_loss
+        data_df['RSI'] = 100 - (100 / (1 + data_df['RS']))
+
+        # Calculate SMA of RSI (optional for analysis but not returned)
+        data_df['RSI_SMA'] = data_df['RSI'].rolling(window=period).mean()
+
+        last_rsi_value = round(data_df['RSI'].iloc[-1], 2)
+        last_rsi_sma = round(data_df['RSI_SMA'].iloc[-1], 2)
+
+        interpretation = interpret_rsi(last_rsi_value, data_df)
+
+        return {
+            'RSI': last_rsi_value,
+            'RSI_SMA': last_rsi_sma,
+            'Interpretation': interpretation
+        }
 
     except ValueError as e:
         logging.warning(str(e))
@@ -30,16 +51,60 @@ def calculate_rsi(company_data):
         logging.exception(f"{ERROR_UNEXPECTED}: {e}")
         return {"error": ERROR_UNEXPECTED}
 
-def identify_rsi_signal(rsi_value):
-    if rsi_value >= 80:
-        return Recommendation.STRONG_SELL
-    elif rsi_value >= 70:
-        return Recommendation.SELL
-    elif rsi_value <= 20:
-        return Recommendation.STRONG_BUY
+def resample_data(data_df, timeframe='daily'):
+    data_df['Date'] = pd.to_datetime(data_df['Date'])
+    data_df.set_index('Date', inplace=True)
+
+    if timeframe == 'weekly':
+        return data_df.resample('W').agg({
+            'Open': 'first',
+            'High': 'max',
+            'Low': 'min',
+            'Close': 'last',
+            'Volume': 'sum'
+        }).dropna().reset_index()
+    elif timeframe == 'monthly':
+        return data_df.resample('M').agg({
+            'Open': 'first',
+            'High': 'max',
+            'Low': 'min',
+            'Close': 'last',
+            'Volume': 'sum'
+        }).dropna().reset_index()
+    else:  # daily
+        return data_df.reset_index()
+
+def interpret_rsi(rsi_value, data_df):
+    interpretation = {}
+
+    # 1. Overbought and Oversold
+    if rsi_value >= 70:
+        interpretation['Condition'] = "Overbought"
     elif rsi_value <= 30:
-        return Recommendation.BUY
+        interpretation['Condition'] = "Oversold"
     else:
-        return Recommendation.NEUTRAL
+        interpretation['Condition'] = "Neutral"
 
+    # 2. Trend Analysis (Above or Below 50)
+    if rsi_value > 50:
+        interpretation['Trend'] = "Bullish Trend"
+    elif rsi_value < 50:
+        interpretation['Trend'] = "Bearish Trend"
+    else:
+        interpretation['Trend'] = "Neutral"
 
+    # 3. Divergence Detection
+    if len(data_df) >= 2:
+        last_price = data_df['Close'].iloc[-1]
+        previous_price = data_df['Close'].iloc[-2]
+        last_rsi = data_df['RSI'].iloc[-1]
+        previous_rsi = data_df['RSI'].iloc[-2]
+
+        if (last_price > previous_price and last_rsi < previous_rsi):
+            interpretation['Divergence'] = "Bearish Divergence"
+        elif (last_price < previous_price and last_rsi > previous_rsi):
+            interpretation['Divergence'] = "Bullish Divergence"
+        else:
+            interpretation['Divergence'] = "No Clear Divergence"
+
+    return interpretation
