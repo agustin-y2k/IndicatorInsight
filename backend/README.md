@@ -42,6 +42,7 @@ The project supports containerized deployment using Docker. Use the following co
    ```
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - *main.py*: Contains the main logic of the FastAPI application.
 - *main.py*: Contains the main logic of the FastAPI application.
 - *Dockerfile*: Configuration file for building the FastAPI Docker image.
@@ -60,6 +61,9 @@ The project supports containerized deployment using Docker. Use the following co
 - *data_downloader.py*: Functions for downloading and storing financial data.
 - *get_data.py*: Functions for retrieving financial data from MongoDB.
 - *indicators/*: Directory containing modules for calculating technical indicators.
+=======
+### Services
+>>>>>>> develop
 =======
 ### Services
 >>>>>>> develop
