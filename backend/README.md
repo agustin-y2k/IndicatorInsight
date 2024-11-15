@@ -41,32 +41,7 @@ The project supports containerized deployment using Docker. Use the following co
    docker compose up -d --scale indicator_insight_api=<NUM_INSTANCES>
    ```
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-- *main.py*: Contains the main logic of the FastAPI application.
-- *main.py*: Contains the main logic of the FastAPI application.
-- *Dockerfile*: Configuration file for building the FastAPI Docker image.
-- *docker-compose.yml*: Configuration file for Docker Compose to orchestrate containers.
-- *config/*
-- *prometheus.yml*: Configuration file for Prometheus.
-- *requirements.txt*: Python dependencies for the project.
-- *routes/*
-- *indicator_routes.py*: Routes and handlers for financial indicators.
-- *user_routes.py*: Routes and handlers for user management.
-- *models/*
-- *recommendation.py*: Model for stock recommendations.
-- *user.py*: Model for user data.
-- *utils/*
-- *auth.py*: Authentication and JWT token handling.
-- *data_downloader.py*: Functions for downloading and storing financial data.
-- *get_data.py*: Functions for retrieving financial data from MongoDB.
-- *indicators/*: Directory containing modules for calculating technical indicators.
-=======
 ### Services
->>>>>>> develop
-=======
-### Services
->>>>>>> develop
 
 - **API**: FastAPI application (`indicator_insight_api`).
 - **Database**: MongoDB for data storage.
