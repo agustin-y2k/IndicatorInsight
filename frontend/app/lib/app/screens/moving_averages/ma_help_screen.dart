@@ -46,33 +46,30 @@ class MAHelpScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16.0),
             child: ListView(
               children: [
-                HelpCard(
-                  title: AppLocalizations.of(context)!.simpleMovingAverage,
-                  description:
-                      AppLocalizations.of(context)!.simpleMovingAverageDesc,
+                _buildHelpSection(
+                  context,
+                  title: AppLocalizations.of(context)!.movingAverages,
                   icon: Icons.show_chart,
+                  description: AppLocalizations.of(context)!.movingAveragesDesc,
+                  items: [
+                    AppLocalizations.of(context)!.smaDesc,
+                    AppLocalizations.of(context)!.emaDesc,
+                    AppLocalizations.of(context)!.wmaDesc,
+                  ],
                 ),
-                HelpCard(
-                  title: AppLocalizations.of(context)!.exponentialMovingAverage,
-                  description: AppLocalizations.of(context)!
-                      .exponentialMovingAverageDesc,
-                  icon: Icons.show_chart,
-                ),
-                HelpCard(
-                  title: AppLocalizations.of(context)!.weightedMovingAverage,
-                  description:
-                      AppLocalizations.of(context)!.weightedMovingAverageDesc,
-                  icon: Icons.show_chart,
-                ),
-                HelpCard(
-                  title: AppLocalizations.of(context)!.crossingPoints,
+                _buildHelpSection(
+                  context,
+                  title: AppLocalizations.of(context)!.crossTypes,
+                  icon: Icons.timeline,
+                  description: AppLocalizations.of(context)!.crossTypesDesc,
                   items: [
                     AppLocalizations.of(context)!.goldenCrossDesc,
                     AppLocalizations.of(context)!.deathCrossDesc,
                   ],
+<<<<<<< HEAD
                   icon: Icons.timeline,
                 ),
                 HelpCard(
@@ -90,6 +87,8 @@ class MAHelpScreen extends StatelessWidget {
                         .neutralRecommendationMovingAverages,
                   ],
                   icon: Icons.recommend,
+=======
+>>>>>>> develop
                 ),
               ],
             ),
@@ -98,23 +97,14 @@ class MAHelpScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-class HelpCard extends StatelessWidget {
-  final String title;
-  final String? description;
-  final List<String>? items;
-  final IconData icon;
-
-  HelpCard({
-    required this.title,
-    this.description,
-    this.items,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildHelpSection(
+    BuildContext context, {
+    required String title,
+    required IconData icon,
+    required String description,
+    required List<String> items,
+  }) {
     return Card(
       elevation: 4,
       margin: EdgeInsets.only(bottom: 20),
@@ -138,15 +128,13 @@ class HelpCard extends StatelessWidget {
                 ),
               ],
             ),
-            if (description != null) ...[
-              SizedBox(height: 10),
-              Text(
-                description!,
-                style: TextStyle(fontSize: 16),
-              ),
-            ],
-            if (items != null)
-              ...items!.map((item) => _buildListItem(context, item)).toList(),
+            SizedBox(height: 10),
+            Text(
+              description,
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 10),
+            ...items.map((item) => _buildListItem(context, item)).toList(),
           ],
         ),
       ),
@@ -154,46 +142,15 @@ class HelpCard extends StatelessWidget {
   }
 
   Widget _buildListItem(BuildContext context, String item) {
-    IconData iconData;
-    Color iconColor;
-
-    // Asignación de iconos y colores para cada descripción
-    if (item == AppLocalizations.of(context)!.goldenCrossDesc) {
-      iconData = Icons.trending_up;
-      iconColor = Colors.green;
-    } else if (item == AppLocalizations.of(context)!.deathCrossDesc) {
-      iconData = Icons.trending_down;
-      iconColor = Colors.red;
-    } else if (item ==
-        AppLocalizations.of(context)!.buyRecommendationMovingAverages) {
-      iconData = Icons.arrow_upward;
-      iconColor = Colors.green;
-    } else if (item ==
-        AppLocalizations.of(context)!.sellRecommendationMovingAverages) {
-      iconData = Icons.arrow_downward;
-      iconColor = Colors.red;
-    } else if (item ==
-        AppLocalizations.of(context)!.strongBuyRecommendationMovingAverages) {
-      iconData = Icons.arrow_upward;
-      iconColor = Color.fromARGB(255, 0, 90, 5);
-    } else if (item ==
-        AppLocalizations.of(context)!.strongSellRecommendationMovingAverages) {
-      iconData = Icons.arrow_downward;
-      iconColor = Color.fromARGB(255, 128, 0, 0);
-    } else {
-      iconData = Icons.radio_button_unchecked;
-      iconColor = Colors.blue;
-    }
-
     return Padding(
       padding: const EdgeInsets.only(left: 24.0, top: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(
-            iconData,
+            Icons.check_circle_outline,
             size: 18,
-            color: iconColor,
+            color: Colors.blueAccent,
           ),
           SizedBox(width: 8),
           Expanded(

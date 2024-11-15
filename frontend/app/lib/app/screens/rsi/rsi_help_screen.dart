@@ -50,15 +50,49 @@ class RSIHelpScreen extends StatelessWidget {
             child: ListView(
               children: [
                 HelpCard(
+<<<<<<< HEAD
                   title: AppLocalizations.of(context)!.recommendationTypes,
+=======
+                  title: AppLocalizations.of(context)!.rsiIndicatorDetails,
+                  description: AppLocalizations.of(context)!.rsiExplanationDesc,
+                  icon: Icons.show_chart,
+                ),
+                HelpCard(
+                  title: AppLocalizations.of(context)!.condition,
+                  description:
+                      AppLocalizations.of(context)!.conditionDescription,
+>>>>>>> develop
                   items: [
-                    AppLocalizations.of(context)!.buyRecommendationRSI,
-                    AppLocalizations.of(context)!.strongBuyRecommendationRSI,
-                    AppLocalizations.of(context)!.sellRecommendationRSI,
-                    AppLocalizations.of(context)!.strongSellRecommendationRSI,
-                    AppLocalizations.of(context)!.neutralRecommendationRSI,
+                    AppLocalizations.of(context)!.rsioverbought,
+                    AppLocalizations.of(context)!.rsioversold,
+                    AppLocalizations.of(context)!.rsineutral,
                   ],
+<<<<<<< HEAD
                   icon: Icons.recommend,
+=======
+                  icon: Icons.thermostat,
+                ),
+                HelpCard(
+                  title: AppLocalizations.of(context)!.trend,
+                  description: AppLocalizations.of(context)!.trendDescription,
+                  items: [
+                    AppLocalizations.of(context)!.rsibullishTrend,
+                    AppLocalizations.of(context)!.rsibearishTrend,
+                    AppLocalizations.of(context)!.rsineutral,
+                  ],
+                  icon: Icons.trending_up,
+                ),
+                HelpCard(
+                  title: AppLocalizations.of(context)!.divergence,
+                  description:
+                      AppLocalizations.of(context)!.divergenceDescription,
+                  items: [
+                    AppLocalizations.of(context)!.rsibullishDivergence,
+                    AppLocalizations.of(context)!.rsibearishDivergence,
+                    AppLocalizations.of(context)!.rsinoClearDivergence,
+                  ],
+                  icon: Icons.compare_arrows,
+>>>>>>> develop
                 ),
               ],
             ),
@@ -126,23 +160,23 @@ class HelpCard extends StatelessWidget {
     IconData iconData;
     Color iconColor;
 
-    if (item == AppLocalizations.of(context)!.buyRecommendationRSI) {
+    if (item == AppLocalizations.of(context)!.rsibullishTrend ||
+        item == AppLocalizations.of(context)!.rsibullishDivergence) {
       iconData = Icons.arrow_upward;
       iconColor = Colors.green;
-    } else if (item == AppLocalizations.of(context)!.sellRecommendationRSI) {
+    } else if (item == AppLocalizations.of(context)!.rsibearishTrend ||
+        item == AppLocalizations.of(context)!.rsibearishDivergence) {
       iconData = Icons.arrow_downward;
       iconColor = Colors.red;
-    } else if (item ==
-        AppLocalizations.of(context)!.strongBuyRecommendationRSI) {
-      iconData = Icons.arrow_upward;
-      iconColor = Color.fromARGB(255, 0, 90, 5);
-    } else if (item ==
-        AppLocalizations.of(context)!.strongSellRecommendationRSI) {
-      iconData = Icons.arrow_downward;
-      iconColor = Color.fromARGB(255, 128, 0, 0);
+    } else if (item == AppLocalizations.of(context)!.rsioverbought) {
+      iconData = Icons.trending_up;
+      iconColor = Colors.orange;
+    } else if (item == AppLocalizations.of(context)!.rsioversold) {
+      iconData = Icons.trending_down;
+      iconColor = Colors.blueAccent;
     } else {
       iconData = Icons.radio_button_unchecked;
-      iconColor = Colors.blue;
+      iconColor = Colors.grey;
     }
 
     return Padding(

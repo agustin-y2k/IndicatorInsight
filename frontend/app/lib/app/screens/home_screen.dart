@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'indicator_selection_screen.dart';
-import 'login_screen.dart';
-import 'register_screen.dart';
+import 'auth/login_screen.dart';
+import 'auth/register_screen.dart';
 import 'package:flutter_application/app/auth_token_provider.dart';
 import 'package:provider/provider.dart';
 

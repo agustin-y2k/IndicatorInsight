@@ -2,9 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:convert';
-import 'ma_recommendation_screen.dart';
+import 'ma_analysis_screen.dart';
 import 'ma_chart_screen.dart';
+<<<<<<< HEAD
 import 'ma_strategies_screen.dart';
+=======
+>>>>>>> develop
 import 'package:flutter_application/app/http_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application/app/auth_token_provider.dart';
@@ -13,14 +16,15 @@ class MovingAveragesScreen extends StatefulWidget {
   const MovingAveragesScreen({Key? key}) : super(key: key);
 
   @override
-  MovingAveragesScreenState createState() => MovingAveragesScreenState();
+  _MovingAveragesScreenState createState() => _MovingAveragesScreenState();
 }
 
-class MovingAveragesScreenState extends State<MovingAveragesScreen> {
-  TextEditingController symbolController = TextEditingController();
-  String selectedMovingAverageType = 'SMA';
-  TextEditingController periodsController = TextEditingController();
-  Map<String, dynamic> movingAveragesData = {};
+class _MovingAveragesScreenState extends State<MovingAveragesScreen> {
+  final TextEditingController symbolController = TextEditingController();
+  final TextEditingController smaController = TextEditingController();
+  final TextEditingController emaController = TextEditingController();
+  final TextEditingController wmaController = TextEditingController();
+  String selectedInterval = 'daily';
   bool _isLoading = false;
   String? _error;
 
@@ -31,9 +35,8 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
           children: [
             Icon(Icons.error, color: Colors.white),
             SizedBox(width: 8),
-            Text(
-              errorMessage,
-              style: TextStyle(fontSize: 16),
+            Expanded(
+              child: Text(errorMessage, style: TextStyle(fontSize: 16)),
             ),
           ],
         ),
@@ -43,9 +46,15 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
     );
   }
 
+<<<<<<< HEAD
   Future<void> calculateMovingAverages(String symbol, String movingAverageType,
       List<int> periods, String authToken) async {
     if (!_validateInput(symbol, periods)) {
+=======
+  Future<void> calculateMovingAverages(
+      String symbol, String interval, String authToken) async {
+    if (!_validateInput(symbol)) {
+>>>>>>> develop
       return;
     }
 
@@ -55,9 +64,18 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
     });
 
     final url = Uri.parse(
+<<<<<<< HEAD
         'http://localhost:8000/companies/$symbol/indicators/moving_averages');
 
     try {
+=======
+        'http://127.0.0.1:8000/companies/$symbol/indicators/moving_averages?interval=$interval');
+    try {
+      final smaPeriods = _parsePeriods(smaController.text);
+      final emaPeriods = _parsePeriods(emaController.text);
+      final wmaPeriods = _parsePeriods(wmaController.text);
+
+>>>>>>> develop
       final response =
           await Provider.of<HttpService>(context, listen: false).post(
         url.toString(),
@@ -66,20 +84,24 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
           'Authorization': 'Bearer $authToken',
         },
         body: jsonEncode({
+<<<<<<< HEAD
           'moving_average_type': movingAverageType,
           'periods': periods,
+=======
+          'sma_periods': smaPeriods,
+          'ema_periods': emaPeriods,
+          'wma_periods': wmaPeriods,
+>>>>>>> develop
         }),
       );
 
       if (response.statusCode == 200) {
-        setState(() {
-          movingAveragesData = jsonDecode(response.body);
-        });
+        final movingAveragesData = jsonDecode(response.body);
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                MARecommendationScreen(movingAveragesData: movingAveragesData),
+                MAAnalysisScreen(movingAveragesData: movingAveragesData),
           ),
         );
       } else {
@@ -96,54 +118,41 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
     }
   }
 
-  bool _validateInput(String symbol, List<int> periods) {
+  bool _validateInput(String symbol) {
     if (symbol.isEmpty) {
       _showErrorSnackBar(AppLocalizations.of(context)!.pleaseEnterSymbol);
-      return false;
-    } else if (periods.isEmpty) {
-      _showErrorSnackBar(AppLocalizations.of(context)!.pleaseEnterPeriod);
       return false;
     }
     return true;
   }
 
-  void _navigateToChartScreen(
-      String symbol, String movingAverageType, List<int> periods) {
-    if (_validateInput(symbol, periods)) {
-      final studies = periods.map((period) {
-        String id;
-        if (movingAverageType == 'SMA') {
-          id = 'MASimple@tv-basicstudies';
-        } else if (movingAverageType == 'MMA') {
-          id = 'MAExp@tv-basicstudies';
-        } else {
-          id = 'MAWeighted@tv-basicstudies';
-        }
-        return {
-          'id': id,
-          'inputs': {'length': period}
-        };
-      }).toList();
+  List<int> _parsePeriods(String periods) {
+    return periods
+        .split(',')
+        .map((e) => int.tryParse(e.trim()) ?? 0)
+        .where((element) => element > 0)
+        .toList();
+  }
+
+  void _navigateToChartScreen(String symbol) {
+    if (_validateInput(symbol)) {
+      final smaPeriods = _parsePeriods(smaController.text);
+      final emaPeriods = _parsePeriods(emaController.text);
+      final wmaPeriods = _parsePeriods(wmaController.text);
 
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => TradingViewChart(
+          builder: (context) => MAChartScreen(
             symbol: symbol,
-            studies: studies,
+            interval: selectedInterval,
+            smaPeriods: smaPeriods,
+            emaPeriods: emaPeriods,
+            wmaPeriods: wmaPeriods,
           ),
         ),
       );
     }
-  }
-
-  void _navigateToStrategiesScreen() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MAStrategiesScreen(),
-      ),
-    );
   }
 
   @override
@@ -200,86 +209,65 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
                     controller: symbolController,
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)!.enterSymbol,
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+                      labelStyle: TextStyle(color: Colors.white, fontSize: 18),
                       prefixIcon:
                           Icon(Icons.search, color: Colors.white, size: 24),
                     ),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                     onChanged: (value) {
                       symbolController.text = value.toUpperCase();
                       symbolController.selection = TextSelection.fromPosition(
-                        TextPosition(offset: symbolController.text.length),
-                      );
+                          TextPosition(offset: symbolController.text.length));
                     },
                   ),
                   SizedBox(height: 16),
                   DropdownButtonFormField<String>(
-                    value: selectedMovingAverageType,
-                    onChanged: (String? newValue) {
+                    value: selectedInterval,
+                    items: [
+                      DropdownMenuItem(
+                        value: 'daily',
+                        child:
+                            Text(AppLocalizations.of(context)!.intervalDaily),
+                      ),
+                      DropdownMenuItem(
+                        value: 'weekly',
+                        child:
+                            Text(AppLocalizations.of(context)!.intervalWeekly),
+                      ),
+                      DropdownMenuItem(
+                        value: 'monthly',
+                        child:
+                            Text(AppLocalizations.of(context)!.intervalMonthly),
+                      ),
+                    ],
+                    onChanged: (newValue) {
                       setState(() {
-                        selectedMovingAverageType = newValue!;
+                        selectedInterval = newValue!;
                       });
                     },
-                    items: <String>['SMA', 'MMA', 'WMA']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      );
-                    }).toList(),
                     decoration: InputDecoration(
-                      labelText:
-                          AppLocalizations.of(context)!.movingAveragesType,
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      prefixIcon: Icon(Icons.trending_up,
-                          color: Colors.white, size: 24),
+                      labelText: AppLocalizations.of(context)!.selectInterval,
+                      labelStyle: TextStyle(color: Colors.white),
                     ),
-                    dropdownColor: Colors.grey[800],
+                    dropdownColor: Colors.black54,
+                    style: TextStyle(color: Colors.white),
                   ),
                   SizedBox(height: 16),
-                  TextFormField(
-                    controller: periodsController,
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)!.enterPeriod,
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      prefixIcon:
-                          Icon(Icons.timeline, color: Colors.white, size: 24),
-                    ),
-                  ),
+                  _buildPeriodsInput(
+                      AppLocalizations.of(context)!.smaPeriods, smaController),
+                  SizedBox(height: 16),
+                  _buildPeriodsInput(
+                      AppLocalizations.of(context)!.emaPeriods, emaController),
+                  SizedBox(height: 16),
+                  _buildPeriodsInput(
+                      AppLocalizations.of(context)!.wmaPeriods, wmaController),
                   SizedBox(height: 16),
                   _isLoading
                       ? Center(child: CircularProgressIndicator())
                       : ElevatedButton(
                           onPressed: () {
                             final symbol = symbolController.text.toUpperCase();
+<<<<<<< HEAD
                             final movingAverageType = selectedMovingAverageType;
                             final authToken = authTokenProvider.authToken ?? '';
                             final periods = periodsController.text
@@ -289,9 +277,14 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
                                 .toList();
                             calculateMovingAverages(
                                 symbol, movingAverageType, periods, authToken);
+=======
+                            final authToken = authTokenProvider.authToken ?? '';
+                            calculateMovingAverages(
+                                symbol, selectedInterval, authToken);
+>>>>>>> develop
                           },
-                          child: Text(
-                              AppLocalizations.of(context)!.getRecommendation),
+                          child:
+                              Text(AppLocalizations.of(context)!.viewAnalysis),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(vertical: 12),
                           ),
@@ -300,24 +293,9 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
                   ElevatedButton(
                     onPressed: () {
                       final symbol = symbolController.text.toUpperCase();
-                      final movingAverageType = selectedMovingAverageType;
-                      final periods = periodsController.text
-                          .split(',')
-                          .map((e) => int.tryParse(e.trim()) ?? 0)
-                          .where((element) => element > 0)
-                          .toList();
-                      _navigateToChartScreen(
-                          symbol, movingAverageType, periods);
+                      _navigateToChartScreen(symbol);
                     },
                     child: Text(AppLocalizations.of(context)!.viewChart),
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: _navigateToStrategiesScreen,
-                    child: Text(AppLocalizations.of(context)!.strategies),
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 12),
                     ),
@@ -335,6 +313,22 @@ class MovingAveragesScreenState extends State<MovingAveragesScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildPeriodsInput(String label, TextEditingController controller) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: TextInputType.number,
+      style: TextStyle(color: Colors.white, fontSize: 20),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.white, fontSize: 18),
+        border: OutlineInputBorder(),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+        prefixIcon: Icon(Icons.timeline, color: Colors.white, size: 24),
       ),
     );
   }

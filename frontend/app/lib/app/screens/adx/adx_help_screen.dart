@@ -50,6 +50,7 @@ class ADXHelpScreen extends StatelessWidget {
             child: ListView(
               children: [
                 HelpCard(
+<<<<<<< HEAD
                   title: AppLocalizations.of(context)!.recommendationLogic,
                   description:
                       AppLocalizations.of(context)!.recommendationLogicDescAdx,
@@ -57,14 +58,36 @@ class ADXHelpScreen extends StatelessWidget {
                 ),
                 HelpCard(
                   title: AppLocalizations.of(context)!.recommendationTypes,
+=======
+                  title: AppLocalizations.of(context)!.adxExplanation,
+                  description: AppLocalizations.of(context)!.adxExplanationDesc,
+                  icon: Icons.insights,
+                ),
+                HelpCard(
+                  title: AppLocalizations.of(context)!.trendStrength,
+>>>>>>> develop
                   items: [
-                    AppLocalizations.of(context)!.buyRecommendationAdx,
-                    AppLocalizations.of(context)!.strongBuyRecommendationAdx,
-                    AppLocalizations.of(context)!.sellRecommendationAdx,
-                    AppLocalizations.of(context)!.strongSellRecommendationAdx,
-                    AppLocalizations.of(context)!.neutralRecommendationAdx,
+                    AppLocalizations.of(context)!.noSignificantTrend,
+                    AppLocalizations.of(context)!.moderateBullishTrend,
+                    AppLocalizations.of(context)!.moderateBearishTrend,
+                    AppLocalizations.of(context)!.sidewaysModerate,
+                    AppLocalizations.of(context)!.strongBullishPeak,
+                    AppLocalizations.of(context)!.strongBearishPeak,
+                    AppLocalizations.of(context)!.veryStrongTrendNearPeak,
                   ],
+<<<<<<< HEAD
                   icon: Icons.recommend,
+=======
+                  icon: Icons.trending_up,
+                ),
+                HelpCard(
+                  title: AppLocalizations.of(context)!.crossTypes,
+                  items: [
+                    AppLocalizations.of(context)!.bullishCross,
+                    AppLocalizations.of(context)!.bearishCross,
+                  ],
+                  icon: Icons.compare_arrows,
+>>>>>>> develop
                 ),
               ],
             ),
@@ -132,20 +155,19 @@ class HelpCard extends StatelessWidget {
     IconData iconData;
     Color iconColor;
 
-    if (item == AppLocalizations.of(context)!.buyRecommendationAdx) {
+    if (item == AppLocalizations.of(context)!.moderateBullishTrend ||
+        item == AppLocalizations.of(context)!.strongBullishPeak ||
+        item == AppLocalizations.of(context)!.bullishCross) {
       iconData = Icons.arrow_upward;
       iconColor = Colors.green;
-    } else if (item == AppLocalizations.of(context)!.sellRecommendationAdx) {
+    } else if (item == AppLocalizations.of(context)!.moderateBearishTrend ||
+        item == AppLocalizations.of(context)!.strongBearishPeak ||
+        item == AppLocalizations.of(context)!.bearishCross) {
       iconData = Icons.arrow_downward;
       iconColor = Colors.red;
-    } else if (item ==
-        AppLocalizations.of(context)!.strongBuyRecommendationAdx) {
-      iconData = Icons.arrow_upward;
+    } else if (item == AppLocalizations.of(context)!.veryStrongTrendNearPeak) {
+      iconData = Icons.trending_up;
       iconColor = Color.fromARGB(255, 0, 90, 5);
-    } else if (item ==
-        AppLocalizations.of(context)!.strongSellRecommendationAdx) {
-      iconData = Icons.arrow_downward;
-      iconColor = Color.fromARGB(255, 128, 0, 0);
     } else {
       iconData = Icons.radio_button_unchecked;
       iconColor = Colors.blue;
